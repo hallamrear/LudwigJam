@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "InputManager.h"
 
+#include "Log.h"
+
 InputManager* InputManager::mInstance = nullptr;
 
 InputManager::InputManager()
@@ -13,6 +15,23 @@ InputManager::InputManager()
 InputManager::~InputManager()
 {
 	//todo : fin
+}
+
+void InputManager::Bind_Impl(IM_MOUSE_CODE keycode, IM_KEY_STATE mouseState, std::function<void()> func)
+{
+	if (func)
+	{
+		for (int i = 0; i < mMouseCount; i++)
+		{
+			if (mMouseStates[i].GetMouseCode() == keycode)
+			{
+				mMouseStates[i].Bind(mouseState, func);
+				return;
+			}
+		}
+	}
+	else
+		Log::LogMessage(LogLevel::LOG_ERROR, "FAILED TO BIND FUNCTION TO MOUSECODE REFERENCE");
 }
 
 void InputManager::Bind_Impl(IM_KEY_CODE keycode, IM_KEY_STATE keystate, std::function<void()> func)
@@ -29,10 +48,18 @@ void InputManager::Bind_Impl(IM_KEY_CODE keycode, IM_KEY_STATE keystate, std::fu
 		}
 	}
 	else
-		std::cout << "FAILED TO BIND FUNCTION TO KEYCODE REFERENCE" << std::endl;
+		Log::LogMessage(LogLevel::LOG_ERROR, "FAILED TO BIND FUNCTION TO KEYCODE REFERENCE");
 }
 
-void InputManager::Bind(IM_KEY_CODE keycode, IM_KEY_STATE keystate, std::function<void()> func)
+void InputManager::Bind(IM_KEY_CODE mouseCode, IM_KEY_STATE mouseState, std::function<void()> func)
+{
+	Get()->Bind_Impl(mouseCode, mouseState, func);
+}
+
+/*
+ * Do not bind anything to mousescrollup/mousescrolldown with keystate held.
+ */
+void InputManager::Bind(IM_MOUSE_CODE keycode, IM_KEY_STATE keystate, std::function<void()> func)
 {
 	Get()->Bind_Impl(keycode, keystate, func);
 }
@@ -58,14 +85,49 @@ void InputManager::Update_Impl()
 			mKeyStates[i].RunOnReleaseFunction();
 		}
 
-
 		mKeyStates[i].SetPreviousState(mKeyStates[i].GetState());
+	}
+
+	for (int i = 0; i < mMouseCount; i++)
+	{
+		//Mouse Press
+		if (mMouseStates[i].GetState() == true && mMouseStates[i].GetPreviousState() == false)
+		{
+			mMouseStates[i].RunOnPressFunction();
+		}
+
+		if (mMouseStates[i].GetState() == true)
+		{
+			if (mMouseStates[i].GetMouseCode() != IM_MOUSE_CODE::IM_MOUSE_SCROLL_UP || mMouseStates[i].GetMouseCode() != IM_MOUSE_CODE::IM_MOUSE_SCROLL_DOWN)
+			{
+				mMouseStates[i].RunOnHeldFunction();
+			}
+		}
+
+		//Mouse Release
+		else if (mMouseStates[i].GetState() == false && mMouseStates[i].GetPreviousState() == true)
+		{
+			mMouseStates[i].RunOnReleaseFunction();
+		}
+
+		mMouseStates[i].SetPreviousState(mMouseStates[i].GetState());
 	}
 }
 
 void InputManager::Update()
 {
 	Get()->Update_Impl();
+}
+
+int InputManager::FindKey(IM_MOUSE_CODE keycode)
+{
+	for (int i = 0; i < mMouseCount; i++)
+	{
+		if (mMouseStates[i].GetMouseCode() == keycode)
+			return i;
+	}
+
+	return NULL;
 }
 
 int InputManager::FindKey(IM_KEY_CODE keycode)
@@ -79,7 +141,7 @@ int InputManager::FindKey(IM_KEY_CODE keycode)
 	return NULL;
 }
 
-void InputManager::KeyUpdate(SDL_Keycode key, bool state)
+void InputManager::KeyPressUpdate(SDL_Keycode key, bool state)
 {
 	switch (key)
 	{
@@ -178,6 +240,36 @@ void InputManager::KeyUpdate(SDL_Keycode key, bool state)
 	case SDLK_c:
 		mKeyStates[FindKey(IM_KEY_CODE::IM_KEY_C)].SetState(state);
 		break;
+
+	case SDLK_F1:
+		mKeyStates[FindKey(IM_KEY_CODE::IM_KEY_F1)].SetState(state);
+		break;
+
+	case SDLK_F2:
+		mKeyStates[FindKey(IM_KEY_CODE::IM_KEY_F2)].SetState(state);
+		break;
+
+	case SDLK_F3:
+		mKeyStates[FindKey(IM_KEY_CODE::IM_KEY_F3)].SetState(state);
+		break;
+	}
+}
+
+void InputManager::MousePressUpdate(SDL_Keycode key, bool state)
+{
+	switch (key)
+	{
+	case SDL_BUTTON_LEFT:
+		mMouseStates[FindKey(IM_MOUSE_CODE::IM_MOUSE_LEFT_CLICK)].SetState(state);
+		break;
+
+	case SDL_BUTTON_MIDDLE:
+		mMouseStates[FindKey(IM_MOUSE_CODE::IM_MOUSE_MIDDLE_CLICK)].SetState(state);
+		break;
+
+	case SDL_BUTTON_RIGHT:
+		mMouseStates[FindKey(IM_MOUSE_CODE::IM_MOUSE_RIGHT_CLICK)].SetState(state);
+		break;
 	}
 }
 
@@ -189,17 +281,7 @@ InputManager* InputManager::Get()
 	return mInstance;
 }
 
-bool InputManager::GetMouseDown()
-{
-	return mIsMouseDown;
-}
-
-void InputManager::SetMouseDown(bool state)
-{
-	mIsMouseDown = state;
-}
-
-void InputManager::MouseUpdate(int x, int y)
+void InputManager::MousePositionUpdate(int x, int y)
 {
 	mMousePositionX = x;
 	mMousePositionY = y;
@@ -208,4 +290,19 @@ void InputManager::MouseUpdate(int x, int y)
 Vector2f InputManager::GetMousePosition()
 {
 	return Vector2f((float)mMousePositionX, (float)mMousePositionY);
+}
+
+void InputManager::MouseScrollUpdate(IM_SCROLL_DIRECTION direction)
+{
+	switch (direction)
+	{
+	case IM_SCROLL_DIRECTION::IM_SCROLL_UP:
+		mMouseStates[FindKey(IM_MOUSE_CODE::IM_MOUSE_SCROLL_UP)].RunOnPressFunction();
+		break;
+	case IM_SCROLL_DIRECTION::IM_SCROLL_DOWN:
+		mMouseStates[FindKey(IM_MOUSE_CODE::IM_MOUSE_SCROLL_DOWN)].RunOnPressFunction();
+		break;
+	default:
+		break;
+	}
 }

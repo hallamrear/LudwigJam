@@ -2,6 +2,8 @@
 #include "Entity.h"
 #include "Colour.h"
 
+struct SDL_Texture;
+
 class TextElement
 {
 private:
@@ -35,7 +37,7 @@ public:
 	void		SetColour(Colour colour);
 	void		SetString(std::string str);
 	void		SetString(const char* str);
-	void		SetPosition(Vector2f screenPosition);
+	void		SetPosition(Vector2f worldPosition);
 	Vector2f	GetTextureSize();
 };
 

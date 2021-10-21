@@ -2,6 +2,8 @@
 #include "TextElement.h"
 #include "Log.h"
 #include "Game.h"
+#include "Texture.h"
+#include "Camera.h"
 
 //todo: add font to constuctor
 //todo: create font cache
@@ -36,7 +38,7 @@ void TextElement::CreateTexture()
 	{
 		//This should not be getting recreated each frame
 		TTF_Font* font;
-		font = TTF_OpenFont("hyperspace.ttf", (int)mFontSize);
+		font = TTF_OpenFont("BadComic-Regular.ttf", (int)mFontSize);
 		if (!font)
 		{
 			Log::LogMessage(LogLevel::LOG_ERROR, "FAILED TO LOAD FONT");
@@ -91,8 +93,9 @@ void TextElement::Render()
 			SDL_Rect destRect{};
 			destRect.w = mTextWidth;
 			destRect.h = mTextHeight;
-			destRect.x = static_cast<int>(mPosition.X) - (destRect.w / 2);
-			destRect.y = static_cast<int>(mPosition.Y) - (destRect.h / 2);
+			Vector2f position = Camera::WorldToScreen(Vector2f((mPosition.X) - (destRect.w / 2), (mPosition.Y) - (destRect.h / 2)));
+			destRect.x = static_cast<int>(position.X);
+			destRect.y = static_cast<int>(position.Y);
 			SDL_RenderCopyEx(Game::Renderer, mTextTexture, NULL, &destRect, mRotation, NULL, SDL_FLIP_NONE);
 		}
 	}
@@ -119,9 +122,9 @@ void TextElement::SetString(const char* str)
 	SetString(std::string(str));
 }
 
-void TextElement::SetPosition(Vector2f screenPosition)
+void TextElement::SetPosition(Vector2f worldPosition)
 {
-	mPosition = screenPosition;
+	mPosition = worldPosition;
 }
 
 Vector2f TextElement::GetTextureSize()

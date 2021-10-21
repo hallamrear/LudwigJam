@@ -19,6 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="BoundingBox.cpp" />
+    <ClCompile Include="BoundingSphere.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Colour.cpp" />
     <ClCompile Include="Entity.cpp" />
@@ -27,6 +31,7 @@
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="MenuObject.cpp" />
+    <ClCompile Include="OrientedBoundingBox.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -36,9 +41,15 @@
     <ClCompile Include="Settings.cpp" />
     <ClCompile Include="StateDirector.cpp" />
     <ClCompile Include="TextElement.cpp" />
+    <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureCache.cpp" />
+    <ClCompile Include="Time.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Animation.h" />
+    <ClInclude Include="BoundingBox.h" />
+    <ClInclude Include="BoundingSphere.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Colour.h" />
     <ClInclude Include="Entity.h" />
@@ -48,12 +59,16 @@
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="MenuObject.h" />
+    <ClInclude Include="OrientedBoundingBox.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Settings.h" />
     <ClInclude Include="StateDirector.h" />
     <ClInclude Include="TextElement.h" />
+    <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureCache.h" />
+    <ClInclude Include="Time.h" />
     <ClInclude Include="Vector2.h" />
+    <ClInclude Include="Vector3.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -109,11 +124,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ProjectDir)SDL2_gfx\include;$(ProjectDir)SDL2_Text\include;$(ProjectDir)SDL2\include;$(ProjectDir)SDL2_Image\include;$(IncludePath)</IncludePath>
+    <IncludePath>
+    </IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(ProjectDir)SDL2_gfx\include;$(ProjectDir)SDL2_Text\include;$(ProjectDir)SDL2\include;$(ProjectDir)SDL2_Image\include;$(IncludePath)</IncludePath>
+    <IncludePath>
+    </IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -131,12 +148,17 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(ProjectDir)SDL2_gfx\include;$(ProjectDir)SDL2_Text\include;$(ProjectDir)SDL2\include;$(ProjectDir)SDL2_Image\include;$(IncludePath)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
       </SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalDependencies>SDL2_gfx.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)SDL2_Image\lib\x86;$(ProjectDir)SDL2\lib\x86;$(ProjectDir)SDL2_Text\lib\x86;$(ProjectDir)SDL2_gfx\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -148,6 +170,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(ProjectDir)SDL2_gfx\include;$(ProjectDir)SDL2_Text\include;$(ProjectDir)SDL2\include;$(ProjectDir)SDL2_Image\include;$(IncludePath)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -156,6 +179,10 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalDependencies>SDL2_gfx.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)SDL2_Image\lib\x86;$(ProjectDir)SDL2\lib\x86;$(ProjectDir)SDL2_Text\lib\x86;$(ProjectDir)SDL2_gfx\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -171,6 +198,10 @@
       </SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalDependencies>SDL2_gfx.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)SDL2_gfx\lib;$(ProjectDir)SDL2_Image\lib\x64;$(ProjectDir)SDL2\lib\x64;$(ProjectDir)SDL2_Text\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -190,6 +221,10 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalDependencies>SDL2_gfx.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)SDL2_gfx\lib;$(ProjectDir)SDL2_Image\lib\x64;$(ProjectDir)SDL2\lib\x64;$(ProjectDir)SDL2_Text\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

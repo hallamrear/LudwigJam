@@ -5,20 +5,17 @@ Settings* Settings::mInstance = nullptr;
 
 Settings::Settings()
 {
-	mMaxLogMessages = 10;
+	mMaxLogMessages = 20;
 	mDrawLog = false;
-	mPlayerScore = 0;
 	mWindowDimensions = Vector2f(1280.0f, 720.0f);
 	mWindowCentre = Vector2f(mWindowDimensions.X / 2.0f, mWindowDimensions.Y / 2.0f);
 	mDrawColliders = false;
-	mAsteroidCount = 5;
-	mGravityDirection = Vector2f(0.0f, 9.81f);
+	mGravityDirection = Vector2f(0.0f, -9.81f);
 }
 
 Settings::~Settings()
 {
 	mDrawColliders = false;
-	mAsteroidCount = 0;
 }
 
 Settings* Settings::Get()
@@ -59,11 +56,6 @@ void Settings::SetDrawColliders(bool state)
 	mDrawColliders = state;
 }
 
-int  Settings::GetAsteroidCount() const
-{
-	return mAsteroidCount;
-}
-
 Vector2f Settings::GetGravityDirection() const
 {
 	return mGravityDirection;
@@ -74,21 +66,6 @@ void Settings::SetGravityDirection(Vector2f direction)
 	mGravityDirection = direction;
 }
 
-int Settings::GetPlayerScore() const
-{
-	return mPlayerScore;
-}
-
-void Settings::SetPlayerScore(int score)
-{
-	mPlayerScore = score;
-}
-
-void Settings::IncreasePlayerScore(int amountToIncrease)
-{
-	mPlayerScore += amountToIncrease;
-}
-
 void Settings::SetMaxLogMessages(int count)
 {
 	mMaxLogMessages = count;
@@ -97,11 +74,6 @@ void Settings::SetMaxLogMessages(int count)
 int Settings::GetMaxLogMessages() const
 {
 	return mMaxLogMessages;
-}
-
-void Settings::SetAsteroidCount(int count)
-{
-	mAsteroidCount = count;
 }
 
 void Settings::SetWindowDimensions(Vector2f dimensions)

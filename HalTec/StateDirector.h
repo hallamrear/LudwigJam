@@ -2,7 +2,23 @@
 #include <map>
 #include "GameStates.h"
 
-//todo : make singleton
+enum GameStateIdentifier
+{	
+	GAME_STATE_UNKNOWN = 0,
+	GAME_STATE_PAUSED,
+	GAME_STATE_PLAYING,
+	GAME_STATE_MAIN_MENU,
+	GAME_STATE_1,
+	GAME_STATE_2,
+	GAME_STATE_3,
+	GAME_STATE_4,
+	GAME_STATE_5,
+	GAME_STATE_6,
+	GAME_STATE_7,
+	GAME_STATE_8,
+	GAME_STATE_9
+};
+
 class StateDirector
 {
 private:
@@ -11,8 +27,8 @@ private:
 	GameState* mCurrentState;
 	std::map<GameStateIdentifier, GameState*> mDirectorStates;
 
-	StateDirector();
-	~StateDirector();
+							StateDirector();
+							~StateDirector();
 
 	void					SetState_Impl(const GameStateIdentifier state);
 	void					SetupState_Impl(GameStateIdentifier identifier, GameState* state);

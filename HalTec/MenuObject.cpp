@@ -1,8 +1,10 @@
 #include "pch.h"
 #include "MenuObject.h"
+#include "BoundingBox.h"
+#include "Texture.h"
 
-MenuObject::MenuObject(SDL_Renderer& renderer, std::string texture_path, Vector2f position, float rotation)
-	: Entity(renderer, texture_path, position, rotation, 0.0f, 0.0f, 0.0f)
+MenuObject::MenuObject(std::string texture_path, Vector2f position, float rotation)
+	: Entity(texture_path, position, rotation, 0.0f, 0.0f, 0.0f)
 {
 	mPhysicsEnabled = false;
 	mDragEnabled = false;

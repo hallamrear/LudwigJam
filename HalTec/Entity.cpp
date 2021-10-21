@@ -1,20 +1,22 @@
 #include "pch.h"
 #include "Entity.h"
+#include "Game.h"
+#include "Texture.h"
 #include "TextureCache.h"
 
-Entity::Entity(SDL_Renderer& renderer, std::string texture_path, Vector2f position, float rotation, float weight, float dragCoeff, float speedCap)
-	: mRenderer(renderer)
+Entity::Entity(std::string texture_path, Vector2f position, float rotation, float weight, float dragCoeff, float speedCap)
+	: mRenderer(*Game::Renderer)
 {
 	mDragEnabled = false;
 	mPhysicsEnabled = false;
 	mGravityEnabled = false;
 	mIsAlive = true;
 
+	weight != 0.0f ? mMass = weight : mMass = 1.0f;
+	speedCap != 0.0f ? mSpeedCap = speedCap : mSpeedCap = FLT_MAX;
+	dragCoeff != 0.0f ? mDragCoefficient = dragCoeff : mDragCoefficient = 0.5;
 	mPosition = position;
 	mRotation = rotation;
-	mMass = weight;
-	mDragCoefficient = dragCoeff;
-	mSpeedCap = speedCap;
 
 	mVelocity = Vector2f();
 	mAcceleration = Vector2f();
@@ -48,6 +50,11 @@ void Entity::AssignTexture(const std::string& texture_path)
 const SDL_Renderer& Entity::GetRendererReference()
 {
 	return mRenderer;
+}
+
+void Entity::ClampRotation()
+{
+	mRotation = fmod(mRotation, 360.0f);
 }
 
 void Entity::UpdatePhysics(double deltaTime)

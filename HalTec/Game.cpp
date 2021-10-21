@@ -2,19 +2,16 @@
 #include "Game.h"
 #include "InputManager.h"
 #include "StateDirector.h"
-#include "GameStates.h"
 #include "Log.h"
-#include "TextureCache.h"
 #include "Settings.h"
+#include "Time.h"
 
-double Game::DeltaTime = 0.0;
 //todo : this is not good
 //todo : abstract renderer
 SDL_Renderer* Game::Renderer = nullptr;
 
 Game::Game()
 {
-	DeltaTime = 0.0;
 	mIsInitialised = false;
 	mIsRunning = false;
 	mWindow = nullptr;
@@ -26,12 +23,73 @@ Game::~Game()
 		Shutdown();
 }
 
-void Game::Initialise(int argc, char* argv[])
+void Game::Start()
 {
-	mIsInitialised = (InitialiseSystems() && InitialiseWorldObjects());
+	if(GetIsInitialised())
+	{
+		SetIsRunning(true);
+
+		const int FPS = 60;
+		const int frameDelay = 1000 / FPS;
+		Uint32 currentTime = 0, deltaTime = 0, oldTime = 0;
+		Uint32 frameTime = 0;
+		double DeltaTime = 0.0;
+		Time::Get(DeltaTime);
+
+		while(GetIsRunning())
+		{
+			oldTime = SDL_GetTicks();
+
+			while (GetIsRunning())
+			{
+				currentTime = SDL_GetTicks();
+				deltaTime = currentTime - oldTime;
+
+				DeltaTime = (double)deltaTime / 1000.0;
+
+				if (deltaTime != 0)
+				{
+					HandleEvents();
+					Update(DeltaTime);
+					Render();
+				}
+
+				frameTime = SDL_GetTicks() - currentTime;
+				if (frameDelay > frameTime)
+					SDL_Delay(frameDelay - frameTime);
+
+				oldTime = currentTime;
+			}
+		}
+	}
 }
 
-bool Game::InitialiseWindow(std::string title, int xpos, int ypos, int width, int height, Uint32 flags, bool isFullscreen)
+void Game::SetFullscreen(SCREEN_STATE state)
+{
+	switch (state)
+	{
+	case SCREEN_STATE::WINDOW_FULLSCREEN:
+		SDL_SetWindowFullscreen(mWindow, SDL_WINDOW_FULLSCREEN);
+		break;
+	case SCREEN_STATE::WINDOW_BORDERLESS_FULLSCREEN:
+		SDL_SetWindowFullscreen(mWindow, SDL_WINDOW_FULLSCREEN_DESKTOP);
+		break;
+	case SCREEN_STATE::WINDOW_WINDOWED:
+		SDL_SetWindowFullscreen(mWindow, 0);
+		break;
+	}
+}
+
+void Game::Initialise(int argc, char* argv[], WindowDetails details)
+{
+	mIsInitialised = (InitialiseSystems(details) && InitialiseWorldObjects());
+	if(mIsInitialised == false)
+	{
+		Shutdown();
+	}
+}
+
+bool Game::InitialiseWindow(const char* title, int xpos, int ypos, int width, int height, Uint32 flags, bool isFullscreen)
 {
 	if (mWindow)
 		SDL_DestroyWindow(mWindow);
@@ -54,7 +112,7 @@ bool Game::InitialiseWindow(std::string title, int xpos, int ypos, int width, in
 	if (isFullscreen)
 		flags |= SDL_WINDOW_FULLSCREEN;
 
-	mWindow = SDL_CreateWindow(&title[0], xpos, ypos, width, height, flags);
+	mWindow = SDL_CreateWindow(title, xpos, ypos, width, height, flags);
 
 	if (mWindow)
 	{
@@ -104,21 +162,38 @@ bool Game::InitialiseWorldObjects()
 			Settings::Get()->SetDrawLog(!Settings::Get()->GetDrawLog());
 		});
 
-	SetupGameStateFunctions();
+	InputManager::Bind(IM_KEY_CODE::IM_KEY_F1, IM_KEY_STATE::IM_KEY_PRESSED,
+		[this]
+		{
+			SetFullscreen(SCREEN_STATE::WINDOW_WINDOWED);
+		});
+
+	InputManager::Bind(IM_KEY_CODE::IM_KEY_F2, IM_KEY_STATE::IM_KEY_PRESSED,
+		[this]
+		{
+			SetFullscreen(SCREEN_STATE::WINDOW_BORDERLESS_FULLSCREEN);
+		});
+
+	InputManager::Bind(IM_KEY_CODE::IM_KEY_F3, IM_KEY_STATE::IM_KEY_PRESSED,
+		[this]
+		{
+			SetFullscreen(SCREEN_STATE::WINDOW_FULLSCREEN);
+		});
 
 	return true;
 }
 
-bool Game::InitialiseSystems()
+bool Game::InitialiseSystems(WindowDetails details)
 {
 	if (SDL_Init(SDL_INIT_EVERYTHING) == 0)
 	{
 		Log::LogMessage(LogLevel::LOG_MESSAGE, "Subsystem created.");
 
-		Vector2f dimensions = Settings::Get()->GetWindowDimensions();
 
-		if (InitialiseWindow("Test Window", 128, 128, (int)dimensions.X, (int)dimensions.Y, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE, false) == false)
+		if (InitialiseWindow(details.title.c_str(), details.position.X, details.position.Y, (int)details.dimensions.X, (int)details.dimensions.Y, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE, false) == false)
 			return false;
+
+		Settings::Get()->SetWindowDimensions(details.dimensions);
 
 		if (TTF_Init() < 0)
 		{
@@ -167,24 +242,45 @@ void Game::Shutdown()
 void Game::HandleEvents()
 {
 	SDL_Event event;
+	bool hadWheelEvent = false;
 	while (SDL_PollEvent(&event))
 	{
+		if(!hadWheelEvent)
+		{
+			if (event.type == SDL_MOUSEWHEEL)
+			{
+				hadWheelEvent = true;
+
+				if (event.wheel.y > 0)
+				{
+					Log::LogMessage(LogLevel::LOG_ERROR, "Scroll UP");
+					InputManager::Get()->MouseScrollUpdate(IM_SCROLL_DIRECTION::IM_SCROLL_UP);
+				}
+				else if (event.wheel.y < 0)
+				{
+					//scroll down
+					Log::LogMessage(LogLevel::LOG_ERROR, "Scroll DOWN");
+					InputManager::Get()->MouseScrollUpdate(IM_SCROLL_DIRECTION::IM_SCROLL_DOWN);
+				}
+			}
+		}
+
 		switch (event.type)
 		{
 		case SDL_MOUSEBUTTONDOWN:
 		case SDL_MOUSEBUTTONUP:
 
-			if(event.type == SDL_MOUSEBUTTONDOWN)
-				InputManager::Get()->SetMouseDown(true);
-			else if(event.type == SDL_MOUSEBUTTONUP)
-				InputManager::Get()->SetMouseDown(false);
-			break;
+			if (event.type == SDL_MOUSEBUTTONDOWN)
+				InputManager::Get()->MousePressUpdate(event.button.button, true);
+			else if (event.type == SDL_MOUSEBUTTONUP)
+				InputManager::Get()->MousePressUpdate(event.button.button, false);
+				break;
 
 		case SDL_MOUSEMOTION:
 			//Get mouse position
 			int x, y;
 			SDL_GetMouseState(&x, &y);
-			InputManager::Get()->MouseUpdate(x, y);
+			InputManager::Get()->MousePositionUpdate(x, y);
 			break;
 			
 		case SDL_QUIT:
@@ -201,11 +297,11 @@ void Game::HandleEvents()
 			if(event.key.keysym.sym == SDLK_ESCAPE)
 				mIsRunning = false;
 			else
-				InputManager::Get()->KeyUpdate(event.key.keysym.sym, true);
+				InputManager::Get()->KeyPressUpdate(event.key.keysym.sym, true);
 			break;
 
 		case SDL_KEYUP:
-			InputManager::Get()->KeyUpdate(event.key.keysym.sym, false);
+			InputManager::Get()->KeyPressUpdate(event.key.keysym.sym, false);
 			break;
 
 		default:
@@ -214,7 +310,7 @@ void Game::HandleEvents()
 	}
 }
 
-void Game::Update()
+void Game::Update(double DeltaTime)
 {
 	InputManager::Update();
 	StateDirector::Update(DeltaTime);

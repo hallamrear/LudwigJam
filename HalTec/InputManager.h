@@ -1,10 +1,22 @@
 #pragma once
+#include <functional>
+#include "Vector2.h"
+
+typedef int32_t SDL_Keycode;
 
 enum class IM_KEY_STATE : int
 {
 	IM_KEY_PRESSED,
 	IM_KEY_HELD,
 	IM_KEY_RELEASED
+};
+
+
+enum class IM_SCROLL_DIRECTION : int
+{
+	IM_SCROLL_UP = 1,
+	IM_SCROLL_NONE = 0,
+	IM_SCROLL_DOWN = -1
 };
 
 enum class IM_KEY_CODE : int
@@ -33,11 +45,22 @@ enum class IM_KEY_CODE : int
 	/*21*/ IM_KEY_X,
 	/*22*/ IM_KEY_C,
 	/*23*/ IM_KEY_SPACE,
+	/*24*/ IM_KEY_F1,
+	/*25*/ IM_KEY_F2,
+	/*26*/ IM_KEY_F3,
+};
+
+enum class IM_MOUSE_CODE : int
+{
+	/*00*/ IM_MOUSE_SCROLL_UP = 0,
+	/*00*/ IM_MOUSE_SCROLL_DOWN,
+	/*01*/ IM_MOUSE_LEFT_CLICK,
+	/*02*/ IM_MOUSE_RIGHT_CLICK,
+	/*03*/ IM_MOUSE_MIDDLE_CLICK
 };
 
 class Key
 {
-private:
 	std::function<void()> mPressFunction;
 	std::function<void()> mHeldFunction;
 	std::function<void()> mReleaseFunction;
@@ -111,17 +134,93 @@ public:
 	}
 };
 
+class Mouse
+{
+	std::function<void()> mPressFunction;
+	std::function<void()> mHeldFunction;
+	std::function<void()> mReleaseFunction;
+
+	IM_MOUSE_CODE mKeyCode;
+	bool mPreviousState;
+	bool mState = false;
+
+public:
+	Mouse(IM_MOUSE_CODE keycode)
+	{
+		mKeyCode = keycode;
+		mState = false;
+		mPreviousState = false;
+		mPressFunction = nullptr;
+		mReleaseFunction = nullptr;
+	};
+
+	IM_MOUSE_CODE	GetMouseCode() { return mKeyCode; }
+	bool			GetState() { return mState; }
+	void			SetState(bool state) { mState = state; }
+	void			SetPreviousState(bool state) { mPreviousState = state; };
+	bool			GetPreviousState() { return mPreviousState; }
+
+	void Bind(IM_KEY_STATE state, std::function<void()> func)
+	{
+		switch (state)
+		{
+		case IM_KEY_STATE::IM_KEY_PRESSED:
+			if (func)
+			{
+				mPressFunction = func;
+			}
+			break;
+
+		case IM_KEY_STATE::IM_KEY_HELD:
+			if (func)
+			{
+				mHeldFunction = func;
+			}
+			break;
+
+		case IM_KEY_STATE::IM_KEY_RELEASED:
+			if (func)
+			{
+				mReleaseFunction = func;
+			}
+			break;
+		default:
+			throw;
+			break;
+		}
+	};
+
+	void RunOnPressFunction()
+	{
+		if (mPressFunction)
+			mPressFunction();
+	};
+
+	void RunOnHeldFunction()
+	{
+		if (mHeldFunction)
+			mHeldFunction();
+	}
+
+	void RunOnReleaseFunction()
+	{
+		if (mReleaseFunction)
+			mReleaseFunction();
+	}
+};
+
 class InputManager
 {
 private:
 	static InputManager* mInstance;
 
-	const int mKeyCount = 24;
+	const int mKeyCount = 27;
+	const int mMouseCount = 5;
 	bool mIsMouseDown;
 	int mMousePositionX;
 	int mMousePositionY;
 
-	Key mKeyStates[24] =
+	Key mKeyStates[27] =
 	{
 		/*00*/ IM_KEY_CODE::IM_KEY_1,
 		/*01*/ IM_KEY_CODE::IM_KEY_2,
@@ -146,10 +245,26 @@ private:
 		/*20*/ IM_KEY_CODE::IM_KEY_Z,
 		/*21*/ IM_KEY_CODE::IM_KEY_X,
 		/*22*/ IM_KEY_CODE::IM_KEY_C,
-		/*23*/ IM_KEY_CODE::IM_KEY_SPACE
+		/*23*/ IM_KEY_CODE::IM_KEY_SPACE,
+		/*24*/ IM_KEY_CODE::IM_KEY_F1,
+		/*25*/ IM_KEY_CODE::IM_KEY_F2,
+		/*26*/ IM_KEY_CODE::IM_KEY_F3,
 	};
+
+	Mouse mMouseStates[5] =
+	{
+		/*00*/ IM_MOUSE_CODE::IM_MOUSE_SCROLL_UP,
+		/*01*/ IM_MOUSE_CODE::IM_MOUSE_SCROLL_DOWN,
+		/*02*/ IM_MOUSE_CODE::IM_MOUSE_LEFT_CLICK,
+		/*03*/ IM_MOUSE_CODE::IM_MOUSE_RIGHT_CLICK,
+		/*04*/ IM_MOUSE_CODE::IM_MOUSE_MIDDLE_CLICK
+	};
+
 	void Update_Impl();
 	void Bind_Impl(IM_KEY_CODE keycode, IM_KEY_STATE keystate, std::function<void()> func);
+	void Bind_Impl(IM_MOUSE_CODE keycode, IM_KEY_STATE keystate, std::function<void()> func);
+	int FindKey(IM_MOUSE_CODE keycode);
+	int FindKey(IM_KEY_CODE keycode);
 
 	InputManager();
 	~InputManager();
@@ -157,13 +272,13 @@ public:
 	static InputManager* Get();
 	static void Update();
 
-	int FindKey(IM_KEY_CODE keycode);
 	static void Bind(IM_KEY_CODE keycode, IM_KEY_STATE keystate, std::function<void()> func);
-	void KeyUpdate(SDL_Keycode key, bool state);
+	static void Bind(IM_MOUSE_CODE keycode, IM_KEY_STATE keystate, std::function<void()> func);
+	void KeyPressUpdate(SDL_Keycode key, bool state);
+	void MousePressUpdate(SDL_Keycode key, bool state);
 
-	bool GetMouseDown();
-	void SetMouseDown(bool state);
-	void MouseUpdate(int x, int y);
+	void MousePositionUpdate(int x, int y);
 	Vector2f GetMousePosition();
+	void MouseScrollUpdate(IM_SCROLL_DIRECTION direction);
 };
 

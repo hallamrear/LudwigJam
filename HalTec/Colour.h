@@ -1,4 +1,6 @@
 #pragma once
+typedef uint8_t Uint8;
+
 class Colour
 {
 public:

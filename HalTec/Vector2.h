@@ -1,4 +1,27 @@
 #pragma once
+#include <math.h>
+
+//todo: remove or replace
+/*
+* 
+	Vector3f Cross(Vector3f other)
+	{
+		Vector3f result;
+		result.X = (Y * other.Z) - (Z * other.Y);
+		result.Y = (Z * other.X) - (X * other.Z);
+		result.Z = (X * other.Y) - (Y * other.X);
+		return result;
+	}
+
+	inline static Vector3f Cross(Vector3f vectorA, Vector3f vectorB)
+	{
+		Vector3f result;
+		result.X = (vectorA.Y * vectorB.Z) - (vectorA.Z * vectorB.Y);
+		result.Y = (vectorA.Z * vectorB.X) - (vectorA.X * vectorB.Z);
+		result.Z = (vectorA.X * vectorB.Y) - (vectorA.Y * vectorB.X);
+		return result;
+	}
+*/
 
 class Vector2f
 {
@@ -19,13 +42,18 @@ public:
 		Y = y;
 	}
 
-	inline float GetMagnitude()
+	inline float GetMagnitude() const
 	{
 		//Pythagoras
 		return sqrtf((X * X) + (Y * Y));
 	}
 
-	inline Vector2f GetNormalized()
+	inline float GetMagnitudeSquared() const
+	{
+		return (X * X) + (Y * Y);
+	}
+
+	inline Vector2f GetNormalized() const
 	{
 		float magnitude = GetMagnitude();
 		return Vector2f(X / magnitude, Y / magnitude);
@@ -48,8 +76,6 @@ public:
 		return Vector2f(this->X * scalar, this->Y * scalar);
 	}
 
-
-
 	Vector2f& operator+=(const Vector2f& rhs)
 	{
 		this->X += rhs.X;
@@ -64,14 +90,6 @@ public:
 		return *this;
 	}
 
-	bool operator==(const Vector2f& rhs)
-	{
-		if ((this->X == rhs.X) && (this->Y == rhs.Y))
-			return true;
-		else
-			return false;
-	}
-
 	bool operator!=(const Vector2f& rhs)
 	{
 		if ((this->X == rhs.X) && (this->Y == rhs.Y))
@@ -80,10 +98,16 @@ public:
 			return true;
 	}
 
-	float Dot(Vector2f vector)
+	float Dot(Vector2f vector) const
 	{
 		return ((this->X * vector.X) + (this->Y * vector.Y));
 	}
 
+	bool operator==(const Vector2f& rhs)
+	{
+		if ((this->X == rhs.X) && (this->Y == rhs.Y))
+			return true;
+		else
+			return false;
+	}
 };
-

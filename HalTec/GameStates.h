@@ -1,21 +1,11 @@
 #pragma once
 
-struct SDLRenderer;
-
-enum class GameStateIdentifier
-{
-	GAME_STATE_UNKNOWN = 0,
-	GAME_STATE_MAIN_MENU,
-	GAME_STATE_PAUSED,
-	GAME_STATE_RUNNING,
-	GAME_STATE_PLAYER_DEATH,
-	GAME_STATE_TESTBED
-};
+struct SDL_Renderer;
 
 class GameState
 {
 public:
-	virtual ~GameState() {};
+	virtual ~GameState() = default;
 	virtual void Start() = 0;
 	virtual void Update(double) = 0;
 	virtual void Render(SDL_Renderer&) = 0;

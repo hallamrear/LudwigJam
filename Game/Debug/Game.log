@@ -950,7 +950,7 @@
        Overriding target "ComputeMetaGenInputs" in project "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.MetaGen.targets" with target "ComputeMetaGenInputs" from project "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppCommon.targets".
        Overriding target "GetNativeManifest" in project "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\Microsoft.Common.CurrentVersion.targets" with target "GetNativeManifest" from project "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppCommon.targets".
        Overriding target "GetTargetPathWithTargetPlatformMoniker" in project "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\Microsoft.Common.CurrentVersion.targets" with target "GetTargetPathWithTargetPlatformMoniker" from project "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.Cpp.DesignTime.targets".
-Build started 17/10/2021 15:48:49.
+Build started 21/10/2021 13:29:36.
 Logging verbosity is set to: Detailed.     1>Project "C:\Users\ryem_\source\repos\LudwigJam\Game\Game.vcxproj" on node 2 (Build target(s)).
      1>Building with tools version "Current".
        Target "EnableIntermediateOutputPathMismatchWarning" skipped, due to false condition; ('$(RestoreProjectStyle)' == 'PackageReference') was evaluated as ('' == 'PackageReference').
@@ -973,10 +973,10 @@ Logging verbosity is set to: Detailed.     1>Project "C:\Users\ryem_\source\repo
      1>Target "SetTelemetryEnvironmentVariables" in file "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.Cpp.DesignTime.targets" from project "C:\Users\ryem_\source\repos\LudwigJam\Game\Game.vcxproj" (target "Build" depends on it):
        Using "SetEnv" task from assembly "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.Build.CppTasks.Common.dll".
        Task "SetEnv"
-         VSTEL_SolutionSessionID={1708A136-867A-4AF3-ADA6-A28AB6E7ECA6}
+         VSTEL_SolutionSessionID={F6FC1B47-27E6-42D9-86F9-EA2F9F4719B9}
        Done executing task "SetEnv".
        Task "SetEnv"
-         VSTEL_CurrentSolutionBuildID=2394555398
+         VSTEL_CurrentSolutionBuildID=2731802524
        Done executing task "SetEnv".
        Task "SetEnv"
          VSTEL_ProjectID={8e58addc-3cd3-4a94-bec9-079f31d44d2c}
@@ -988,7 +988,7 @@ Logging verbosity is set to: Detailed.     1>Project "C:\Users\ryem_\source\repo
      1>Target "_PrepareForReferenceResolution" in file "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets" from project "C:\Users\ryem_\source\repos\LudwigJam\Game\Game.vcxproj" (target "ResolveReferences" depends on it):
        Task "Message" skipped, due to false condition; ('$(_REFERENCE_DEBUG)'=='true') was evaluated as (''=='true').
      1>Done building target "_PrepareForReferenceResolution" in project "Game.vcxproj".
-       Target "ComputeCrtSDKReference" skipped, due to false condition; ('@(ClCompile)'!='' and '$(WindowsAppContainer)'=='true' and '$(UseCrtSDKReference)' != 'false') was evaluated as ('entry.cpp'!='' and 'false'=='true' and '' != 'false').
+       Target "ComputeCrtSDKReference" skipped, due to false condition; ('@(ClCompile)'!='' and '$(WindowsAppContainer)'=='true' and '$(UseCrtSDKReference)' != 'false') was evaluated as ('BackgroundEntity.cpp;Character.cpp;entry.cpp;...'!='' and 'false'=='true' and '' != 'false').
      1>Target "BeforeResolveReferences" in file "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\ryem_\source\repos\LudwigJam\Game\Game.vcxproj" (target "ResolveReferences" depends on it):
      1>Done building target "BeforeResolveReferences" in project "Game.vcxproj".
      1>Target "AssignProjectConfiguration" in file "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\ryem_\source\repos\LudwigJam\Game\Game.vcxproj" (target "ResolveReferences" depends on it):
@@ -1138,7 +1138,7 @@ Logging verbosity is set to: Detailed.     1>Project "C:\Users\ryem_\source\repo
        Done executing task "MakeDir".
      1>Done building target "PrepareForBuild" in project "Game.vcxproj".
        Target "_PrepareForReferenceResolution" skipped. Previously built successfully.
-       Target "ComputeCrtSDKReference" skipped, due to false condition; ('@(ClCompile)'!='' and '$(WindowsAppContainer)'=='true' and '$(UseCrtSDKReference)' != 'false') was evaluated as ('entry.cpp'!='' and 'false'=='true' and '' != 'false').
+       Target "ComputeCrtSDKReference" skipped, due to false condition; ('@(ClCompile)'!='' and '$(WindowsAppContainer)'=='true' and '$(UseCrtSDKReference)' != 'false') was evaluated as ('BackgroundEntity.cpp;Character.cpp;entry.cpp;...'!='' and 'false'=='true' and '' != 'false').
        Target "GetInstalledSDKLocations" skipped, due to false condition; ('@(SDKReference)' != '') was evaluated as ('' != '').
      1>Target "ResolveSDKReferences" in file "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\ryem_\source\repos\LudwigJam\Game\Game.vcxproj" (target "ResolveAssemblyReferences" depends on it):
        Task "ResolveSDKReference" skipped, due to false condition; ('@(SDKReference)'!='') was evaluated as (''!='').
@@ -1307,7 +1307,13 @@ Logging verbosity is set to: Detailed.     1>Project "C:\Users\ryem_\source\repo
        Task "Message" skipped, due to false condition; ('$(_REFERENCE_DEBUG)'=='true') was evaluated as (''=='true').
      1>Done building target "ComputeReferenceCLInput" in project "Game.vcxproj".
      1>Target "WarnCompileDuplicatedFilename" in file "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets" from project "C:\Users\ryem_\source\repos\LudwigJam\Game\Game.vcxproj" (target "_ClCompile" depends on it):
+       Task "VCMessage" skipped, due to false condition; ('%(ClCompile.ExcludedFromBuild)' != 'true' and '%(Filename)%(Extension)' != '@(ClCompile->'%(Filename)%(Extension)')' and '%(ObjectFileName)' == '@(ClCompile->Metadata(ObjectFileName)->Distinct())') was evaluated as ('' != 'true' and 'BackgroundEntity.cpp' != 'BackgroundEntity.cpp' and 'Debug\' == 'Debug\').
+       Task "VCMessage" skipped, due to false condition; ('%(ClCompile.ExcludedFromBuild)' != 'true' and '%(Filename)%(Extension)' != '@(ClCompile->'%(Filename)%(Extension)')' and '%(ObjectFileName)' == '@(ClCompile->Metadata(ObjectFileName)->Distinct())') was evaluated as ('' != 'true' and 'Character.cpp' != 'Character.cpp' and 'Debug\' == 'Debug\').
        Task "VCMessage" skipped, due to false condition; ('%(ClCompile.ExcludedFromBuild)' != 'true' and '%(Filename)%(Extension)' != '@(ClCompile->'%(Filename)%(Extension)')' and '%(ObjectFileName)' == '@(ClCompile->Metadata(ObjectFileName)->Distinct())') was evaluated as ('' != 'true' and 'entry.cpp' != 'entry.cpp' and 'Debug\' == 'Debug\').
+       Task "VCMessage" skipped, due to false condition; ('%(ClCompile.ExcludedFromBuild)' != 'true' and '%(Filename)%(Extension)' != '@(ClCompile->'%(Filename)%(Extension)')' and '%(ObjectFileName)' == '@(ClCompile->Metadata(ObjectFileName)->Distinct())') was evaluated as ('' != 'true' and 'Player.cpp' != 'Player.cpp' and 'Debug\' == 'Debug\').
+       Task "VCMessage" skipped, due to false condition; ('%(ClCompile.ExcludedFromBuild)' != 'true' and '%(Filename)%(Extension)' != '@(ClCompile->'%(Filename)%(Extension)')' and '%(ObjectFileName)' == '@(ClCompile->Metadata(ObjectFileName)->Distinct())') was evaluated as ('' != 'true' and 'PlayState.cpp' != 'PlayState.cpp' and 'Debug\' == 'Debug\').
+       Task "VCMessage" skipped, due to false condition; ('%(ClCompile.ExcludedFromBuild)' != 'true' and '%(Filename)%(Extension)' != '@(ClCompile->'%(Filename)%(Extension)')' and '%(ObjectFileName)' == '@(ClCompile->Metadata(ObjectFileName)->Distinct())') was evaluated as ('' != 'true' and 'TestEntity.cpp' != 'TestEntity.cpp' and 'Debug\' == 'Debug\').
+       Task "VCMessage" skipped, due to false condition; ('%(ClCompile.ExcludedFromBuild)' != 'true' and '%(Filename)%(Extension)' != '@(ClCompile->'%(Filename)%(Extension)')' and '%(ObjectFileName)' == '@(ClCompile->Metadata(ObjectFileName)->Distinct())') was evaluated as ('' != 'true' and 'WorldObject.cpp' != 'WorldObject.cpp' and 'Debug\' == 'Debug\').
      1>Done building target "WarnCompileDuplicatedFilename" in project "Game.vcxproj".
      1>Target "FixupCLCompileOptions" in file "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppCommon.targets" from project "C:\Users\ryem_\source\repos\LudwigJam\Game\Game.vcxproj" (target "_ClCompile" depends on it):
      1>Done building target "FixupCLCompileOptions" in project "Game.vcxproj".
@@ -1327,7 +1333,7 @@ Logging verbosity is set to: Detailed.     1>Project "C:\Users\ryem_\source\repo
      1>Target "SelectClCompile" in file "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets" from project "C:\Users\ryem_\source\repos\LudwigJam\Game\Game.vcxproj" (target "ClCompile" depends on it):
      1>Done building target "SelectClCompile" in project "Game.vcxproj".
        Target "SelectAnalysisManifest" skipped, due to false condition; ('$(RunMsvcAnalysis)'=='true' and '$(SelectedFiles)'!='') was evaluated as ('false'=='true' and ''!='').
-       Target "ManagedIncrementalBuildPreProcessDependencyGraph" skipped, due to false condition; ('@(ClCompile)' != '' and '$(EnableManagedIncrementalBuild)' == 'True') was evaluated as ('entry.cpp' != '' and 'false' == 'True').
+       Target "ManagedIncrementalBuildPreProcessDependencyGraph" skipped, due to false condition; ('@(ClCompile)' != '' and '$(EnableManagedIncrementalBuild)' == 'True') was evaluated as ('BackgroundEntity.cpp;Character.cpp;entry.cpp;...' != '' and 'false' == 'True').
      1>Target "ClCompile" in file "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppCommon.targets" from project "C:\Users\ryem_\source\repos\LudwigJam\Game\Game.vcxproj" (target "_ClCompile" depends on it):
        Task "Delete" skipped, due to false condition; ('%(ClCompile.DebugInformationFormat)' != '' and '%(ClCompile.DebugInformationFormat)' != 'None' and '%(ClCompile.DebugInformationFormat)' != 'OldStyle' and '%(ClCompile.ProgramDataBaseFileName)' != '' and !Exists(%(ClCompile.ProgramDataBaseFileName))) was evaluated as ('EditAndContinue' != '' and 'EditAndContinue' != 'None' and 'EditAndContinue' != 'OldStyle' and 'Debug\vc142.pdb' != '' and !Exists(Debug\vc142.pdb)).
        Task "MultiToolTask" skipped, due to false condition; ('%(ClCompile.ExcludedFromBuild)' != 'true' and '%(ClCompile.CompilerIteration)' == 'Modules') was evaluated as ('' != 'true' and '' == 'Modules').
@@ -1337,23 +1343,19 @@ Logging verbosity is set to: Detailed.     1>Project "C:\Users\ryem_\source\repo
        Task "CL"
          Read Tracking Logs:
          	Debug\Game.tlog\CL.read.1.tlog
-         Outputs for C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\GAME\ENTRY.CPP:
+         Outputs for C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\GAME\BACKGROUNDENTITY.CPP|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\GAME\CHARACTER.CPP|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\GAME\ENTRY.CPP|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\GAME\PLAYER.CPP|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\GAME\PLAYSTATE.CPP|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\GAME\TESTENTITY.CPP|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\GAME\WORLDOBJECT.CPP:
+         	C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\GAME\DEBUG\BACKGROUNDENTITY.OBJ
+         	C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\GAME\DEBUG\CHARACTER.OBJ
          	C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\GAME\DEBUG\ENTRY.OBJ
-         entry.cpp will be compiled because C:\Users\ryem_\source\repos\LudwigJam\Game\entry.cpp was modified at 17/10/2021 15:48:47.
-         Outputs for C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\GAME\ENTRY.CPP:
-         	C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\GAME\DEBUG\ENTRY.OBJ
-         Write Tracking Logs:
-         	Debug\Game.tlog\CL.write.1.tlog
-         Environment Variables passed to tool:
-           VS_UNICODE_OUTPUT=1896
-         C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\bin\HostX86\x86\CL.exe /c /ZI /JMC /nologo /W3 /WX- /diagnostics:column /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /permissive- /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc142.pdb" /external:W3 /Gd /TP /analyze- /FC /errorReport:prompt entry.cpp
-         Tracking command:
-         C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\Tracker.exe /d "C:\Program Files (x86)\MSBuild\15.0\FileTracker\FileTracker32.dll" /i C:\Users\ryem_\source\repos\LudwigJam\Game\Debug\Game.tlog /r C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\GAME\ENTRY.CPP /b MSBuildConsole_CancelEventd8918b8a39c048959c3c5c6618f27461  /c "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\bin\HostX86\x86\CL.exe"  /c /ZI /JMC /nologo /W3 /WX- /diagnostics:column /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /permissive- /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc142.pdb" /external:W3 /Gd /TP /analyze- /FC /errorReport:prompt entry.cpp
-         entry.cpp
+         	C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\GAME\DEBUG\PLAYER.OBJ
+         	C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\GAME\DEBUG\PLAYSTATE.OBJ
+         	C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\GAME\DEBUG\TESTENTITY.OBJ
+         	C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\GAME\DEBUG\WORLDOBJECT.OBJ
+         All outputs are up-to-date.
        Done executing task "CL".
      1>Done building target "ClCompile" in project "Game.vcxproj".
        Target "RunSelectedFileNativeCodeAnalysis" skipped, due to false condition; ('$(RunMsvcAnalysis)'=='true' and '$(SelectedFiles)'!='') was evaluated as ('false'=='true' and ''!='').
-       Target "ManagedIncrementalBuildPostProcessDependencyGraph" skipped, due to false condition; ('@(ClCompile)' != '' and '$(EnableManagedIncrementalBuild)' == 'True') was evaluated as ('entry.cpp' != '' and 'false' == 'True').
+       Target "ManagedIncrementalBuildPostProcessDependencyGraph" skipped, due to false condition; ('@(ClCompile)' != '' and '$(EnableManagedIncrementalBuild)' == 'True') was evaluated as ('BackgroundEntity.cpp;Character.cpp;entry.cpp;...' != '' and 'false' == 'True').
        Target "NoAnalysisToolEnabledWarning" skipped, due to false condition; ('$(RunCppAnalysis)'=='true' AND '$(EnableMicrosoftCodeAnalysis)'=='false' AND '$(EnableClangTidyCodeAnalysis)'=='false') was evaluated as ('false'=='true' AND 'true'=='false' AND 'false'=='false').
        Target "RunSelectedFileClangTidy" skipped, due to false condition; ('$(RunClangCppAnalysis)'=='true' AND '$(SelectedFiles)'!='') was evaluated as ('false'=='true' AND ''!='').
        Target "MicrosoftAnalysisIncompatiableWithClangCl" skipped, due to false condition; ('$(RunCppAnalysis)'=='true' AND '$(EnableMicrosoftCodeAnalysis)'=='true' AND '$(UseClangCl)'=='true') was evaluated as ('false'=='true' AND 'true'=='true' AND ''=='true').
@@ -1459,7 +1461,7 @@ Logging verbosity is set to: Detailed.     1>Project "C:\Users\ryem_\source\repo
        Task "VCMessage" skipped, due to false condition; ('@(_OutputFileFromLink)' != '' and '%(_OutputFileFromLink.FullPath)' != '$([System.IO.Path]::GetFullPath($(TargetPath)))') was evaluated as ('C:\Users\ryem_\source\repos\LudwigJam\Debug\Game.exe' != '' and 'C:\Users\ryem_\source\repos\LudwigJam\Debug\Game.exe' != 'C:\Users\ryem_\source\repos\LudwigJam\Debug\Game.exe').
        Task "VCMessage" skipped, due to false condition; ('@(_OutputFileFromLink)' != '' and '%(_OutputFileFromLink.Extension)' != '' and '%(_OutputFileFromLink.Extension)' != '$(TargetExt)') was evaluated as ('C:\Users\ryem_\source\repos\LudwigJam\Debug\Game.exe' != '' and '.exe' != '' and '.exe' != '.exe').
        Task "VCMessage" skipped, due to false condition; ('@(_OutputFileFromLink)' != '' and '%(_OutputFileFromLink.Filename)' != '' and '%(_OutputFileFromLink.Filename)' != '$(TargetName)') was evaluated as ('C:\Users\ryem_\source\repos\LudwigJam\Debug\Game.exe' != '' and 'Game' != '' and 'Game' != 'Game').
-       Task "VCMessage" skipped, due to false condition; ('%(Link.MinimumRequiredVersion)' != '' and ('%(Link.Subsystem)' == '' or '%(Link.Subsystem)' == 'NotSet')) was evaluated as ('' != '' and ('Console' == '' or 'Console' == 'NotSet')).
+       Task "VCMessage" skipped, due to false condition; ('%(Link.MinimumRequiredVersion)' != '' and ('%(Link.Subsystem)' == '' or '%(Link.Subsystem)' == 'NotSet')) was evaluated as ('' != '' and ('Windows' == '' or 'Windows' == 'NotSet')).
      1>Done building target "DoLinkOutputFilesMatch" in project "Game.vcxproj".
      1>Target "PreLinkEvent" in file "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppCommon.targets" from project "C:\Users\ryem_\source\repos\LudwigJam\Game\Game.vcxproj" (target "_Link" depends on it):
        Task "Message" skipped, due to false condition; ('%(PreLinkEvent.Message)' != '' and '%(PreLinkEvent.Command)' != '') was evaluated as ('' != '' and '' != '').
@@ -1474,11 +1476,11 @@ Logging verbosity is set to: Detailed.     1>Project "C:\Users\ryem_\source\repo
          	Debug\Game.tlog\link.write.1.tlog
          Read Tracking Logs:
          	Debug\Game.tlog\link.read.1.tlog
-         Outputs for C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\DEBUG\HALTEC.LIB|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\GAME\DEBUG\ENTRY.OBJ:
+         Outputs for C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\DEBUG\HALTEC.LIB|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\GAME\DEBUG\BACKGROUNDENTITY.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\GAME\DEBUG\CHARACTER.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\GAME\DEBUG\ENTRY.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\GAME\DEBUG\PLAYER.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\GAME\DEBUG\PLAYSTATE.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\GAME\DEBUG\TESTENTITY.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\GAME\DEBUG\WORLDOBJECT.OBJ:
          	C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\DEBUG\GAME.EXE
          	C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\GAME\DEBUG\GAME.ILK
          	C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\DEBUG\GAME.PDB
-         Inputs for C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\DEBUG\HALTEC.LIB|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\GAME\DEBUG\ENTRY.OBJ:
+         Inputs for C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\DEBUG\HALTEC.LIB|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\GAME\DEBUG\BACKGROUNDENTITY.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\GAME\DEBUG\CHARACTER.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\GAME\DEBUG\ENTRY.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\GAME\DEBUG\PLAYER.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\GAME\DEBUG\PLAYSTATE.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\GAME\DEBUG\TESTENTITY.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\GAME\DEBUG\WORLDOBJECT.OBJ:
          	C:\PROGRAM FILES (X86)\WINDOWS KITS\10\LIB\10.0.19041.0\UM\X86\KERNEL32.LIB
          	C:\PROGRAM FILES (X86)\WINDOWS KITS\10\LIB\10.0.19041.0\UM\X86\USER32.LIB
          	C:\PROGRAM FILES (X86)\WINDOWS KITS\10\LIB\10.0.19041.0\UM\X86\GDI32.LIB
@@ -1491,21 +1493,41 @@ Logging verbosity is set to: Detailed.     1>Project "C:\Users\ryem_\source\repo
          	C:\PROGRAM FILES (X86)\WINDOWS KITS\10\LIB\10.0.19041.0\UM\X86\UUID.LIB
          	C:\PROGRAM FILES (X86)\WINDOWS KITS\10\LIB\10.0.19041.0\UM\X86\ODBC32.LIB
          	C:\PROGRAM FILES (X86)\WINDOWS KITS\10\LIB\10.0.19041.0\UM\X86\ODBCCP32.LIB
+         	C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\GAME\DEBUG\BACKGROUNDENTITY.OBJ
+         	C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\GAME\DEBUG\CHARACTER.OBJ
          	C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\GAME\DEBUG\ENTRY.OBJ
+         	C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\GAME\DEBUG\PLAYER.OBJ
+         	C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\GAME\DEBUG\PLAYSTATE.OBJ
+         	C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\GAME\DEBUG\TESTENTITY.OBJ
+         	C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\GAME\DEBUG\WORLDOBJECT.OBJ
          	C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\DEBUG\HALTEC.LIB
          	C:\WINDOWS\SYSTEM32\TZRES.DLL
          	C:\WINDOWS\GLOBALIZATION\SORTING\SORTDEFAULT.NLS
+         	C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2019\COMMUNITY\VC\TOOLS\MSVC\14.29.30037\LIB\X86\MSVCPRTD.LIB
          	C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2019\COMMUNITY\VC\TOOLS\MSVC\14.29.30037\LIB\X86\MSVCRTD.LIB
          	C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2019\COMMUNITY\VC\TOOLS\MSVC\14.29.30037\LIB\X86\OLDNAMES.LIB
          	C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2019\COMMUNITY\VC\TOOLS\MSVC\14.29.30037\LIB\X86\VCRUNTIMED.LIB
          	C:\PROGRAM FILES (X86)\WINDOWS KITS\10\LIB\10.0.19041.0\UCRT\X86\UCRTD.LIB
-         Source compilation required: input C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\GAME\DEBUG\ENTRY.OBJ is newer than output C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\DEBUG\GAME.PDB.
+         	C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2019\COMMUNITY\VC\TOOLS\MSVC\14.29.30037\BIN\HOSTX86\X86\CVTRES.EXE
+         Source compilation required: input C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\DEBUG\HALTEC.LIB is newer than output C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\DEBUG\GAME.EXE.
          Environment Variables passed to tool:
-           VS_UNICODE_OUTPUT=1888
-         C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\bin\HostX86\x86\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\ryem_\source\repos\LudwigJam\Debug\Game.exe" /INCREMENTAL /ILK:"Debug\Game.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\ryem_\source\repos\LudwigJam\Debug\Game.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\ryem_\source\repos\LudwigJam\Debug\Game.lib" /MACHINE:X86 Debug\entry.obj
+           VS_UNICODE_OUTPUT=1296
+         C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\bin\HostX86\x86\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\ryem_\source\repos\LudwigJam\Debug\Game.exe" /INCREMENTAL /ILK:"Debug\Game.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\ryem_\source\repos\LudwigJam\Debug\Game.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\ryem_\source\repos\LudwigJam\Debug\Game.lib" /MACHINE:X86 Debug\BackgroundEntity.obj
+         Debug\Character.obj
+         Debug\entry.obj
+         Debug\Player.obj
+         Debug\PlayState.obj
+         Debug\TestEntity.obj
+         Debug\WorldObject.obj
          C:\Users\ryem_\source\repos\LudwigJam\Debug\HalTec.lib
          Tracking command:
-         C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\Tracker.exe /a /d "C:\Program Files (x86)\MSBuild\15.0\FileTracker\FileTracker32.dll" /i C:\Users\ryem_\source\repos\LudwigJam\Game\Debug\Game.tlog /r "C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\DEBUG\HALTEC.LIB|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\GAME\DEBUG\ENTRY.OBJ" /b MSBuildConsole_CancelEvent85ecfdf319e84b95ba0bcfd72b3ca6ea  /c "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\bin\HostX86\x86\link.exe"  /ERRORREPORT:PROMPT /OUT:"C:\Users\ryem_\source\repos\LudwigJam\Debug\Game.exe" /INCREMENTAL /ILK:"Debug\Game.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\ryem_\source\repos\LudwigJam\Debug\Game.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\ryem_\source\repos\LudwigJam\Debug\Game.lib" /MACHINE:X86 Debug\entry.obj
+         C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\Tracker.exe /a /d "C:\Program Files (x86)\MSBuild\15.0\FileTracker\FileTracker32.dll" /i C:\Users\ryem_\source\repos\LudwigJam\Game\Debug\Game.tlog /r "C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\DEBUG\HALTEC.LIB|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\GAME\DEBUG\BACKGROUNDENTITY.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\GAME\DEBUG\CHARACTER.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\GAME\DEBUG\ENTRY.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\GAME\DEBUG\PLAYER.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\GAME\DEBUG\PLAYSTATE.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\GAME\DEBUG\TESTENTITY.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\GAME\DEBUG\WORLDOBJECT.OBJ" /b MSBuildConsole_CancelEvent1b60eac7dacd4583898c0d5669c3b67c  /c "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\bin\HostX86\x86\link.exe"  /ERRORREPORT:PROMPT /OUT:"C:\Users\ryem_\source\repos\LudwigJam\Debug\Game.exe" /INCREMENTAL /ILK:"Debug\Game.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\ryem_\source\repos\LudwigJam\Debug\Game.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\ryem_\source\repos\LudwigJam\Debug\Game.lib" /MACHINE:X86 Debug\BackgroundEntity.obj
+         Debug\Character.obj
+         Debug\entry.obj
+         Debug\Player.obj
+         Debug\PlayState.obj
+         Debug\TestEntity.obj
+         Debug\WorldObject.obj
          C:\Users\ryem_\source\repos\LudwigJam\Debug\HalTec.lib
        Done executing task "Link".
        Task "Message"
@@ -1735,4 +1757,4 @@ Build succeeded.
     0 Warning(s)
     0 Error(s)
 
-Time Elapsed 00:00:00.50
+Time Elapsed 00:00:00.44

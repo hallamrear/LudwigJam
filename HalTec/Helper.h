@@ -1,5 +1,11 @@
 #pragma once
 #include <random>
+#include "Vector2.h"
+#include "Vector3.h"
+
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
 
 //Works equally each direction from 0
 //e.g. GetRandomIntExcludingCentre(256, 128)
@@ -48,4 +54,16 @@ inline Vector2f RotatePointAroundOriginRadians(Vector2f point, float rotation, V
 inline Vector2f RotatePointAroundOriginDegrees(Vector2f point, float rotation, Vector2f origin)
 {
 	return RotatePointAroundOriginRadians(point, ConvertToRadians(rotation), origin);
+}
+
+inline static Vector2f LerpPoint(Vector2f start, Vector2f end, double time)
+{
+	return (start * (1 - time) + end * time);
+}
+
+//Returns -1 if val < 0, 1 if val > 0, 0 if val == 0
+template <typename T>
+inline int Sign(T val) 
+{
+	return (T(0) < val) - (val < T(0));
 }
