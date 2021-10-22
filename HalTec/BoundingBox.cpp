@@ -43,9 +43,9 @@ void BoundingBox::Render(SDL_Renderer& renderer)
 
 void BoundingBox::GetBoxAsPoints(Vector2f points[]) const
 {
-	points[0] = Vector2f(TopLeft.X, BottomRight.Y);
+	points[0] = Vector2f(TopLeft.X, BottomRight.Y); //BottomLeft
 	points[1] = BottomRight;
-	points[2] = Vector2f(BottomRight.X, TopLeft.Y);
+	points[2] = Vector2f(BottomRight.X, TopLeft.Y); //TopRight
 	points[3] = TopLeft;
 }
 

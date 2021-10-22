@@ -5,14 +5,17 @@
 #include <array>
 #include <vector>
 
+struct BoundingSphere;
+struct BoundingBox;
+struct OrientedBoundingBox;
 struct SDL_Renderer;
+class Entity;
 
 struct CollisionManifold
 {
 	bool HasCollided = false;
 	float Depth;
 	Vector2f Normal;
-	std::vector<Vector2f> ContactPositions;
 };
 
 enum class COLLIDER_TYPE
@@ -38,76 +41,22 @@ public:
 	virtual void Render(SDL_Renderer& renderer) = 0;
 
 	virtual Vector2f FindFurthestPoint(Vector2f direction) const = 0;
+	virtual void GetBoxAsPoints(Vector2f points[]) const = 0;
 };
  
-namespace Collision_Detection
+static class Collision
 {
-	namespace
-	{
-		bool SeperatingAxisTheory(const int shapeOnePointCount, const Vector2f shapeOnePoints[], const int shapeTwoPointCount, const Vector2f shapeTwoPoints[], CollisionManifold* manifold)
-		{
-			const Vector2f* pointsOne = shapeOnePoints;
-			const Vector2f* pointsTwo = shapeTwoPoints;
-			manifold->HasCollided = true;
+private:
+	static bool CheckCollision_AABBvsAABB(const BoundingBox& one, const BoundingBox& two, CollisionManifold* const manifold);
+	static bool CheckCollision_OBBvsSPHERE(const OrientedBoundingBox& one, const BoundingSphere& two, CollisionManifold* const manifold);
+	static bool CheckCollision_AABBvsSPHERE(const BoundingBox& one, const BoundingSphere& two, CollisionManifold* const manifold);
+	static bool CheckCollision_SPHEREvsSPHERE(const BoundingSphere& one, const BoundingSphere& two, CollisionManifold* const manifold);
+	static bool CheckCollision_OBBvsOBB(const OrientedBoundingBox& one, const OrientedBoundingBox& two, CollisionManifold* const manifold);
+	static bool CheckCollision_AABBvsOBB(const BoundingBox& one, const OrientedBoundingBox& two, CollisionManifold* const manifold);
+	static bool SeperatingAxisTheory(const int shapeOnePointCount, const Collider& one, const int shapeTwoPointCount, const Collider& two, CollisionManifold* manifold);
+	static bool SeperatingAxisTheory_Depreciated(const int shapeOnePointCount, const Collider& one, const int shapeTwoPointCount, const Collider& two, CollisionManifold* manifold);
 
-			//todo : remove
-			float output[4];
-
-			//todo : Make this useable with n points.
-			for (int s = 0; s < 2; s++)
-			{
-				if (s == 1)
-				{
-					pointsTwo = shapeOnePoints;
-					pointsOne = shapeTwoPoints;
-				}
-				else
-				{
-					pointsOne = shapeOnePoints;
-					pointsTwo = shapeTwoPoints;
-				}
-
-				//Check shape one in each direction
-				for (size_t a = 0; a < shapeOnePointCount; a++)
-				{
-					//wraparound
-					int b = (a + 1) % shapePointCount;
-
-					Vector2f axisProj = Vector2f(-(pointsOne[b].Y - pointsOne[a].Y), (pointsOne[b].X - pointsOne[a].X));
-
-					float min_r1 = INFINITY, max_r1 = -INFINITY, min_r2 = INFINITY, max_r2 = -INFINITY;
-					for (size_t P = 0; P < shapePointCount; P++)
-					{
-						//project each point onto line 
-						float q_one = pointsOne[P].Dot(axisProj);
-						float q_two = pointsTwo[P].Dot(axisProj);
-
-						//get the min and max of the projection extents
-						min_r1 = std::min(min_r1, q_one);
-						max_r1 = std::max(max_r1, q_one);
-						min_r2 = std::min(min_r2, q_two);
-						max_r2 = std::max(max_r2, q_two);
-
-						output[0] = min_r1;
-						output[1] = max_r1;
-						output[2] = min_r2;
-						output[3] = max_r2;
-					}
-
-					//if they overlap, continue else if they dont, theyre not colliding so can return
-					if (!(max_r2 >= min_r1) && (max_r1 >= min_r2))
-					{
-						manifold->HasCollided = false;
-						break;
-						//return false;
-					}
-				}
-			}
-
-			//todo : construct manifold
-			return manifold->HasCollided;
-		}
-	}
-
-	bool CheckCollision(const Collider& one, const Collider& two, CollisionManifold* manifold);
-}
+public:
+	static bool CheckCollision(const Collider& one, const Collider& two, CollisionManifold* manifold);
+	static void ResolveCollision(Entity& one, Entity& two, CollisionManifold* const manifold);
+};

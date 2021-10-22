@@ -1,50 +1,55 @@
 #include "pch.h"
 #include "Animation.h"
 #include "Game.h"
+#include "TextureCache.h"
 
-Animation::Animation(std::string sheetPath, unsigned int frameCount, float duration, bool looping)
-	: Texture(sheetPath)
+AnimationController::AnimationController(std::string sheetPath, unsigned int animationCount, unsigned int frameCountPerAnimation, float duration, bool looping)
 {
-	mCurrentFrame = 0;
+	mAnimationSheet = TextureCache::GetTexture(sheetPath);
 	mTimeElapsed = 0.0f;
-	mLooping = looping;
-	mTotalDuration = duration;
-	mTotalFrames = frameCount;
-	mTimeBetweenFrames = mTotalDuration / (float)(mTotalFrames);
-	FrameWidth = Width / (float)mTotalFrames;
-	FrameHeight = Height;
+	mIsLooping = looping;
+	mDuration = duration;
+	mTotalFrames = frameCountPerAnimation;
+	mTimeBetweenFrames = mDuration / (float)(mTotalFrames);
+	FrameSize = Vector2f(mAnimationSheet->Width / (float)mTotalFrames, mAnimationSheet->Height / (float)animationCount);
 }
 
-Animation::~Animation()
+AnimationController::~AnimationController()
 {
-
+	mAnimationSheet = nullptr;
 }
 
-void Animation::Update(double deltaTime)
+void AnimationController::SetAnimation(unsigned int animation)
 {
-	if (mTexture)
+	mCurrentAnimation = animation;
+}
+
+void AnimationController::Update(double deltaTime)
+{
+	if (mAnimationSheet)
 	{
 		mTimeElapsed += deltaTime;
 
-		if (mTimeElapsed > mTotalDuration)
+		if (mTimeElapsed > mDuration)
 		{
-			if (mLooping)
+			if (mIsLooping)
 			{
 				mTimeElapsed = 0.0f;
 				mCurrentFrame = 0;
 			}
 		}
 		else
+		{
 			mCurrentFrame = (unsigned int)(mTimeElapsed / mTimeBetweenFrames);
+		}
 	}
 }
 
-void Animation::Render(SDL_Renderer& renderer, Vector2f position, float rotation)
+void AnimationController::Render(SDL_Renderer& renderer, Vector2f position, float rotation)
 {
-	if (mTexture)
+	if (mAnimationSheet)
 	{
-		Vector2f srcDim = Vector2f(FrameWidth, FrameHeight);
-		Vector2f srcPos = Vector2f((srcDim.X * mCurrentFrame) + (srcDim.X / 2.0f), FrameHeight / 2.0f);
-		Texture::Render(*Game::Renderer, position, rotation, srcPos, srcDim);
+		Vector2f srcPos = Vector2f((FrameSize.X * mCurrentFrame) + (FrameSize.X / 2.0f), (FrameSize.Y * mCurrentAnimation) + FrameSize.Y / 2.0f);
+		mAnimationSheet->Render(*Game::Renderer, position, rotation, srcPos, FrameSize);	
 	}
 }

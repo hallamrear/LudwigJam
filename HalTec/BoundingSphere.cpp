@@ -43,3 +43,8 @@ Vector2f BoundingSphere::FindFurthestPoint(Vector2f direction) const
 {
 	return mOrigin + (direction.GetNormalized() * Radius);
 }
+
+void BoundingSphere::GetBoxAsPoints(Vector2f points[]) const
+{
+	//todo : fillout;
+}

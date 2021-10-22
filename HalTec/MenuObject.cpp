@@ -4,9 +4,9 @@
 #include "Texture.h"
 
 MenuObject::MenuObject(std::string texture_path, Vector2f position, float rotation)
-	: Entity(texture_path, position, rotation, 0.0f, 0.0f, 0.0f)
+	: Entity(texture_path, position, rotation, true, 0.0f, 0.0f, 0.0f)
 {
-	mPhysicsEnabled = false;
+	mIsStatic = true;
 	mDragEnabled = false;
 	mCollider = new BoundingBox(position, (float)mTexture->Width, (float)mTexture->Height);
 }
@@ -22,7 +22,6 @@ void MenuObject::Update(double deltaTime)
 
 	if (mCollider)
 	{
-		mCollider->mOrigin = mPosition;
 		mCollider->Update(deltaTime);
 	}
 }
@@ -34,9 +33,9 @@ void MenuObject::Render()
 		SDL_Rect destRect{};
 		destRect.w = mTexture->Width;
 		destRect.h = mTexture->Height;
-		destRect.x = (int)(mPosition.X - (destRect.w / 2.0f));
-		destRect.y = (int)(mPosition.Y - (destRect.h / 2.0f));
-		SDL_RenderCopyEx(&mRenderer, &mTexture->GetSDLTexture(), NULL, &destRect, mRotation, NULL, SDL_FLIP_NONE);
+		destRect.x = (int)(mTransform.Position.X - (destRect.w / 2.0f));
+		destRect.y = (int)(mTransform.Position.Y - (destRect.h / 2.0f));
+		SDL_RenderCopyEx(&mRenderer, &mTexture->GetSDLTexture(), NULL, &destRect, mTransform.Rotation, NULL, SDL_FLIP_NONE);
 
 		if (mCollider)
 			mCollider->Render(mRenderer);

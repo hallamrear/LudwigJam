@@ -11,10 +11,10 @@
        Property reassignment: $(PlatformToolset)="v100" (previous value: "") at C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Platforms\Win32\Platform.Default.props (29,5)
        The "LangID" property is a global property, and cannot be modified.
        The "SolutionDir" property is a global property, and cannot be modified.
-       Property reassignment: $(ConfigurationType)="StaticLibrary" (previous value: "Application") at C:\Users\ryem_\source\repos\LudwigJam\HalTec\HalTec.vcxproj (82,5)
-       Property reassignment: $(UseDebugLibraries)="true" (previous value: "false") at C:\Users\ryem_\source\repos\LudwigJam\HalTec\HalTec.vcxproj (83,5)
-       Property reassignment: $(PlatformToolset)="v142" (previous value: "v100") at C:\Users\ryem_\source\repos\LudwigJam\HalTec\HalTec.vcxproj (84,5)
-       Property reassignment: $(CharacterSet)="Unicode" (previous value: "NotSet") at C:\Users\ryem_\source\repos\LudwigJam\HalTec\HalTec.vcxproj (85,5)
+       Property reassignment: $(ConfigurationType)="StaticLibrary" (previous value: "Application") at C:\Users\ryem_\source\repos\LudwigJam\HalTec\HalTec.vcxproj (83,5)
+       Property reassignment: $(UseDebugLibraries)="true" (previous value: "false") at C:\Users\ryem_\source\repos\LudwigJam\HalTec\HalTec.vcxproj (84,5)
+       Property reassignment: $(PlatformToolset)="v142" (previous value: "v100") at C:\Users\ryem_\source\repos\LudwigJam\HalTec\HalTec.vcxproj (85,5)
+       Property reassignment: $(CharacterSet)="Unicode" (previous value: "NotSet") at C:\Users\ryem_\source\repos\LudwigJam\HalTec\HalTec.vcxproj (86,5)
        Property reassignment: $(WindowsSDK_ExecutablePath_x86)="C:\Program Files (x86)\Windows Kits\10\bin\10.0.19041.0\x86;;C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools" (previous value: "C:\Program Files (x86)\Windows Kits\10\bin\10.0.19041.0\x86;") at C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.Cpp.WindowsSDK.props (199,5)
        Property reassignment: $(WindowsSDK_ExecutablePath_x64)="C:\Program Files (x86)\Windows Kits\10\bin\10.0.19041.0\x64;;C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools\x64" (previous value: "C:\Program Files (x86)\Windows Kits\10\bin\10.0.19041.0\x64;") at C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.Cpp.WindowsSDK.props (200,5)
        Property reassignment: $(TargetExt)=".lib" (previous value: "") at C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.Cpp.Common.props (43,5)
@@ -32,7 +32,7 @@
        Property reassignment: $(EspXtensions)="ConcurrencyCheck.dll;VariantClear.dll;HResultCheck.dll;EnumIndex.dll;CppCoreCheck.dll;" (previous value: "VariantClear.dll;HResultCheck.dll;EnumIndex.dll;CppCoreCheck.dll;") at C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CodeAnalysis.Extensions.props (32,5)
        Property reassignment: $(MsvcAnalysisToolsPath)="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\bin\HostX86\x86" (previous value: "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\bin\HostX64\x86") at C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.Cpp.Analysis.props (28,5)
        Property reassignment: $(_PropertySheetDisplayName)="Unicode Support" (previous value: "Core Windows Libraries") at C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.Cpp.unicodesupport.props (15,5)
-       Property reassignment: $(IncludePath)="" (previous value: "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\include;;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\atlmfc\include;;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\VS\include;;C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt;;;C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um;C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\shared;C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\winrt;C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\cppwinrt;C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\Include\um;") at C:\Users\ryem_\source\repos\LudwigJam\HalTec\HalTec.vcxproj (127,5)
+       Property reassignment: $(IncludePath)="" (previous value: "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\include;;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\atlmfc\include;;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\VS\include;;C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt;;;C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um;C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\shared;C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\winrt;C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\cppwinrt;C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\Include\um;") at C:\Users\ryem_\source\repos\LudwigJam\HalTec\HalTec.vcxproj (128,5)
        The "SolutionExt" property is a global property, and cannot be modified.
        Property reassignment: $(ExtensionsToDeleteOnClean)="*.cdf;*.cache;*.obj;*.obj.enc;*.ilk;*.ipdb;*.iobj;*.resources;*.tlb;*.tli;*.tlh;*.tmp;*.rsp;*.pgc;*.pgd;*.meta;*.tlog;*.manifest;*.res;*.pch;*.exp;*.idb;*.rep;*.xdc;*.pdb;*_manifest.rc;*.bsc;*.sbr;*.xml;*.metagen;*.bi;C:\Users\ryem_\source\repos\LudwigJam\Debug\HalTec.lib.manifest;C:\Users\ryem_\source\repos\LudwigJam\Debug\HalTec.tlb;C:\Users\ryem_\source\repos\LudwigJam\Debug\HalTec.pdb;C:\Users\ryem_\source\repos\LudwigJam\Debug\HalTec.lib;C:\Users\ryem_\source\repos\LudwigJam\Debug\HalTec.bsc;C:\Users\ryem_\source\repos\LudwigJam\Debug\HalTec.ilk;C:\Users\ryem_\source\repos\LudwigJam\Debug\HalTec.lib.intermediate.manifest;" (previous value: "*.cdf;*.cache;*.obj;*.obj.enc;*.ilk;*.ipdb;*.iobj;*.resources;*.tlb;*.tli;*.tlh;*.tmp;*.rsp;*.pgc;*.pgd;*.meta;*.tlog;*.manifest;*.res;*.pch;*.exp;*.idb;*.rep;*.xdc;*.pdb;*_manifest.rc;*.bsc;*.sbr;*.xml;*.metagen;*.bi") at C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppCommon.targets (38,5)
        Search paths being used for $(MSBuildExtensionsPath) are C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild;$(MSBuildProgramFiles32)\MSBuild
@@ -950,7 +950,7 @@
        Overriding target "ComputeMetaGenInputs" in project "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.MetaGen.targets" with target "ComputeMetaGenInputs" from project "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppCommon.targets".
        Overriding target "GetNativeManifest" in project "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\Microsoft.Common.CurrentVersion.targets" with target "GetNativeManifest" from project "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppCommon.targets".
        Overriding target "GetTargetPathWithTargetPlatformMoniker" in project "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\Microsoft.Common.CurrentVersion.targets" with target "GetTargetPathWithTargetPlatformMoniker" from project "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.Cpp.DesignTime.targets".
-Build started 21/10/2021 13:29:35.
+Build started 22/10/2021 16:55:19.
 Logging verbosity is set to: Detailed.     1>Project "C:\Users\ryem_\source\repos\LudwigJam\HalTec\HalTec.vcxproj" on node 2 (Build target(s)).
      1>Building with tools version "Current".
        Target "EnableIntermediateOutputPathMismatchWarning" skipped, due to false condition; ('$(RestoreProjectStyle)' == 'PackageReference') was evaluated as ('' == 'PackageReference').
@@ -974,10 +974,10 @@ Logging verbosity is set to: Detailed.     1>Project "C:\Users\ryem_\source\repo
      1>Target "SetTelemetryEnvironmentVariables" in file "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.Cpp.DesignTime.targets" from project "C:\Users\ryem_\source\repos\LudwigJam\HalTec\HalTec.vcxproj" (target "Build" depends on it):
        Using "SetEnv" task from assembly "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.Build.CppTasks.Common.dll".
        Task "SetEnv"
-         VSTEL_SolutionSessionID={F6FC1B47-27E6-42D9-86F9-EA2F9F4719B9}
+         VSTEL_SolutionSessionID={42821D8C-EE71-4E1E-A875-44EBDBA33648}
        Done executing task "SetEnv".
        Task "SetEnv"
-         VSTEL_CurrentSolutionBuildID=2731802524
+         VSTEL_CurrentSolutionBuildID=2830546351
        Done executing task "SetEnv".
        Task "SetEnv"
          VSTEL_ProjectID={fc634c3f-76c8-42fe-85f7-e95166ade622}
@@ -1147,7 +1147,7 @@ Logging verbosity is set to: Detailed.     1>Project "C:\Users\ryem_\source\repo
        Done executing task "WriteLinesToFile".
        Using "Touch" task from assembly "Microsoft.Build.Tasks.Core, Version=15.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a".
        Task "Touch"
-         Touching "Debug\HalTec.tlog\unsuccessfulbuild".
+         Creating "Debug\HalTec.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
        Done executing task "Touch".
      1>Done building target "InitializeBuildStatus" in project "HalTec.vcxproj".
        Target "PrepareProjectReferences" skipped. Previously built successfully.
@@ -1320,30 +1320,52 @@ Logging verbosity is set to: Detailed.     1>Project "C:\Users\ryem_\source\repo
          	C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\DEBUG\TEXTURE.OBJ
          	C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\DEBUG\TEXTURECACHE.OBJ
          	C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\DEBUG\TIME.OBJ
-         Collision.cpp will be compiled because it was not found in the tracking log.
-         MenuObject.cpp will be compiled because it was not found in the tracking log.
-         OrientedBoundingBox.cpp will be compiled because it was not found in the tracking log.
-         No output for C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\COLLISION.CPP|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\MENUOBJECT.CPP|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\ORIENTEDBOUNDINGBOX.CPP was found in the tracking log; source compilation required.
+         Collision.cpp will be compiled because C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\ENTITY.H was modified at 22/10/2021 16:54:54.
+         Entity.cpp will be compiled because C:\Users\ryem_\source\repos\LudwigJam\HalTec\Entity.cpp was modified at 22/10/2021 16:55:18.
+         Log.cpp will be compiled because C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\ENTITY.H was modified at 22/10/2021 16:54:54.
+         MenuObject.cpp will be compiled because C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\ENTITY.H was modified at 22/10/2021 16:54:54.
+         TextElement.cpp will be compiled because C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\ENTITY.H was modified at 22/10/2021 16:54:54.
+         No output for C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\COLLISION.CPP|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\ENTITY.CPP|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\LOG.CPP|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\MENUOBJECT.CPP|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\TEXTELEMENT.CPP was found in the tracking log; source compilation required.
          Write Tracking Logs:
          	Debug\HalTec.tlog\CL.write.1.tlog
          Environment Variables passed to tool:
-           VS_UNICODE_OUTPUT=2168
-         C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\bin\HostX86\x86\CL.exe /c /IC:\Users\ryem_\source\repos\LudwigJam\HalTec\SDL2_gfx\include /IC:\Users\ryem_\source\repos\LudwigJam\HalTec\SDL2_Text\include /IC:\Users\ryem_\source\repos\LudwigJam\HalTec\SDL2\include /IC:\Users\ryem_\source\repos\LudwigJam\HalTec\SDL2_Image\include /ZI /JMC /nologo /W3 /WX- /diagnostics:column /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _UNICODE /D UNICODE /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /permissive- /Zc:wchar_t /Zc:forScope /Zc:inline /Yu"pch.h" /Fp"Debug\HalTec.pch" /Fo"Debug\\" /Fd"C:\Users\ryem_\source\repos\LudwigJam\Debug\HalTec.pdb" /external:W3 /Gd /TP /analyze- /FC /errorReport:prompt Collision.cpp MenuObject.cpp OrientedBoundingBox.cpp
+           VS_UNICODE_OUTPUT=1420
+         C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\bin\HostX86\x86\CL.exe /c /IC:\Users\ryem_\source\repos\LudwigJam\HalTec\SDL2_gfx\include /IC:\Users\ryem_\source\repos\LudwigJam\HalTec\SDL2_Text\include /IC:\Users\ryem_\source\repos\LudwigJam\HalTec\SDL2\include /IC:\Users\ryem_\source\repos\LudwigJam\HalTec\SDL2_Image\include /ZI /JMC /nologo /W3 /WX- /diagnostics:column /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _UNICODE /D UNICODE /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /permissive- /Zc:wchar_t /Zc:forScope /Zc:inline /Yu"pch.h" /Fp"Debug\HalTec.pch" /Fo"Debug\\" /Fd"C:\Users\ryem_\source\repos\LudwigJam\Debug\HalTec.pdb" /external:W3 /Gd /TP /analyze- /FC /errorReport:prompt Collision.cpp Entity.cpp Log.cpp MenuObject.cpp TextElement.cpp
          Tracking command:
-         C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\Tracker.exe /d "C:\Program Files (x86)\MSBuild\15.0\FileTracker\FileTracker32.dll" /i C:\Users\ryem_\source\repos\LudwigJam\HalTec\Debug\HalTec.tlog /r "C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\COLLISION.CPP|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\MENUOBJECT.CPP|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\ORIENTEDBOUNDINGBOX.CPP" /b MSBuildConsole_CancelEvent2ef46f340cea48c3a29fed99be93a03d  /c "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\bin\HostX86\x86\CL.exe"  /c /IC:\Users\ryem_\source\repos\LudwigJam\HalTec\SDL2_gfx\include /IC:\Users\ryem_\source\repos\LudwigJam\HalTec\SDL2_Text\include /IC:\Users\ryem_\source\repos\LudwigJam\HalTec\SDL2\include /IC:\Users\ryem_\source\repos\LudwigJam\HalTec\SDL2_Image\include /ZI /JMC /nologo /W3 /WX- /diagnostics:column /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _UNICODE /D UNICODE /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /permissive- /Zc:wchar_t /Zc:forScope /Zc:inline /Yu"pch.h" /Fp"Debug\HalTec.pch" /Fo"Debug\\" /Fd"C:\Users\ryem_\source\repos\LudwigJam\Debug\HalTec.pdb" /external:W3 /Gd /TP /analyze- /FC /errorReport:prompt Collision.cpp MenuObject.cpp OrientedBoundingBox.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\Tracker.exe /d "C:\Program Files (x86)\MSBuild\15.0\FileTracker\FileTracker32.dll" /i C:\Users\ryem_\source\repos\LudwigJam\HalTec\Debug\HalTec.tlog /r "C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\COLLISION.CPP|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\ENTITY.CPP|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\LOG.CPP|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\MENUOBJECT.CPP|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\TEXTELEMENT.CPP" /b MSBuildConsole_CancelEvent27e5f940d03347918f35ed2e08e92f49  /c "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\bin\HostX86\x86\CL.exe"  /c /IC:\Users\ryem_\source\repos\LudwigJam\HalTec\SDL2_gfx\include /IC:\Users\ryem_\source\repos\LudwigJam\HalTec\SDL2_Text\include /IC:\Users\ryem_\source\repos\LudwigJam\HalTec\SDL2\include /IC:\Users\ryem_\source\repos\LudwigJam\HalTec\SDL2_Image\include /ZI /JMC /nologo /W3 /WX- /diagnostics:column /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _UNICODE /D UNICODE /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /permissive- /Zc:wchar_t /Zc:forScope /Zc:inline /Yu"pch.h" /Fp"Debug\HalTec.pch" /Fo"Debug\\" /Fd"C:\Users\ryem_\source\repos\LudwigJam\Debug\HalTec.pdb" /external:W3 /Gd /TP /analyze- /FC /errorReport:prompt Collision.cpp Entity.cpp Log.cpp MenuObject.cpp TextElement.cpp
          Collision.cpp
-     1>C:\Users\ryem_\source\repos\LudwigJam\HalTec\Collision.h(71,26): warning C4018: '<': signed/unsigned mismatch
-     1>C:\Users\ryem_\source\repos\LudwigJam\HalTec\Collision.h(79,27): warning C4018: '<': signed/unsigned mismatch
-     1>C:\Users\ryem_\source\repos\LudwigJam\HalTec\Collision.h(99,27): warning C4018: '<': signed/unsigned mismatch
-     1>C:\Users\ryem_\source\repos\LudwigJam\HalTec\Collision.cpp(103,52): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+     1>C:\Users\ryem_\source\repos\LudwigJam\HalTec\Collision.h(62,2): warning C4091: 'static ': ignored on left of 'Collision' when no variable is declared
+     1>C:\Users\ryem_\source\repos\LudwigJam\HalTec\BoundingBox.h(5,2): warning C4099: 'BoundingBox': type name first seen using 'struct' now seen using 'class'
+       C:\Users\ryem_\source\repos\LudwigJam\HalTec\BoundingBox.h(4): message : see declaration of 'BoundingBox'
+     1>C:\Users\ryem_\source\repos\LudwigJam\HalTec\BoundingSphere.h(5,2): warning C4099: 'BoundingSphere': type name first seen using 'struct' now seen using 'class'
+       C:\Users\ryem_\source\repos\LudwigJam\HalTec\BoundingSphere.h(4): message : see declaration of 'BoundingSphere'
+     1>C:\Users\ryem_\source\repos\LudwigJam\HalTec\OrientedBoundingBox.h(4,27): warning C4099: 'OrientedBoundingBox': type name first seen using 'struct' now seen using 'class'
+       C:\Users\ryem_\source\repos\LudwigJam\HalTec\OrientedBoundingBox.h(4): message : see declaration of 'OrientedBoundingBox'
+     1>C:\Users\ryem_\source\repos\LudwigJam\HalTec\Entity.h(61,31): warning C4227: anachronism used: qualifiers on reference are ignored
+     1>C:\Users\ryem_\source\repos\LudwigJam\HalTec\Collision.cpp(97,51): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+     1>C:\Users\ryem_\source\repos\LudwigJam\HalTec\Collision.cpp(130,23): warning C4018: '<': signed/unsigned mismatch
+     1>C:\Users\ryem_\source\repos\LudwigJam\HalTec\Collision.cpp(139,24): warning C4018: '<': signed/unsigned mismatch
+     1>C:\Users\ryem_\source\repos\LudwigJam\HalTec\Collision.cpp(149,24): warning C4018: '<': signed/unsigned mismatch
+     1>C:\Users\ryem_\source\repos\LudwigJam\HalTec\Collision.cpp(180,23): warning C4018: '<': signed/unsigned mismatch
+     1>C:\Users\ryem_\source\repos\LudwigJam\HalTec\Collision.cpp(189,24): warning C4018: '<': signed/unsigned mismatch
+     1>C:\Users\ryem_\source\repos\LudwigJam\HalTec\Collision.cpp(199,24): warning C4018: '<': signed/unsigned mismatch
+     1>C:\Users\ryem_\source\repos\LudwigJam\HalTec\Collision.cpp(262,23): warning C4018: '<': signed/unsigned mismatch
+     1>C:\Users\ryem_\source\repos\LudwigJam\HalTec\Collision.cpp(275,24): warning C4018: '<': signed/unsigned mismatch
+     1>C:\Users\ryem_\source\repos\LudwigJam\HalTec\Collision.cpp(284,24): warning C4018: '<': signed/unsigned mismatch
+     1>C:\Users\ryem_\source\repos\LudwigJam\HalTec\Collision.cpp(316,23): warning C4018: '<': signed/unsigned mismatch
+     1>C:\Users\ryem_\source\repos\LudwigJam\HalTec\Collision.cpp(329,24): warning C4018: '<': signed/unsigned mismatch
+     1>C:\Users\ryem_\source\repos\LudwigJam\HalTec\Collision.cpp(338,24): warning C4018: '<': signed/unsigned mismatch
+         Entity.cpp
+     1>C:\Users\ryem_\source\repos\LudwigJam\HalTec\Entity.h(61,31): warning C4227: anachronism used: qualifiers on reference are ignored
+         Log.cpp
+     1>C:\Users\ryem_\source\repos\LudwigJam\HalTec\Entity.h(61,31): warning C4227: anachronism used: qualifiers on reference are ignored
          MenuObject.cpp
-     1>C:\Users\ryem_\source\repos\LudwigJam\HalTec\Collision.h(71,26): warning C4018: '<': signed/unsigned mismatch
-     1>C:\Users\ryem_\source\repos\LudwigJam\HalTec\Collision.h(79,27): warning C4018: '<': signed/unsigned mismatch
-     1>C:\Users\ryem_\source\repos\LudwigJam\HalTec\Collision.h(99,27): warning C4018: '<': signed/unsigned mismatch
-         OrientedBoundingBox.cpp
-     1>C:\Users\ryem_\source\repos\LudwigJam\HalTec\Collision.h(71,26): warning C4018: '<': signed/unsigned mismatch
-     1>C:\Users\ryem_\source\repos\LudwigJam\HalTec\Collision.h(79,27): warning C4018: '<': signed/unsigned mismatch
-     1>C:\Users\ryem_\source\repos\LudwigJam\HalTec\Collision.h(99,27): warning C4018: '<': signed/unsigned mismatch
+     1>C:\Users\ryem_\source\repos\LudwigJam\HalTec\Entity.h(61,31): warning C4227: anachronism used: qualifiers on reference are ignored
+     1>C:\Users\ryem_\source\repos\LudwigJam\HalTec\Collision.h(62,2): warning C4091: 'static ': ignored on left of 'Collision' when no variable is declared
+     1>C:\Users\ryem_\source\repos\LudwigJam\HalTec\BoundingBox.h(5,2): warning C4099: 'BoundingBox': type name first seen using 'struct' now seen using 'class'
+       C:\Users\ryem_\source\repos\LudwigJam\HalTec\BoundingBox.h(4): message : see declaration of 'BoundingBox'
+         TextElement.cpp
+     1>C:\Users\ryem_\source\repos\LudwigJam\HalTec\Entity.h(61,31): warning C4227: anachronism used: qualifiers on reference are ignored
          Generating Code...
        Done executing task "CL".
        Task "CL" skipped, due to false condition; ('%(ClCompile.PrecompiledHeader)' != 'Create' and '%(ClCompile.CompileAs)'!='CppModule' and '%(ClCompile.ExcludedFromBuild)'!='true' and '%(ClCompile.CompilerIteration)' == '' and @(ClCompile) != '' and '$(MultiProcCL)' != 'true') was evaluated as ('Create' != 'Create' and 'CompileAsCpp'!='CppModule' and ''!='true' and '' == '' and pch.cpp != '' and 'false' != 'true').
@@ -1446,7 +1468,7 @@ Logging verbosity is set to: Detailed.     1>Project "C:\Users\ryem_\source\repo
          	C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2019\COMMUNITY\VC\TOOLS\MSVC\14.29.30037\BIN\HOSTX86\X86\1033\LINKUI.DLL
          Source compilation required: input C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\DEBUG\COLLISION.OBJ is newer than output C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\DEBUG\HALTEC.LIB.
          Environment Variables passed to tool:
-           VS_UNICODE_OUTPUT=1208
+           VS_UNICODE_OUTPUT=1336
          C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\bin\HostX86\x86\Lib.exe /OUT:"C:\Users\ryem_\source\repos\LudwigJam\Debug\HalTec.lib" SDL2_gfx.lib SDL2.lib SDL2main.lib SDL2_image.lib SDL2_ttf.lib /LIBPATH:C:\Users\ryem_\source\repos\LudwigJam\HalTec\SDL2_Image\lib\x86 /LIBPATH:C:\Users\ryem_\source\repos\LudwigJam\HalTec\SDL2\lib\x86 /LIBPATH:C:\Users\ryem_\source\repos\LudwigJam\HalTec\SDL2_Text\lib\x86 /LIBPATH:C:\Users\ryem_\source\repos\LudwigJam\HalTec\SDL2_gfx\lib /NOLOGO /MACHINE:X86 Debug\Animation.obj
          Debug\BoundingBox.obj
          Debug\BoundingSphere.obj
@@ -1468,7 +1490,7 @@ Logging verbosity is set to: Detailed.     1>Project "C:\Users\ryem_\source\repo
          Debug\TextureCache.obj
          Debug\Time.obj
          Tracking command:
-         C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\Tracker.exe /d "C:\Program Files (x86)\MSBuild\15.0\FileTracker\FileTracker32.dll" /i C:\Users\ryem_\source\repos\LudwigJam\HalTec\Debug\HalTec.tlog /r "C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\DEBUG\ANIMATION.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\DEBUG\BOUNDINGBOX.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\DEBUG\BOUNDINGSPHERE.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\DEBUG\CAMERA.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\DEBUG\COLLISION.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\DEBUG\COLOUR.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\DEBUG\ENTITY.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\DEBUG\GAME.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\DEBUG\GAMESTATES.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\DEBUG\INPUTMANAGER.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\DEBUG\LOG.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\DEBUG\MENUOBJECT.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\DEBUG\ORIENTEDBOUNDINGBOX.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\DEBUG\PCH.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\DEBUG\SETTINGS.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\DEBUG\STATEDIRECTOR.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\DEBUG\TEXTELEMENT.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\DEBUG\TEXTURE.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\DEBUG\TEXTURECACHE.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\DEBUG\TIME.OBJ" /b MSBuildConsole_CancelEventabfaa840ce074c1e8fb7406562e63402  /c "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\bin\HostX86\x86\Lib.exe"  /OUT:"C:\Users\ryem_\source\repos\LudwigJam\Debug\HalTec.lib" SDL2_gfx.lib SDL2.lib SDL2main.lib SDL2_image.lib SDL2_ttf.lib /LIBPATH:C:\Users\ryem_\source\repos\LudwigJam\HalTec\SDL2_Image\lib\x86 /LIBPATH:C:\Users\ryem_\source\repos\LudwigJam\HalTec\SDL2\lib\x86 /LIBPATH:C:\Users\ryem_\source\repos\LudwigJam\HalTec\SDL2_Text\lib\x86 /LIBPATH:C:\Users\ryem_\source\repos\LudwigJam\HalTec\SDL2_gfx\lib /NOLOGO /MACHINE:X86 Debug\Animation.obj
+         C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\Tracker.exe /d "C:\Program Files (x86)\MSBuild\15.0\FileTracker\FileTracker32.dll" /i C:\Users\ryem_\source\repos\LudwigJam\HalTec\Debug\HalTec.tlog /r "C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\DEBUG\ANIMATION.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\DEBUG\BOUNDINGBOX.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\DEBUG\BOUNDINGSPHERE.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\DEBUG\CAMERA.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\DEBUG\COLLISION.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\DEBUG\COLOUR.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\DEBUG\ENTITY.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\DEBUG\GAME.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\DEBUG\GAMESTATES.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\DEBUG\INPUTMANAGER.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\DEBUG\LOG.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\DEBUG\MENUOBJECT.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\DEBUG\ORIENTEDBOUNDINGBOX.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\DEBUG\PCH.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\DEBUG\SETTINGS.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\DEBUG\STATEDIRECTOR.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\DEBUG\TEXTELEMENT.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\DEBUG\TEXTURE.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\DEBUG\TEXTURECACHE.OBJ|C:\USERS\RYEM_\SOURCE\REPOS\LUDWIGJAM\HALTEC\DEBUG\TIME.OBJ" /b MSBuildConsole_CancelEvent9c45399ac9f840d88086b22d7761d595  /c "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\bin\HostX86\x86\Lib.exe"  /OUT:"C:\Users\ryem_\source\repos\LudwigJam\Debug\HalTec.lib" SDL2_gfx.lib SDL2.lib SDL2main.lib SDL2_image.lib SDL2_ttf.lib /LIBPATH:C:\Users\ryem_\source\repos\LudwigJam\HalTec\SDL2_Image\lib\x86 /LIBPATH:C:\Users\ryem_\source\repos\LudwigJam\HalTec\SDL2\lib\x86 /LIBPATH:C:\Users\ryem_\source\repos\LudwigJam\HalTec\SDL2_Text\lib\x86 /LIBPATH:C:\Users\ryem_\source\repos\LudwigJam\HalTec\SDL2_gfx\lib /NOLOGO /MACHINE:X86 Debug\Animation.obj
          Debug\BoundingBox.obj
          Debug\BoundingSphere.obj
          Debug\Camera.obj
@@ -1751,16 +1773,30 @@ Build succeeded.
 
        "C:\Users\ryem_\source\repos\LudwigJam\HalTec\HalTec.vcxproj" (Build target) (1) ->
        (ClCompile target) -> 
-         C:\Users\ryem_\source\repos\LudwigJam\HalTec\Collision.h(71,26): warning C4018: '<': signed/unsigned mismatch
-         C:\Users\ryem_\source\repos\LudwigJam\HalTec\Collision.h(79,27): warning C4018: '<': signed/unsigned mismatch
-         C:\Users\ryem_\source\repos\LudwigJam\HalTec\Collision.h(99,27): warning C4018: '<': signed/unsigned mismatch
-         C:\Users\ryem_\source\repos\LudwigJam\HalTec\Collision.cpp(103,52): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-         C:\Users\ryem_\source\repos\LudwigJam\HalTec\Collision.h(71,26): warning C4018: '<': signed/unsigned mismatch
-         C:\Users\ryem_\source\repos\LudwigJam\HalTec\Collision.h(79,27): warning C4018: '<': signed/unsigned mismatch
-         C:\Users\ryem_\source\repos\LudwigJam\HalTec\Collision.h(99,27): warning C4018: '<': signed/unsigned mismatch
-         C:\Users\ryem_\source\repos\LudwigJam\HalTec\Collision.h(71,26): warning C4018: '<': signed/unsigned mismatch
-         C:\Users\ryem_\source\repos\LudwigJam\HalTec\Collision.h(79,27): warning C4018: '<': signed/unsigned mismatch
-         C:\Users\ryem_\source\repos\LudwigJam\HalTec\Collision.h(99,27): warning C4018: '<': signed/unsigned mismatch
+         C:\Users\ryem_\source\repos\LudwigJam\HalTec\Collision.h(62,2): warning C4091: 'static ': ignored on left of 'Collision' when no variable is declared
+         C:\Users\ryem_\source\repos\LudwigJam\HalTec\BoundingBox.h(5,2): warning C4099: 'BoundingBox': type name first seen using 'struct' now seen using 'class'
+         C:\Users\ryem_\source\repos\LudwigJam\HalTec\BoundingSphere.h(5,2): warning C4099: 'BoundingSphere': type name first seen using 'struct' now seen using 'class'
+         C:\Users\ryem_\source\repos\LudwigJam\HalTec\OrientedBoundingBox.h(4,27): warning C4099: 'OrientedBoundingBox': type name first seen using 'struct' now seen using 'class'
+         C:\Users\ryem_\source\repos\LudwigJam\HalTec\Entity.h(61,31): warning C4227: anachronism used: qualifiers on reference are ignored
+         C:\Users\ryem_\source\repos\LudwigJam\HalTec\Collision.cpp(97,51): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+         C:\Users\ryem_\source\repos\LudwigJam\HalTec\Collision.cpp(130,23): warning C4018: '<': signed/unsigned mismatch
+         C:\Users\ryem_\source\repos\LudwigJam\HalTec\Collision.cpp(139,24): warning C4018: '<': signed/unsigned mismatch
+         C:\Users\ryem_\source\repos\LudwigJam\HalTec\Collision.cpp(149,24): warning C4018: '<': signed/unsigned mismatch
+         C:\Users\ryem_\source\repos\LudwigJam\HalTec\Collision.cpp(180,23): warning C4018: '<': signed/unsigned mismatch
+         C:\Users\ryem_\source\repos\LudwigJam\HalTec\Collision.cpp(189,24): warning C4018: '<': signed/unsigned mismatch
+         C:\Users\ryem_\source\repos\LudwigJam\HalTec\Collision.cpp(199,24): warning C4018: '<': signed/unsigned mismatch
+         C:\Users\ryem_\source\repos\LudwigJam\HalTec\Collision.cpp(262,23): warning C4018: '<': signed/unsigned mismatch
+         C:\Users\ryem_\source\repos\LudwigJam\HalTec\Collision.cpp(275,24): warning C4018: '<': signed/unsigned mismatch
+         C:\Users\ryem_\source\repos\LudwigJam\HalTec\Collision.cpp(284,24): warning C4018: '<': signed/unsigned mismatch
+         C:\Users\ryem_\source\repos\LudwigJam\HalTec\Collision.cpp(316,23): warning C4018: '<': signed/unsigned mismatch
+         C:\Users\ryem_\source\repos\LudwigJam\HalTec\Collision.cpp(329,24): warning C4018: '<': signed/unsigned mismatch
+         C:\Users\ryem_\source\repos\LudwigJam\HalTec\Collision.cpp(338,24): warning C4018: '<': signed/unsigned mismatch
+         C:\Users\ryem_\source\repos\LudwigJam\HalTec\Entity.h(61,31): warning C4227: anachronism used: qualifiers on reference are ignored
+         C:\Users\ryem_\source\repos\LudwigJam\HalTec\Entity.h(61,31): warning C4227: anachronism used: qualifiers on reference are ignored
+         C:\Users\ryem_\source\repos\LudwigJam\HalTec\Entity.h(61,31): warning C4227: anachronism used: qualifiers on reference are ignored
+         C:\Users\ryem_\source\repos\LudwigJam\HalTec\Collision.h(62,2): warning C4091: 'static ': ignored on left of 'Collision' when no variable is declared
+         C:\Users\ryem_\source\repos\LudwigJam\HalTec\BoundingBox.h(5,2): warning C4099: 'BoundingBox': type name first seen using 'struct' now seen using 'class'
+         C:\Users\ryem_\source\repos\LudwigJam\HalTec\Entity.h(61,31): warning C4227: anachronism used: qualifiers on reference are ignored
 
 
        "C:\Users\ryem_\source\repos\LudwigJam\HalTec\HalTec.vcxproj" (Build target) (1) ->
@@ -1769,7 +1805,7 @@ Build succeeded.
          SDL2_image.lib(SDL2_image.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in SDL2_gfx.lib(SDL2_gfx.dll); second definition ignored
          SDL2_ttf.lib(SDL2_ttf.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in SDL2_gfx.lib(SDL2_gfx.dll); second definition ignored
 
-    13 Warning(s)
+    27 Warning(s)
     0 Error(s)
 
-Time Elapsed 00:00:00.63
+Time Elapsed 00:00:01.21

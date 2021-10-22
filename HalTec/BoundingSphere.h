@@ -14,4 +14,5 @@ public:
 	virtual void Render(SDL_Renderer& renderer);
 
 	virtual Vector2f FindFurthestPoint(Vector2f direction) const override;
+	virtual void GetBoxAsPoints(Vector2f points[]) const override;
 };

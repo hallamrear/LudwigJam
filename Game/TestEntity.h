@@ -6,7 +6,7 @@ class TestEntity :
 {
 
 public:
-    TestEntity(int testMode, std::string texture, Vector2f position, float rotation);
+    TestEntity(int testmode, std::string texture, Transform transform);
     ~TestEntity();
 
     void Update(double deltaTime);

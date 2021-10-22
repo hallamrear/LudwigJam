@@ -1,13 +1,11 @@
 #include "BackgroundEntity.h"
 #include "Animation.h"
+#include "BoundingBox.h"
 
-#include "OrientedBoundingBox.h"
-
-BackgroundEntity::BackgroundEntity(std::string texture, Vector2f position, float rotation)
-	: Character("", position, rotation)
+BackgroundEntity::BackgroundEntity(std::string texture, Transform transform)
+	: Character("", transform, true)
 {
-	mAnimation = new Animation(texture, 6, 1, true);
-	mCollider = new OrientedBoundingBox(mPosition, mRotation, mAnimation->FrameWidth, mAnimation->FrameHeight);
+	mAnimation = new AnimationController(texture, 1, 6, 1, true);
 }
 
 BackgroundEntity::~BackgroundEntity()
@@ -21,18 +19,14 @@ BackgroundEntity::~BackgroundEntity()
 
 void BackgroundEntity::Update(double deltaTime)
 {
+	Entity::ClampRotation();
+
 	if (mAnimation)
 		mAnimation->Update(deltaTime);
-
-	if (mCollider)
-		mCollider->Update(deltaTime);
 }
 
 void BackgroundEntity::Render()
 {
 	if (mAnimation)
-		mAnimation->Render(mRenderer, mPosition, mRotation);
-
-	if (mCollider)
-		mCollider->Render(mRenderer);
+		mAnimation->Render(mRenderer, mTransform.Position, mTransform.Rotation);
 }

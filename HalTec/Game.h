@@ -25,7 +25,8 @@ private:
 	struct SDL_Window*			mWindow;
 
 	bool		InitialiseGraphics();
-																													//4 == SDL_WINDOW_SHOWN 
+															
+	//4 == SDL_WINDOW_SHOWN 
 	bool		InitialiseWindow(const char* title = "", int xpos = 0, int ypos = 0, int width = 0, int height = 0, unsigned int flags = 4, bool isFullscreen = false);
 	bool		InitialiseWorldObjects();
 	bool		InitialiseSystems(WindowDetails details);

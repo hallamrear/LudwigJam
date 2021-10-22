@@ -17,7 +17,11 @@ private:
 	TextElement* posText;
 	TextElement* velText;
 	TextElement* accText;
-	TextElement* collisionText;
+	CollisionManifold* manifold;
+	CollisionManifold* hitManifold;
+
+	Entity* a = nullptr;
+	Entity* b = nullptr;
 
 	std::vector<Entity*> entities;
 	Player* mPlayer;

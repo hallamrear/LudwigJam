@@ -8,7 +8,7 @@ private:
 	virtual void SetupInput() {};
 
 public:
-	BackgroundEntity(std::string texture, Vector2f position, float rotation);
+	BackgroundEntity(std::string texture, Transform transform);
 	~BackgroundEntity();
 
 	virtual void Update(double deltaTime);

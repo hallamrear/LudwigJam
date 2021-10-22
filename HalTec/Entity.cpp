@@ -4,19 +4,19 @@
 #include "Texture.h"
 #include "TextureCache.h"
 
-Entity::Entity(std::string texture_path, Vector2f position, float rotation, float weight, float dragCoeff, float speedCap)
+Entity::Entity(std::string texture_path, Transform transform, bool isStatic, float weight, float dragCoeff, float speedCap, float restitution)
 	: mRenderer(*Game::Renderer)
 {
+	mTransform = transform;
 	mDragEnabled = false;
-	mPhysicsEnabled = false;
 	mGravityEnabled = false;
 	mIsAlive = true;
+	mIsStatic = isStatic;
 
+	restitution != 0.0f ? mRestitution = weight : mRestitution = 1.0f;
 	weight != 0.0f ? mMass = weight : mMass = 1.0f;
-	speedCap != 0.0f ? mSpeedCap = speedCap : mSpeedCap = FLT_MAX;
+	speedCap != 0.0f ? mSpeedCap = speedCap : mSpeedCap = 1000000.0f;
 	dragCoeff != 0.0f ? mDragCoefficient = dragCoeff : mDragCoefficient = 0.5;
-	mPosition = position;
-	mRotation = rotation;
 
 	mVelocity = Vector2f();
 	mAcceleration = Vector2f();
@@ -24,6 +24,7 @@ Entity::Entity(std::string texture_path, Vector2f position, float rotation, floa
 	mExternalForce = Vector2f();
 
 	AssignTexture(texture_path);
+	CalculateInverseMass();
 }
 
 Entity::~Entity()
@@ -47,6 +48,11 @@ void Entity::AssignTexture(const std::string& texture_path)
 	mTexture = TextureCache::GetTexture(texture_path);
 }
 
+void Entity::FixedUpdate(double deltaTime)
+{
+	UpdatePhysics(deltaTime);
+}
+
 const SDL_Renderer& Entity::GetRendererReference()
 {
 	return mRenderer;
@@ -54,49 +60,61 @@ const SDL_Renderer& Entity::GetRendererReference()
 
 void Entity::ClampRotation()
 {
-	mRotation = fmod(mRotation, 360.0f);
+	mTransform.Rotation = fmod(mTransform.Rotation, 360.0f);
+}
+
+void Entity::CalculateInverseMass()
+{
+	if (GetIsStatic())
+	{
+		mInverseMass = 0.0f;
+	}
+	else
+	{
+		mInverseMass = 1.0f / mMass;
+	}
 }
 
 void Entity::UpdatePhysics(double deltaTime)
 {
-	if (mPhysicsEnabled)
+	if (mIsStatic)
+		return;
+
+	if (GetDragEnabled())
 	{
-		if (mDragEnabled)
-		{
-			///Drag
-			Vector2f dragForce;
-			dragForce.X = -mDragCoefficient * mVelocity.X;
-			dragForce.Y = -mDragCoefficient * mVelocity.Y;
-			mNetForce += dragForce;
-		}
-
-		///External
-		//No need for gravity
-		if(mGravityEnabled)
-			mNetForce += (Settings::Get()->GetGravityDirection() * mMass);
-
-		mNetForce += mExternalForce;
-
-		///Acceleration
-		mAcceleration = Vector2f(mNetForce.X / mMass, mNetForce.Y / mMass);
-
-		///Update Position
-		mVelocity += mAcceleration * static_cast<float>(deltaTime);
-		mPosition += mVelocity;
-
-		///Speed Cap
-		//Capping at 15u/s - X
-		if (mVelocity.X > mSpeedCap)
-			mVelocity.X = mSpeedCap;
-		else if (mVelocity.X < -mSpeedCap)
-			mVelocity.X = -mSpeedCap;
-		//Capping at 15u/s - Y
-		if (mVelocity.Y > mSpeedCap)
-			mVelocity.Y = mSpeedCap;
-		else if (mVelocity.Y < -mSpeedCap)
-			mVelocity.Y = -mSpeedCap;
-
-		mNetForce = Vector2f();
-		mExternalForce = Vector2f();
+		///Drag
+		Vector2f dragForce;
+		dragForce.X = -mDragCoefficient * mVelocity.X;
+		dragForce.Y = -mDragCoefficient * mVelocity.Y;
+		mNetForce += dragForce;
 	}
+
+	///External
+	//No need for gravity
+	if(GetGravityEnabled())
+		mNetForce += (Settings::Get()->GetGravityDirection() * mMass);
+
+	mNetForce += mExternalForce;
+
+	///Acceleration
+	mAcceleration = Vector2f(mNetForce.X / mMass, mNetForce.Y / mMass);
+
+	///Update Position
+	mVelocity += mAcceleration * static_cast<float>(deltaTime);
+	mTransform.Position += mVelocity;
+
+	///Speed Cap
+	//Capping at 15u/s - X
+	if (mVelocity.X > mSpeedCap)
+		mVelocity.X = mSpeedCap;
+	else if (mVelocity.X < -mSpeedCap)
+		mVelocity.X = -mSpeedCap;
+	//Capping at 15u/s - Y
+	if (mVelocity.Y > mSpeedCap)
+		mVelocity.Y = mSpeedCap;
+	else if (mVelocity.Y < -mSpeedCap)
+		mVelocity.Y = -mSpeedCap;
+
+	mNetForce = Vector2f();
+	mExternalForce = Vector2f();
 }

@@ -69,7 +69,17 @@ void Game::SetFullscreen(SCREEN_STATE state)
 	switch (state)
 	{
 	case SCREEN_STATE::WINDOW_FULLSCREEN:
+	{
+		SDL_DisplayMode DM;
+		SDL_GetCurrentDisplayMode(0, &DM);
+		auto Width = DM.w;
+		auto Height = DM.h;
+		SDL_SetWindowSize(mWindow, Width, Height);
 		SDL_SetWindowFullscreen(mWindow, SDL_WINDOW_FULLSCREEN);
+		int w, h;
+		SDL_GetWindowSize(mWindow, &w, &h);
+		Settings::Get()->SetWindowDimensions(Vector2f((float)w, (float)h));
+	}
 		break;
 	case SCREEN_STATE::WINDOW_BORDERLESS_FULLSCREEN:
 		SDL_SetWindowFullscreen(mWindow, SDL_WINDOW_FULLSCREEN_DESKTOP);
@@ -89,7 +99,7 @@ void Game::Initialise(int argc, char* argv[], WindowDetails details)
 	}
 }
 
-bool Game::InitialiseWindow(const char* title, int xpos, int ypos, int width, int height, Uint32 flags, bool isFullscreen)
+bool Game::InitialiseWindow(const char* title, int xpos, int ypos, int width, int height, unsigned int flags, bool isFullscreen)
 {
 	if (mWindow)
 		SDL_DestroyWindow(mWindow);
@@ -287,10 +297,13 @@ void Game::HandleEvents()
 			mIsRunning = false;
 			break;
 
-		case SDL_WINDOWEVENT_RESIZED:
-			int w, h;
-			SDL_GetWindowSize(mWindow, &w, &h);
-			Settings::Get()->SetWindowDimensions(Vector2f((float)w, (float)h));
+		case SDL_WINDOWEVENT:
+			if (event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
+			{
+				int w, h;
+				SDL_GetWindowSize(mWindow, &w, &h);
+				Settings::Get()->SetWindowDimensions(Vector2f((float)w, (float)h));
+			}
 			break;
 
 		case SDL_KEYDOWN:

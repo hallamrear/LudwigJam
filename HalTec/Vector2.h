@@ -42,6 +42,7 @@ public:
 		Y = y;
 	}
 
+	
 	inline float GetMagnitude() const
 	{
 		//Pythagoras
@@ -60,6 +61,13 @@ public:
 	}
 
 	//Operators
+	Vector2f& operator= (const Vector2f& other)
+	{
+		this->X = other.X;
+		this->Y = other.Y;
+
+		return *this;
+	}
 
 	Vector2f operator+(const Vector2f& rhs)
 	{
@@ -109,5 +117,18 @@ public:
 			return true;
 		else
 			return false;
+	}
+
+	friend bool operator==(const Vector2f& lhs, const Vector2f& rhs)
+	{
+		if ((lhs.X == rhs.X) && (lhs.Y == rhs.Y))
+			return true;
+		else
+			return false;
+	}
+
+	friend Vector2f operator-(const Vector2f& lhs, const Vector2f& rhs)
+	{
+		return Vector2f(lhs.X - rhs.X, lhs.Y - rhs.Y);
 	}
 };

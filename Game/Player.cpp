@@ -12,11 +12,12 @@
 #include "../HalTec/SDL2/include/SDL.h"
 #include <Camera.h>
 
-Player::Player(std::string texture, Vector2f position, float rotation)
-	: Character(texture, position, rotation)
+Player::Player(std::string texture, Transform transform)
+	: Character(texture, transform, false)
 {
-	SetPhysicsEnabled(true);
-	SetGravityEnabled(false);
+	mMass = rand() % 200 + 100;
+
+	SetGravityEnabled(true);
 	SetDragEnabled(true);
 
 	if(mAnimation)
@@ -28,10 +29,9 @@ Player::Player(std::string texture, Vector2f position, float rotation)
 	SetupInput();
 
 	mFacingRight = true;
-	mRunningRight = new Animation("Textures/RunningRight.bmp", 8, 1, true);
-	mRunningLeft = new Animation("Textures/RunningLeft.bmp", 8, 1, true);
+	mAnimation = new AnimationController("Textures/testSpriteSheet.bmp", 6, 8, 1, true);
 
-	mCollider = new OrientedBoundingBox(mPosition, mRotation, (float)mRunningRight->FrameWidth, (float)mRunningRight->FrameHeight);
+	mCollider = new OrientedBoundingBox(mTransform.Position, mTransform.Rotation, (float)mAnimation->FrameSize.X, (float)mAnimation->FrameSize.Y);
 }
 
 Player::~Player()
@@ -45,57 +45,57 @@ Player::~Player()
 
 void Player::SetupInput()
 {
-	InputManager::Bind(IM_MOUSE_CODE::IM_MOUSE_SCROLL_UP, IM_KEY_STATE::IM_KEY_PRESSED, [this] { mRotation -= (200.0f * Time::DeltaTime()); });
-	InputManager::Bind(IM_MOUSE_CODE::IM_MOUSE_SCROLL_DOWN, IM_KEY_STATE::IM_KEY_PRESSED, [this] { mRotation += (200.0f * Time::DeltaTime()); });
+	InputManager::Bind(IM_MOUSE_CODE::IM_MOUSE_SCROLL_UP, IM_KEY_STATE::IM_KEY_PRESSED, [this] { mTransform.Rotation += (200.0f * Time::DeltaTime()); });
+	InputManager::Bind(IM_MOUSE_CODE::IM_MOUSE_SCROLL_DOWN, IM_KEY_STATE::IM_KEY_PRESSED, [this] { mTransform.Rotation -= (200.0f * Time::DeltaTime()); });
 	InputManager::Bind(IM_KEY_CODE::IM_KEY_D, IM_KEY_STATE::IM_KEY_HELD, [this] { MoveRight(); });
 	InputManager::Bind(IM_KEY_CODE::IM_KEY_A, IM_KEY_STATE::IM_KEY_HELD, [this] { MoveLeft(); });
 	InputManager::Bind(IM_KEY_CODE::IM_KEY_W, IM_KEY_STATE::IM_KEY_HELD, [this] { MoveUp(); });
 	InputManager::Bind(IM_KEY_CODE::IM_KEY_S, IM_KEY_STATE::IM_KEY_HELD, [this] { MoveDown(); });
 	InputManager::Bind(IM_MOUSE_CODE::IM_MOUSE_MIDDLE_CLICK, IM_KEY_STATE::IM_KEY_PRESSED, [this] 
 		{ 
-			/*float angle = ConvertToRadians(mRotation - 90.0f);
-			Vector2f up;
-			up.X = cos(angle);
-			up.Y = sin(angle);
-			AddForce(up.GetNormalized() * 200.0f);*/
-
-			AddForce(Vector2f(0.0f, 1.0f) * 500.0f);
+			AddForce(mTransform.GetUp() * 50000.0f);
 		});
 }
 
 void Player::MoveDown()
 {
-	AddForce(Vector2f(0.0f, -250.0f * Time::DeltaTime()));
+	AddForce(Vector2f(0.0f, -2500.0f));
 }
 
 void Player::MoveUp()
 {
-	AddForce(Vector2f(0.0f, 250.0f * Time::DeltaTime()));
+	AddForce(Vector2f(0.0f, 2500.0f));
 }
 
 void Player::MoveRight()
 {
 	mFacingRight = true;
-	AddForce(Vector2f(250.0f * Time::DeltaTime(), 0.0f));
+	AddForce(Vector2f(2500.0f, 0.0f));
 }
 
 void Player::MoveLeft()
 {
-	AddForce(Vector2f(-250.0f * Time::DeltaTime(), 0.0f));
 	mFacingRight = false;
+	AddForce(Vector2f(-2500.0f, 0.0f));
 }
 
 void Player::Update(double deltaTime)
 {
+	Entity::ClampRotation();
 	Entity::UpdatePhysics(deltaTime);
 
 	if (mCollider)
 		mCollider->Update(deltaTime);
 
-	if (mFacingRight)
-		mAnimation = mRunningRight;
+	if (abs(mVelocity.X) > 0.2f)
+	{
+		if (mFacingRight)
+			mAnimation->SetAnimation(0);
+		else
+			mAnimation->SetAnimation(2);
+	}
 	else
-		mAnimation = mRunningLeft;
+		mAnimation->SetAnimation(1);
 
 	if (mAnimation)
 		mAnimation->Update(deltaTime);
@@ -103,9 +103,38 @@ void Player::Update(double deltaTime)
 
 void Player::Render()
 {
+	Vector2f basis[4] = { mTransform.GetUp(),  mTransform.GetDown(),  mTransform.GetLeft(),  mTransform.GetRight() };
+	
+
 	if (mAnimation)
-		mAnimation->Render(mRenderer, GetPosition(), GetRotation());
+		mAnimation->Render(mRenderer, mTransform.Position, mTransform.Rotation);
 
 	if(mCollider)
 		mCollider->Render(mRenderer);
+
+
+	Vector2f target;
+	for (size_t i = 0; i < 4; i++)
+	{
+		switch (i)
+		{
+		case 0:
+			SDL_SetRenderDrawColor(&mRenderer, 255, 0, 0, 255);
+			break;
+		case 1:
+			SDL_SetRenderDrawColor(&mRenderer, 255, 255, 0, 255);
+			break;
+		case 2:
+			SDL_SetRenderDrawColor(&mRenderer, 255, 255, 255, 255);
+			break;
+		case 3:
+			SDL_SetRenderDrawColor(&mRenderer, 255, 0, 255, 255);
+			break;
+		}
+
+		target = mTransform.Position + (basis[i] * 60);
+		Vector2f pos = Camera::WorldToScreen(mTransform.Position);
+		target = Camera::WorldToScreen(target);
+		SDL_RenderDrawLine(&mRenderer, pos.X, pos.Y, target.X, target.Y);
+	}
 }

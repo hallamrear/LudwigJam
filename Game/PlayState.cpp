@@ -20,17 +20,27 @@ void PlayState::Start()
 	posText = new TextElement(Vector2f(100.0f, -200.0f));
 	velText = new TextElement(Vector2f(100.0f, -220.0f));
 	accText = new TextElement(Vector2f(100.0f, -240.0f));
-	collisionText = new TextElement(Vector2f(100.0f, -320.0f));
 
-	mPlayer = new Player("", Vector2f(), 0.0f);
-
+	mPlayer = new Player("", Transform(Vector2f(0.0f, 100.0f)));
+	entities.push_back(mPlayer);
 	Settings::Get()->SetDrawColliders(true);
 
-	entities.push_back(new TestEntity(0, "Textures/Floor.bmp", Vector2f(1.0f, 60.0f), 0.0f));
-	entities.push_back(new BackgroundEntity("Textures/Test.bmp", Vector2f(1.0f, 50.0f), 0.0f));
-	entities.push_back(new TestEntity(0, "Textures/Test2.bmp", Vector2f(-150.0f, 250.0f), 0.0f));
-	entities.push_back(new TestEntity(1, "Textures/Test2.bmp", Vector2f(0.0f, 250.0f), 0.0f));
-	entities.push_back(new TestEntity(2, "Textures/Test2.bmp", Vector2f(150.0f, 250.0f), 0.0f));
+	manifold = new CollisionManifold();
+
+	entities.push_back(new StaticWorldObject("Textures/Floor.bmp", Transform()));
+	entities.push_back(new StaticWorldObject("Textures/Floor.bmp", Transform(Vector2f(0.0f, 500.0f))));
+	entities.push_back(new StaticWorldObject("Textures/Floor.bmp", Transform(Vector2f(500.0f, 0.0f), 90.0f)));
+	entities.push_back(new StaticWorldObject("Textures/Floor.bmp", Transform(Vector2f(-500.0f, 0.0f), 90.0f)));
+	entities.push_back(new BackgroundEntity("Textures/Test.bmp", Transform(Vector2f(60.0f, 50.0f))));
+	entities.push_back(new TestEntity(0, "Textures/Test2.bmp", Transform(Vector2f(-300.0f, 250.0f))));
+	entities.push_back(new TestEntity(1, "Textures/Test2.bmp", Transform(Vector2f(-200.0f, 250.0f))));
+	entities.push_back(new TestEntity(2, "Textures/Test2.bmp", Transform(Vector2f(-100.0f, 250.0f))));
+
+	InputManager::Bind(IM_MOUSE_CODE::IM_MOUSE_LEFT_CLICK, IM_KEY_STATE::IM_KEY_PRESSED, [this] 
+	{ 
+		Vector2f position = Camera::ScreenToWorld(InputManager::Get()->GetMousePosition());
+		entities.push_back(new TestEntity(2, "Textures/Test2.bmp", Transform(position)));
+	});
 
 	InputManager::Bind(IM_KEY_CODE::IM_KEY_RIGHT_ARROW, IM_KEY_STATE::IM_KEY_HELD, [this] { Vector2f pos = Camera::GetCameraPosition(); pos.X += Time::DeltaTime() * 200.0f; Camera::SetCameraPosition(pos); });
 	InputManager::Bind(IM_KEY_CODE::IM_KEY_LEFT_ARROW, IM_KEY_STATE::IM_KEY_HELD, [this] { Vector2f pos = Camera::GetCameraPosition(); pos.X -= Time::DeltaTime() * 200.0f; Camera::SetCameraPosition(pos); });
@@ -46,39 +56,44 @@ void PlayState::End()
 
 void PlayState::Update(double deltaTime)
 {
-	CollisionManifold manifold;
-	if (Collision_Detection::CheckCollision(*mPlayer->GetCollider(), *entities[0]->GetCollider(), &manifold))
-		collisionText->SetString("collision");
-	else
-		collisionText->SetString("no collision");
-
-	for (auto& itr : entities)
+	for (auto& one : entities)
 	{
-		itr->Update(deltaTime);
+		for (auto& two : entities)
+		{
+			if (one == two)
+				continue;			
+
+			if (one->GetCollider() && two->GetCollider())
+			{
+				if (Collision::CheckCollision(*one->GetCollider(), *two->GetCollider(), manifold))
+				{
+					Collision::ResolveCollision(*one, *two, manifold);
+					hitManifold = manifold;
+				}
+			}
+		}
+
+		one->Update(deltaTime);
 	}
 
-	Vector2f pos = mPlayer->GetPosition();
-	std::string str = "Pos -> X: " + std::to_string(mPlayer->GetPosition().X) + ", Y: " + std::to_string(mPlayer->GetPosition().Y);
+	Vector2f pos = mPlayer->GetTransform().Position;
+	std::string str = "Pos -> X: " + std::to_string(mPlayer->GetTransform().Position.X) + ", Y: " + std::to_string(mPlayer->GetTransform().Position.Y);
 	posText->SetString(str);
-	posText->SetPosition(pos + Vector2f(0.0f, -10.0f));
+	posText->SetPosition(pos + Vector2f(0.0f, 225.0f));
 	posText->Update(deltaTime);
 
 	str = "Vel -> X: " + std::to_string(mPlayer->GetVelocity().X) + ", Y: " + std::to_string(mPlayer->GetVelocity().Y);
 	velText->SetString(str);
-	velText->SetPosition(pos + Vector2f(0.0f, -30.0f));
+	velText->SetPosition(pos + Vector2f(0.0f, 250.0f));
 	velText->Update(deltaTime);
 
 	str = "Acc -> X: " + std::to_string(mPlayer->GetAcceleration().X) + ", Y: " + std::to_string(mPlayer->GetAcceleration().Y);
 	accText->SetString(str);
-	accText->SetPosition(pos + Vector2f(0.0f, -50.0f));
+	accText->SetPosition(pos + Vector2f(0.0f, 275.0f));
 	accText->Update(deltaTime);
 
-	collisionText->SetPosition(pos + Vector2f(0.0f, -70.0f));
-	collisionText->Update(deltaTime);
-
-	mPlayer->Update(deltaTime);
-
-	Camera::SetCameraPosition(LerpPoint(Camera::GetCameraPosition(), mPlayer->GetPosition(), 2 * deltaTime));
+	float mag = Vector2f(Camera::GetCameraPosition() - mPlayer->GetTransform().Position).GetMagnitude();
+	Camera::SetCameraPosition(LerpPoint(Camera::GetCameraPosition(), mPlayer->GetTransform().Position, mag * deltaTime));
 }
 
 void PlayState::Render(SDL_Renderer& renderer)
@@ -86,10 +101,17 @@ void PlayState::Render(SDL_Renderer& renderer)
 	posText->Render();
 	velText->Render();
 	accText->Render();
-	collisionText->Render();
 
 	for (auto& itr : entities)
 		itr->Render();
 
-	mPlayer->Render();
+	if (a && b)
+	{
+		Vector2f p1, p2;
+		p1 = b->GetTransform().Position;
+		p2 = p1 + (hitManifold->Normal * hitManifold->Depth);
+		p1 = Camera::WorldToScreen(p1);
+		p2 = Camera::WorldToScreen(p2);
+		SDL_RenderDrawLine(&renderer, p1.X, p1.Y, p2.X, p2.Y);
+	}	
 }
