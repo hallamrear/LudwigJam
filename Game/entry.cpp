@@ -9,8 +9,6 @@ void SetupStates()
 {
 	StateDirector::SetupState(GAME_STATE_PLAYING, new PlayState());
 	StateDirector::SetState(GAME_STATE_PLAYING);
-
-
 }
 
 INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,

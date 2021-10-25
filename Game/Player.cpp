@@ -15,8 +15,6 @@
 Player::Player(std::string texture, Transform transform)
 	: Character(texture, transform, false)
 {
-	mMass = rand() % 200 + 100;
-
 	SetGravityEnabled(true);
 	SetDragEnabled(true);
 
@@ -45,8 +43,8 @@ Player::~Player()
 
 void Player::SetupInput()
 {
-	InputManager::Bind(IM_MOUSE_CODE::IM_MOUSE_SCROLL_UP, IM_KEY_STATE::IM_KEY_PRESSED, [this] { mTransform.Rotation += (200.0f * Time::DeltaTime()); });
-	InputManager::Bind(IM_MOUSE_CODE::IM_MOUSE_SCROLL_DOWN, IM_KEY_STATE::IM_KEY_PRESSED, [this] { mTransform.Rotation -= (200.0f * Time::DeltaTime()); });
+	InputManager::Bind(IM_MOUSE_CODE::IM_MOUSE_SCROLL_DOWN, IM_KEY_STATE::IM_KEY_PRESSED, [this] { MoveRight(); });
+	InputManager::Bind(IM_MOUSE_CODE::IM_MOUSE_SCROLL_UP, IM_KEY_STATE::IM_KEY_PRESSED, [this] { MoveLeft(); });
 	InputManager::Bind(IM_KEY_CODE::IM_KEY_D, IM_KEY_STATE::IM_KEY_HELD, [this] { MoveRight(); });
 	InputManager::Bind(IM_KEY_CODE::IM_KEY_A, IM_KEY_STATE::IM_KEY_HELD, [this] { MoveLeft(); });
 	InputManager::Bind(IM_KEY_CODE::IM_KEY_W, IM_KEY_STATE::IM_KEY_HELD, [this] { MoveUp(); });

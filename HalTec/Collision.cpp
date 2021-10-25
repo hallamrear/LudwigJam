@@ -4,6 +4,32 @@
 #include "BoundingSphere.h"
 #include "OrientedBoundingBox.h"
 #include "Entity.h"
+   
+Vector2f Collision::FindClosestPointOnPolygon(const BoundingSphere& circle, const Collider& polygon, const int polygonVertexCount)
+{
+	Vector2f* vertices = new Vector2f[polygonVertexCount];
+	polygon.GetBoxAsPoints(vertices);
+
+	Vector2f result;
+	float minDistance = INFINITY;
+
+	for (int i = 0; i < polygonVertexCount; i++)
+	{
+		Vector2f v = vertices[i];
+		float distance = Vector2f(v - circle.mOrigin).GetMagnitude();
+
+		if (distance < minDistance)
+		{
+			minDistance = distance;
+			result = v;
+		}
+	}
+
+	delete[] vertices;
+	vertices = nullptr;
+
+	return result;
+}
 
 //todo : construct manifold
 bool Collision::CheckCollision_AABBvsAABB(const BoundingBox& one, const BoundingBox& two, CollisionManifold* const manifold)
@@ -12,70 +38,72 @@ bool Collision::CheckCollision_AABBvsAABB(const BoundingBox& one, const Bounding
 	//bool collision = ((one.TopLeft.X <= two.BottomRight.X && one.BottomRight.X >= two.TopLeft.X) && (one.TopLeft.Y <= two.BottomRight.Y && one.BottomRight.Y >= two.TopLeft.Y));
 
 	//we know boxes have 4 points :)
-	return Collision::SeperatingAxisTheory(4, one, 4, two, manifold);
+	return Collision::SeperatingAxisTheory_PolygonPolygon(4, one, 4, two, manifold);
 }
 
-//todo : construct manifold
+//todo : make SAT
 bool Collision::CheckCollision_OBBvsSPHERE(const OrientedBoundingBox& one, const BoundingSphere& two, CollisionManifold* const manifold)
 {
-	Vector2f corners[4];
-	one.GetBoxAsPoints(corners);
+	return SeperatingAxisTheory_PolygonCircle(4, one, two, manifold);
 
-	//transform sphere center into obb spaceand perform aabb test
-	Vector2f sphereCentreAABBSpace = two.mOrigin - one.mOrigin;
-	corners[0] -= one.mOrigin;
-	corners[1] -= one.mOrigin;
-	corners[2] -= one.mOrigin;
-	corners[3] -= one.mOrigin;
-	//Rotate all around 0,0 by -one.mRotaiton;
-	sphereCentreAABBSpace = RotatePointAroundOriginDegrees(sphereCentreAABBSpace, 360.0f - one.Rotation, Vector2f());
-	corners[0] = RotatePointAroundOriginDegrees(corners[0], 360.0f - one.Rotation, Vector2f());
-	corners[1] = RotatePointAroundOriginDegrees(corners[1], 360.0f - one.Rotation, Vector2f());
-	corners[2] = RotatePointAroundOriginDegrees(corners[2], 360.0f - one.Rotation, Vector2f());
-	corners[3] = RotatePointAroundOriginDegrees(corners[3], 360.0f - one.Rotation, Vector2f());
+	//todo : make sure this shit aint broke
+	//Vector2f corners[4];
+	//one.GetBoxAsPoints(corners);
+	////transform sphere center into obb spaceand perform aabb test
+	//Vector2f sphereCentreAABBSpace = two.mOrigin - one.mOrigin;
+	//corners[0] -= one.mOrigin;
+	//corners[1] -= one.mOrigin;
+	//corners[2] -= one.mOrigin;
+	//corners[3] -= one.mOrigin;
+	////Rotate all around 0,0 by -one.mRotaiton;
+	//sphereCentreAABBSpace = RotatePointAroundOriginDegrees(sphereCentreAABBSpace, 360.0f - one.Rotation, Vector2f());
+	//corners[0] = RotatePointAroundOriginDegrees(corners[0], 360.0f - one.Rotation, Vector2f());
+	//corners[1] = RotatePointAroundOriginDegrees(corners[1], 360.0f - one.Rotation, Vector2f());
+	//corners[2] = RotatePointAroundOriginDegrees(corners[2], 360.0f - one.Rotation, Vector2f());
+	//corners[3] = RotatePointAroundOriginDegrees(corners[3], 360.0f - one.Rotation, Vector2f());
 
-	float dist = 0, minimum = INFINITY, maximum = -INFINITY;
-	Vector2f extentsMin, extentsMax;
-	for (int i = 0; i < 3; i++)
-	{
-		if (corners[i].X < extentsMin.X)
-			extentsMin.X = corners[i].X;
-		if (corners[i].Y < extentsMin.Y)
-			extentsMin.Y = corners[i].Y;
+	//float dist = 0, minimum = INFINITY, maximum = -INFINITY;
+	//Vector2f extentsMin, extentsMax;
+	//for (int i = 0; i < 3; i++)
+	//{
+	//	if (corners[i].X < extentsMin.X)
+	//		extentsMin.X = corners[i].X;
+	//	if (corners[i].Y < extentsMin.Y)
+	//		extentsMin.Y = corners[i].Y;
 
-		if (corners[i].X > extentsMax.X)
-			extentsMax.X = corners[i].X;
-		if (corners[i].Y > extentsMax.Y)
-			extentsMax.Y = corners[i].Y;
-	}
+	//	if (corners[i].X > extentsMax.X)
+	//		extentsMax.X = corners[i].X;
+	//	if (corners[i].Y > extentsMax.Y)
+	//		extentsMax.Y = corners[i].Y;
+	//}
 
-	//we square it to avoid using square roots for
-	//each calculation and can use double radius at the end
-	//MIN---------.
-	//-			  -
-	//-		      -
-	//.----------MAX
+	////we square it to avoid using square roots for
+	////each calculation and can use double radius at the end
+	////MIN---------.
+	////-			  -
+	////-		      -
+	////.----------MAX
 
-	if (sphereCentreAABBSpace.X < extentsMin.X)
-		dist += pow(extentsMin.X - sphereCentreAABBSpace.X, 2.0f);
-	else if (sphereCentreAABBSpace.X > extentsMax.X)
-		dist += pow(sphereCentreAABBSpace.X - extentsMax.X, 2.0f);
+	//if (sphereCentreAABBSpace.X < extentsMin.X)
+	//	dist += pow(extentsMin.X - sphereCentreAABBSpace.X, 2.0f);
+	//else if (sphereCentreAABBSpace.X > extentsMax.X)
+	//	dist += pow(sphereCentreAABBSpace.X - extentsMax.X, 2.0f);
 
-	if (sphereCentreAABBSpace.Y < extentsMin.Y)
-		dist += pow(extentsMin.Y - sphereCentreAABBSpace.Y, 2.0f);
-	else if (sphereCentreAABBSpace.Y > extentsMax.Y)
-		dist += pow(sphereCentreAABBSpace.Y - extentsMax.Y, 2.0f);
+	//if (sphereCentreAABBSpace.Y < extentsMin.Y)
+	//	dist += pow(extentsMin.Y - sphereCentreAABBSpace.Y, 2.0f);
+	//else if (sphereCentreAABBSpace.Y > extentsMax.Y)
+	//	dist += pow(sphereCentreAABBSpace.Y - extentsMax.Y, 2.0f);
 
-	return dist <= two.Radius * two.Radius;
+	//return dist <= two.Radius * two.Radius;
 }
 
-//todo : construct manifold
+//todo : make SAT
 bool Collision::CheckCollision_AABBvsSPHERE(const BoundingBox& one, const BoundingSphere& two, CollisionManifold* const manifold)
 {
 	//todo : this can be improved by using obb -> aabb and running it here rather than vice versa
 	float rotation = 0.0f;
 	OrientedBoundingBox obb{ one.mOrigin, rotation, one.Size.X, one.Size.Y };
-	return CheckCollision_OBBvsSPHERE(obb, two, manifold);
+	return SeperatingAxisTheory_PolygonCircle(4, obb, two, manifold);
 }
 
 //todo : construct manifold
@@ -108,15 +136,15 @@ bool Collision::CheckCollision_SPHEREvsSPHERE(const BoundingSphere& one, const B
 bool Collision::CheckCollision_OBBvsOBB(const OrientedBoundingBox& one, const OrientedBoundingBox& two, CollisionManifold* const manifold)
 {
 	//we know boxes have 4 points :)
-	return Collision::SeperatingAxisTheory(4, one, 4, two, manifold);
+	return Collision::SeperatingAxisTheory_PolygonPolygon(4, one, 4, two, manifold);
 }
 
 bool Collision::CheckCollision_AABBvsOBB(const BoundingBox& one, const OrientedBoundingBox& two, CollisionManifold* const manifold)
 {
-	return SeperatingAxisTheory(4, one, 4, two, manifold);
+	return SeperatingAxisTheory_PolygonPolygon(4, one, 4, two, manifold);
 }
 
-bool Collision::SeperatingAxisTheory(const int shapeOnePointCount, const Collider& one, const int shapeTwoPointCount, const Collider& two, CollisionManifold* manifold)
+bool Collision::SeperatingAxisTheory_PolygonPolygon(const int shapeOnePointCount, const Collider& one, const int shapeTwoPointCount, const Collider& two, CollisionManifold* manifold)
 {
 	Vector2f* shapeOnePoints = new Vector2f[shapeOnePointCount];
 	one.GetBoxAsPoints(shapeOnePoints);
@@ -227,7 +255,6 @@ bool Collision::SeperatingAxisTheory(const int shapeOnePointCount, const Collide
 		}
 	}
 
-
 	//todo : if you uncomment this, remove the axisproj.getnormalized
 	//manifold->Depth /= manifold->Normal.GetMagnitude();
 	//manifold->Normal = manifold->Normal.GetNormalized();
@@ -243,6 +270,139 @@ bool Collision::SeperatingAxisTheory(const int shapeOnePointCount, const Collide
 	shapeOnePoints = nullptr;
 	delete[] shapeTwoPoints;
 	shapeTwoPoints = nullptr;
+
+	manifold->HasCollided = true;
+	return manifold->HasCollided;
+}
+
+bool Collision::SeperatingAxisTheory_PolygonCircle(const int polygonVertexCount, const Collider& polygonCollider, const BoundingSphere& circleCollider, CollisionManifold* manifold)
+{
+	Vector2f* shapeOnePoints = new Vector2f[polygonVertexCount];
+	polygonCollider.GetBoxAsPoints(shapeOnePoints);
+
+	Vector2f axisProj = Vector2f(0.0f, 0.0f);
+	manifold->Normal = Vector2f(0.0f, 0.0f);
+	manifold->Depth = FLT_MAX;
+
+	//Check shape one in each direction
+	for (size_t a = 0; a < polygonVertexCount; a++)
+	{
+		//wraparound
+		int b = (a + 1) % polygonVertexCount;
+
+		axisProj = Vector2f(-(shapeOnePoints[b].Y - shapeOnePoints[a].Y), (shapeOnePoints[b].X - shapeOnePoints[a].X));
+		axisProj = axisProj.GetNormalized();
+
+		///Projection bit
+		float min_r1 = INFINITY, max_r1 = -INFINITY, min_r2 = INFINITY, max_r2 = -INFINITY;
+		for (size_t P = 0; P < polygonVertexCount; P++)
+		{
+			//project each point onto line 
+			float q_two = shapeOnePoints[P].Dot(axisProj);
+
+			//get the min and max of the projection extents
+			min_r2 = std::min(min_r2, q_two);
+			max_r2 = std::max(max_r2, q_two);
+		}
+		///
+		//Circle Projection
+		Vector2f directionScaled = axisProj * circleCollider.Radius;
+		Vector2f p1 = circleCollider.mOrigin + directionScaled;
+		Vector2f p2 = circleCollider.mOrigin - directionScaled;
+		//get the min and max of the projection extents
+		min_r1 = p1.Dot(axisProj);
+		max_r1 = p2.Dot(axisProj);
+
+		if (min_r1 > max_r1)
+		{
+			float t = min_r1;
+			min_r1 = max_r1;
+			max_r1 = t;
+		}
+		///
+
+		//if they overlap, continue else if they dont, theyre not colliding so can return
+		if (!(max_r2 >= min_r1) && (max_r1 >= min_r2))
+		{
+			delete[] shapeOnePoints;
+			shapeOnePoints = nullptr;
+
+			manifold->HasCollided = false;
+			return manifold->HasCollided;
+		}
+
+		float axisDepth = std::min(max_r2 - min_r1, max_r1 - min_r2);
+
+		if (axisDepth < manifold->Depth)
+		{
+			manifold->Depth = axisDepth;
+			manifold->Normal = axisProj;
+		}
+	}
+
+	Vector2f closestPoint = FindClosestPointOnPolygon(circleCollider, polygonCollider, polygonVertexCount);
+	axisProj = closestPoint - circleCollider.mOrigin;
+	axisProj = axisProj.GetNormalized();
+
+	///Projection bit
+	float min_r1 = INFINITY, max_r1 = -INFINITY, min_r2 = INFINITY, max_r2 = -INFINITY;
+	for (size_t P = 0; P < polygonVertexCount; P++)
+	{
+		//project each point onto line 
+		float q_two = shapeOnePoints[P].Dot(axisProj);
+
+		//get the min and max of the projection extents
+		min_r2 = std::min(min_r2, q_two);
+		max_r2 = std::max(max_r2, q_two);
+	}
+	///
+	//Circle Projection
+	Vector2f directionScaled = axisProj * circleCollider.Radius;
+	Vector2f p1 = circleCollider.mOrigin + directionScaled;
+	Vector2f p2 = circleCollider.mOrigin - directionScaled;
+	//get the min and max of the projection extents
+	min_r1 = p1.Dot(axisProj);
+	max_r1 = p2.Dot(axisProj);
+
+	if (min_r1 > max_r1)
+	{
+		float t = min_r1;
+		min_r1 = max_r1;
+		max_r1 = t;
+	}
+	///
+
+	//if they overlap, continue else if they dont, theyre not colliding so can return
+	if (!(max_r2 >= min_r1) && (max_r1 >= min_r2))
+	{
+		delete[] shapeOnePoints;
+		shapeOnePoints = nullptr;
+
+		manifold->HasCollided = false;
+		return manifold->HasCollided;
+	}
+
+	float axisDepth = std::min(max_r2 - min_r1, max_r1 - min_r2);
+
+	if (axisDepth < manifold->Depth)
+	{
+		manifold->Depth = axisDepth;
+		manifold->Normal = axisProj;
+	}
+
+	//todo : if you uncomment this, remove the axisproj.getnormalized
+	manifold->Depth /= manifold->Normal.GetMagnitude();
+	manifold->Normal = manifold->Normal.GetNormalized();
+
+	Vector2f direction = polygonCollider.mOrigin - circleCollider.mOrigin;
+
+	if (direction.Dot(manifold->Normal) < 0.0f)
+	{
+		manifold->Normal = manifold->Normal * -1;
+	}
+
+	delete[] shapeOnePoints;
+	shapeOnePoints = nullptr;
 
 	manifold->HasCollided = true;
 	return manifold->HasCollided;
@@ -395,6 +555,10 @@ bool Collision::CheckCollision(const Collider& one, const Collider& two, Collisi
 	manifold->Depth = 0.0f;
 	manifold->Normal = Vector2f();
 
+	//todo : improve
+	//1) std::Variant
+	//2) 2d array of funciton pointers, indexed by collider_type. most likely out the question
+
 	if (one.mType == COLLIDER_TYPE::COLLIDER_AABB && two.mType == COLLIDER_TYPE::COLLIDER_AABB)
 		return CheckCollision_AABBvsAABB(dynamic_cast<const BoundingBox&>(one), dynamic_cast<const BoundingBox&>(two), manifold);
 	if (one.mType == COLLIDER_TYPE::COLLIDER_SPHERE && two.mType == COLLIDER_TYPE::COLLIDER_SPHERE)
@@ -445,7 +609,7 @@ void Collision::ResolveCollision(Entity& one, Entity& two, CollisionManifold* co
 	//Dynamic - Static
 	else if (one.GetIsStatic() == false && two.GetIsStatic() == true)
 	{
-		one.GetTransform().AdjustPosition(manifold->Normal * (manifold->Depth));
+		one.GetTransform().AdjustPosition(manifold->Normal * (-manifold->Depth));
 	}
 	//Dynamic - Dynamic
 	//Move both away from each other.
@@ -457,10 +621,9 @@ void Collision::ResolveCollision(Entity& one, Entity& two, CollisionManifold* co
 
 	//Get minimum restitution;
 	float e = std::min(one.GetRestitution(), two.GetRestitution());
-	float mag = -(1.0f + e) * relativeVelocity.Dot(manifold->Normal);
-	mag /= one.GetInverseMass() + two.GetInverseMass();
+	float impulse = -(1.0f + e) * Dot(relativeVelocity, manifold->Normal);
+	impulse /= one.GetInverseMass() + two.GetInverseMass();
 
-	Vector2f impulse = manifold->Normal * mag;
-	one.AddVelocity(impulse * -one.GetInverseMass());
-	two.AddVelocity(impulse * two.GetInverseMass());	
+	one.AddVelocity(manifold->Normal * impulse * -one.GetInverseMass());
+	two.AddVelocity(manifold->Normal * impulse * two.GetInverseMass());
 }

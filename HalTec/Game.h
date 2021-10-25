@@ -51,5 +51,6 @@ public:
 	const bool  GetIsRunning() const { return mIsRunning; };
 	const bool  GetIsInitialised() const { return mIsInitialised; };
 
+	void		TakeScreenshot(std::string name);
 };
 

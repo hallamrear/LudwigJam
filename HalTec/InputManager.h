@@ -48,6 +48,7 @@ enum class IM_KEY_CODE : int
 	/*24*/ IM_KEY_F1,
 	/*25*/ IM_KEY_F2,
 	/*26*/ IM_KEY_F3,
+	/*27*/ IM_KEY_F4
 };
 
 enum class IM_MOUSE_CODE : int
@@ -214,13 +215,13 @@ class InputManager
 private:
 	static InputManager* mInstance;
 
-	const int mKeyCount = 27;
+	const int mKeyCount = 28;
 	const int mMouseCount = 5;
 	bool mIsMouseDown;
 	int mMousePositionX;
 	int mMousePositionY;
 
-	Key mKeyStates[27] =
+	Key mKeyStates[28] =
 	{
 		/*00*/ IM_KEY_CODE::IM_KEY_1,
 		/*01*/ IM_KEY_CODE::IM_KEY_2,
@@ -249,6 +250,7 @@ private:
 		/*24*/ IM_KEY_CODE::IM_KEY_F1,
 		/*25*/ IM_KEY_CODE::IM_KEY_F2,
 		/*26*/ IM_KEY_CODE::IM_KEY_F3,
+		/*27*/ IM_KEY_CODE::IM_KEY_F4
 	};
 
 	Mouse mMouseStates[5] =

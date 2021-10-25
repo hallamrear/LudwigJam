@@ -252,6 +252,10 @@ void InputManager::KeyPressUpdate(SDL_Keycode key, bool state)
 	case SDLK_F3:
 		mKeyStates[FindKey(IM_KEY_CODE::IM_KEY_F3)].SetState(state);
 		break;
+
+	case SDLK_F4:
+		mKeyStates[FindKey(IM_KEY_CODE::IM_KEY_F4)].SetState(state);
+		break;
 	}
 }
 

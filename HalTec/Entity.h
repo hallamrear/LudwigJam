@@ -42,7 +42,7 @@ public:
 		float weight = 0.0f,
 		float dragCoeff = 0.0f,
 		float speedCap = 0.0f,
-		float restitution = 0.0f);
+		float restitution = -1.0f);
 
 	virtual					~Entity() = 0;
 

@@ -6,6 +6,10 @@
 #include "Settings.h"
 #include "Time.h"
 
+#include <iostream>
+#include <iomanip>
+#include <ctime>
+
 //todo : this is not good
 //todo : abstract renderer
 SDL_Renderer* Game::Renderer = nullptr;
@@ -88,6 +92,38 @@ void Game::SetFullscreen(SCREEN_STATE state)
 		SDL_SetWindowFullscreen(mWindow, 0);
 		break;
 	}
+}
+
+void Game::TakeScreenshot(std::string name)
+{
+
+	int w, h;
+	Vector2f dimensions = Settings::Get()->GetWindowDimensions();
+	w = (int)dimensions.X;
+	h = (int)dimensions.Y;
+
+	SDL_Surface* sshot = SDL_CreateRGBSurface(0, w, h, 32, 0x00ff0000, 0x0000ff00, 0x000000ff, 0xff000000);
+	SDL_RenderReadPixels(Renderer, NULL, SDL_PIXELFORMAT_ARGB8888, sshot->pixels, sshot->pitch);
+
+	struct tm _time;
+	std::string str = name;
+	time_t now = time(nullptr);
+	localtime_s(&_time, &now);
+	char* buffer = new char[256];
+	strftime(buffer, 256, "%d-%m-%Y %H-%M-%S", &_time);
+
+	if (str == "")
+	{
+		str = buffer;
+		str += ".bmp";
+	}
+
+	SDL_SaveBMP(sshot, str.c_str());
+	SDL_FreeSurface(sshot);
+
+	str = "Screenshot taken: " + str;
+
+	Log::LogMessage(LogLevel::LOG_MESSAGE, str.c_str());
 }
 
 void Game::Initialise(int argc, char* argv[], WindowDetails details)
@@ -189,6 +225,13 @@ bool Game::InitialiseWorldObjects()
 		{
 			SetFullscreen(SCREEN_STATE::WINDOW_FULLSCREEN);
 		});
+
+	InputManager::Bind(IM_KEY_CODE::IM_KEY_F4, IM_KEY_STATE::IM_KEY_PRESSED,
+		[this]
+		{
+			TakeScreenshot("");
+		}
+	);
 
 	return true;
 }
@@ -334,7 +377,8 @@ void Game::Update(double DeltaTime)
 
 void Game::Render()
 {
-	SDL_SetRenderDrawColor(Renderer, 0, 0, 0, 0);
+
+	SDL_SetRenderDrawColor(Renderer, 0, 0, 0, 255);
 	SDL_RenderClear(Renderer);
 	StateDirector::Render(*Renderer);
 

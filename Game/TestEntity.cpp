@@ -7,7 +7,7 @@
 #include "Texture.h"
 
 TestEntity::TestEntity(int testmode, std::string texture, Transform transform)
-	: Entity(texture, transform, false, 0.0f, 0.0f, 0.0f, 0.0f)
+	: Entity(texture, transform, false)
 {
 	mMass = rand() % 500 + 1;
 	SetGravityEnabled(true);

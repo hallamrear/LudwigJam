@@ -13,7 +13,7 @@ Entity::Entity(std::string texture_path, Transform transform, bool isStatic, flo
 	mIsAlive = true;
 	mIsStatic = isStatic;
 
-	restitution != 0.0f ? mRestitution = weight : mRestitution = 1.0f;
+	restitution != -1.0f ? mRestitution = restitution : mRestitution = 0.5f;
 	weight != 0.0f ? mMass = weight : mMass = 1.0f;
 	speedCap != 0.0f ? mSpeedCap = speedCap : mSpeedCap = 1000000.0f;
 	dragCoeff != 0.0f ? mDragCoefficient = dragCoeff : mDragCoefficient = 0.5;

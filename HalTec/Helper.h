@@ -67,3 +67,8 @@ inline int Sign(T val)
 {
 	return (T(0) < val) - (val < T(0));
 }
+
+inline static float Dot(Vector2f a, Vector2f b)
+{
+	return (a.X * b.X) + (a.Y * b.Y);
+}
