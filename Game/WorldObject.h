@@ -1,8 +1,8 @@
 #pragma once
-#include <Entity.h>
+#include <Rigidbody.h>
 
 class StaticWorldObject :
-    public Entity
+    public Rigidbody
 {
 public:
     StaticWorldObject(std::string texture, Transform transform);
@@ -13,10 +13,10 @@ public:
 };
 
 class DynamicWorldObject :
-    public Entity
+    public Rigidbody
 {
 public:
-    DynamicWorldObject(std::string texture, Transform transform);
+    DynamicWorldObject(std::string texture, Transform transform, PhysicsProperties properties);
     ~DynamicWorldObject();
 
     virtual void Update(double deltaTime);

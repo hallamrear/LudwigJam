@@ -1,28 +1,6 @@
 #pragma once
 #include <math.h>
 
-//todo: remove or replace
-/*
-* 
-	Vector3f Cross(Vector3f other)
-	{
-		Vector3f result;
-		result.X = (Y * other.Z) - (Z * other.Y);
-		result.Y = (Z * other.X) - (X * other.Z);
-		result.Z = (X * other.Y) - (Y * other.X);
-		return result;
-	}
-
-	inline static Vector3f Cross(Vector3f vectorA, Vector3f vectorB)
-	{
-		Vector3f result;
-		result.X = (vectorA.Y * vectorB.Z) - (vectorA.Z * vectorB.Y);
-		result.Y = (vectorA.Z * vectorB.X) - (vectorA.X * vectorB.Z);
-		result.Z = (vectorA.X * vectorB.Y) - (vectorA.Y * vectorB.X);
-		return result;
-	}
-*/
-
 class Vector2f
 {
 public:
@@ -84,6 +62,11 @@ public:
 		return Vector2f(this->X * scalar, this->Y * scalar);
 	}
 
+	Vector2f operator/(const float& scalar)
+	{
+		return Vector2f(this->X / scalar, this->Y / scalar);
+	}
+
 	Vector2f& operator+=(const Vector2f& rhs)
 	{
 		this->X += rhs.X;
@@ -131,4 +114,5 @@ public:
 	{
 		return Vector2f(lhs.X - rhs.X, lhs.Y - rhs.Y);
 	}
+
 };

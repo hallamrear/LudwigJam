@@ -38,6 +38,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="PhysicsWorld.cpp" />
+    <ClCompile Include="Rigidbody.cpp" />
     <ClCompile Include="Settings.cpp" />
     <ClCompile Include="StateDirector.cpp" />
     <ClCompile Include="TextElement.cpp" />
@@ -61,6 +63,9 @@
     <ClInclude Include="MenuObject.h" />
     <ClInclude Include="OrientedBoundingBox.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="PhysicsProperties.h" />
+    <ClInclude Include="PhysicsWorld.h" />
+    <ClInclude Include="Rigidbody.h" />
     <ClInclude Include="Settings.h" />
     <ClInclude Include="StateDirector.h" />
     <ClInclude Include="TextElement.h" />

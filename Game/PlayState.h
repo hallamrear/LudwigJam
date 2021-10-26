@@ -1,30 +1,34 @@
 #pragma once
 #include "GameStates.h"
+#include <Transform.h>
 #include <vector>
 
 class Entity;
 class Player;
 class TextElement;
+class ForceArea;
 struct SDL_Renderer;
-
-//todo : remove
-class CollisionManifold;
+class BoundingBox;
 
 class PlayState :
     public GameState
 {
 private:
-	TextElement* posText;
-	TextElement* velText;
-	TextElement* accText;
-	CollisionManifold* manifold;
-	CollisionManifold* hitManifold;
+	Transform PlayAreaColliderTransform;
+	BoundingBox* PlayAreaCollider;
+	bool camLerp;
 
-	Entity* a = nullptr;
-	Entity* b = nullptr;
-
-	std::vector<Entity*> entities;
+	std::vector<std::pair<int, Entity*>> entities;
 	Player* mPlayer;
+	TextElement* mousePos;
+
+	ForceArea* fOne;
+	ForceArea* fTwo;
+	ForceArea* fThree;
+	ForceArea* fFour;
+	void PlacePlatforms();
+	void Save(std::string location);
+	void Load(std::string location);
 
 public:
 	void Start() override;

@@ -8,15 +8,15 @@
 //todo: add font to constuctor
 //todo: create font cache
 
-TextElement::TextElement(Vector2f position, std::string string, float rotation, float size, Colour colour)
+TextElement::TextElement(Transform transform, std::string string, float size, Colour colour)
+	: Entity("", mTransform)
 {
 	mTextTexture = nullptr;
 	mIsShowing = true;
 	mData = string;
 	mColour = colour;
 	mFontSize = size;
-	mRotation = rotation;
-	mPosition = position;
+	mTransform = transform;
 	mTextWidth = NULL;
 	mTextHeight = NULL;
 	mIsDirty = true;
@@ -93,10 +93,10 @@ void TextElement::Render()
 			SDL_Rect destRect{};
 			destRect.w = mTextWidth;
 			destRect.h = mTextHeight;
-			Vector2f position = Camera::WorldToScreen(Vector2f((mPosition.X) - (destRect.w / 2), (mPosition.Y) - (destRect.h / 2)));
+			Vector2f position = Camera::WorldToScreen(Vector2f((mTransform.Position.X) - (destRect.w / 2), (mTransform.Position.Y) - (destRect.h / 2)));
 			destRect.x = static_cast<int>(position.X);
 			destRect.y = static_cast<int>(position.Y);
-			SDL_RenderCopyEx(Game::Renderer, mTextTexture, NULL, &destRect, mRotation, NULL, SDL_FLIP_NONE);
+			SDL_RenderCopyEx(Game::Renderer, mTextTexture, NULL, &destRect, mTransform.Rotation, NULL, SDL_FLIP_NONE);
 		}
 	}
 }
@@ -124,7 +124,7 @@ void TextElement::SetString(const char* str)
 
 void TextElement::SetPosition(Vector2f worldPosition)
 {
-	mPosition = worldPosition;
+	mTransform.Position = worldPosition;
 }
 
 Vector2f TextElement::GetTextureSize()

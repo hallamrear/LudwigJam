@@ -1,11 +1,13 @@
 #pragma once
-#include "Character.h"
+#include "Entity.h"
+
+class AnimationController;
 
 class BackgroundEntity
-	: public Character
+	: public Entity
 {
 private:
-	virtual void SetupInput() {};
+	AnimationController* mAnimation;
 
 public:
 	BackgroundEntity(std::string texture, Transform transform);

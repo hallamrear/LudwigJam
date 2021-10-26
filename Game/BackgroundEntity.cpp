@@ -3,7 +3,7 @@
 #include "BoundingBox.h"
 
 BackgroundEntity::BackgroundEntity(std::string texture, Transform transform)
-	: Character("", transform, true)
+	: Entity("", transform)
 {
 	mAnimation = new AnimationController(texture, 1, 6, 1, true);
 }

@@ -7,6 +7,7 @@
 
 struct BoundingSphere;
 struct BoundingBox;
+struct Rigidbody;
 struct OrientedBoundingBox;
 struct SDL_Renderer;
 class Entity;
@@ -16,6 +17,9 @@ struct CollisionManifold
 	bool HasCollided = false;
 	float Depth = 0.0f;
 	Vector2f Normal;
+
+	Rigidbody* ObjA;
+	Rigidbody* ObjB;
 };
 
 enum class COLLIDER_TYPE
@@ -34,8 +38,9 @@ class Collider
 public:
 	Vector2f& mOrigin;
 	COLLIDER_TYPE mType;
+	bool IsOverlap;
 
-	Collider(Vector2f& origin) : mOrigin(origin), mType(COLLIDER_TYPE::COLLIDER_UNKNOWN) { }
+	Collider(Vector2f& origin) : mOrigin(origin), mType(COLLIDER_TYPE::COLLIDER_UNKNOWN), IsOverlap(false) { }
 
 	virtual void Update(double deltaTime) = 0;
 	virtual void Render(SDL_Renderer& renderer) = 0;
@@ -62,5 +67,5 @@ private:
 
 public:
 	static bool CheckCollision(const Collider& one, const Collider& two, CollisionManifold* manifold);
-	static void ResolveCollision(Entity& one, Entity& two, CollisionManifold* const manifold);
+	static void ResolveCollision(Rigidbody& one, Rigidbody& two, CollisionManifold* const manifold);
 };

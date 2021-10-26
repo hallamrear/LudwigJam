@@ -4,12 +4,11 @@
 
 struct SDL_Texture;
 
-class TextElement
+class TextElement : public Entity
 {
 private:
 	SDL_Texture*	mTextTexture;
-	Vector2f		mPosition;
-	float			mRotation;
+	Transform		mTransform;
 	bool			mIsDirty;
 	bool			mIsShowing;
 	std::string		mData;
@@ -23,9 +22,8 @@ private:
 
 public:
 	TextElement(
-		Vector2f position,
+		Transform transform,
 		std::string string = "", 
-		float rotation = 0.0f,
 		float size = 14.0f, 
 		Colour colour = Colour());
 	~TextElement();

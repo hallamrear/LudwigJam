@@ -1,11 +1,11 @@
 #pragma once
-#include "Entity.h"
+#include "Rigidbody.h"
 
 class MenuObject :
-    public Entity
+    public Rigidbody
 {
 public:
-    MenuObject(std::string texture_path, Vector2f position, float rotation);
+    MenuObject(std::string texture_path, Transform transform);
     ~MenuObject() override;
 
     void			Update(double deltaTime) override;

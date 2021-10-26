@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Log.h"
 #include "TextElement.h"
+#include "Camera.h"
 
 Log* Log::mInstance = nullptr;
 
@@ -76,7 +77,8 @@ void Log::Render_Impl(SDL_Renderer& renderer)
 	{
 		vertical += 5;
 		vertical += mTextElements[i]->GetTextureSize().Y;
-		mTextElements[i]->SetPosition(Vector2f(horizontal, vertical));
+		Vector2f worldPos = Camera::ScreenToWorld(Vector2f(horizontal, vertical));
+		mTextElements[i]->SetPosition(worldPos);
 		mTextElements[i]->Render();
 	}
 }

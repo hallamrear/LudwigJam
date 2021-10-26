@@ -8,15 +8,12 @@
 #include "Helper.h"
 #include "Time.h"
 #include <string>
+#include "Projectile.h"
 
-#include "../HalTec/SDL2/include/SDL.h"
-#include <Camera.h>
-
-Player::Player(std::string texture, Transform transform)
-	: Character(texture, transform, false)
+Player::Player(std::string texture, Transform transform, PhysicsProperties properties)
+	: Rigidbody(texture, transform, properties)
 {
-	SetGravityEnabled(true);
-	SetDragEnabled(true);
+	mIsStatic = false;
 
 	if(mAnimation)
 	{
@@ -45,24 +42,11 @@ void Player::SetupInput()
 {
 	InputManager::Bind(IM_MOUSE_CODE::IM_MOUSE_SCROLL_DOWN, IM_KEY_STATE::IM_KEY_PRESSED, [this] { MoveRight(); });
 	InputManager::Bind(IM_MOUSE_CODE::IM_MOUSE_SCROLL_UP, IM_KEY_STATE::IM_KEY_PRESSED, [this] { MoveLeft(); });
-	InputManager::Bind(IM_KEY_CODE::IM_KEY_D, IM_KEY_STATE::IM_KEY_HELD, [this] { MoveRight(); });
-	InputManager::Bind(IM_KEY_CODE::IM_KEY_A, IM_KEY_STATE::IM_KEY_HELD, [this] { MoveLeft(); });
-	InputManager::Bind(IM_KEY_CODE::IM_KEY_W, IM_KEY_STATE::IM_KEY_HELD, [this] { MoveUp(); });
-	InputManager::Bind(IM_KEY_CODE::IM_KEY_S, IM_KEY_STATE::IM_KEY_HELD, [this] { MoveDown(); });
+	InputManager::Bind(IM_MOUSE_CODE::IM_MOUSE_LEFT_CLICK, IM_KEY_STATE::IM_KEY_PRESSED, [this] { Shoot(); });
 	InputManager::Bind(IM_MOUSE_CODE::IM_MOUSE_MIDDLE_CLICK, IM_KEY_STATE::IM_KEY_PRESSED, [this] 
 		{ 
-			AddForce(mTransform.GetUp() * 50000.0f);
+			AddForce(mTransform.GetUp() * 40000.0f);
 		});
-}
-
-void Player::MoveDown()
-{
-	AddForce(Vector2f(0.0f, -2500.0f));
-}
-
-void Player::MoveUp()
-{
-	AddForce(Vector2f(0.0f, 2500.0f));
 }
 
 void Player::MoveRight()
@@ -77,15 +61,51 @@ void Player::MoveLeft()
 	AddForce(Vector2f(-2500.0f, 0.0f));
 }
 
+void Player::Shoot()
+{
+	Transform transform = GetTransform();
+
+	if (mFacingRight)
+		transform.AdjustPosition(mTransform.GetRight() * 50.0f);
+	else
+		transform.AdjustPosition(mTransform.GetLeft() * 50.0f);
+
+	projs.push_back(new Projectile(transform));
+
+	if (mFacingRight)
+		projs.back()->AddVelocity(Vector2f(transform.GetRight() * 10));
+	else
+		projs.back()->AddVelocity(Vector2f(transform.GetLeft() * 10));
+}
+
 void Player::Update(double deltaTime)
 {
-	Entity::ClampRotation();
-	Entity::UpdatePhysics(deltaTime);
+	Log::LogMessage(LogLevel::LOG_ERROR, std::to_string(projs.size()));
 
+	if (projs.size() > 0)
+	{
+		std::vector<int> toErase;
+		for (int i = 0; i < projs.size(); i++)
+		{
+			if (projs[i]->GetIsAlive())
+				projs[i]->Update(deltaTime);
+			else
+				toErase.push_back(i);
+		}
+
+		for (int i = 0; i < toErase.size(); i++)
+		{
+			projs.erase(projs.begin() + toErase[i]);
+		}
+
+		toErase.clear();
+	}
+
+		
 	if (mCollider)
 		mCollider->Update(deltaTime);
 
-	if (abs(mVelocity.X) > 0.2f)
+	if (abs(mVelocity.X) > 0.1f)
 	{
 		if (mFacingRight)
 			mAnimation->SetAnimation(0);
@@ -93,46 +113,22 @@ void Player::Update(double deltaTime)
 			mAnimation->SetAnimation(2);
 	}
 	else
+	{
 		mAnimation->SetAnimation(1);
+	}
 
 	if (mAnimation)
 		mAnimation->Update(deltaTime);
 }
 
 void Player::Render()
-{
-	Vector2f basis[4] = { mTransform.GetUp(),  mTransform.GetDown(),  mTransform.GetLeft(),  mTransform.GetRight() };
-	
+{	
+	for (auto& itr : projs)
+		itr->Render();
 
 	if (mAnimation)
 		mAnimation->Render(mRenderer, mTransform.Position, mTransform.Rotation);
 
 	if(mCollider)
 		mCollider->Render(mRenderer);
-
-
-	Vector2f target;
-	for (size_t i = 0; i < 4; i++)
-	{
-		switch (i)
-		{
-		case 0:
-			SDL_SetRenderDrawColor(&mRenderer, 255, 0, 0, 255);
-			break;
-		case 1:
-			SDL_SetRenderDrawColor(&mRenderer, 255, 255, 0, 255);
-			break;
-		case 2:
-			SDL_SetRenderDrawColor(&mRenderer, 255, 255, 255, 255);
-			break;
-		case 3:
-			SDL_SetRenderDrawColor(&mRenderer, 255, 0, 255, 255);
-			break;
-		}
-
-		target = mTransform.Position + (basis[i] * 60);
-		Vector2f pos = Camera::WorldToScreen(mTransform.Position);
-		target = Camera::WorldToScreen(target);
-		SDL_RenderDrawLine(&mRenderer, pos.X, pos.Y, target.X, target.Y);
-	}
 }

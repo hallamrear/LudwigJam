@@ -4,6 +4,7 @@
 #include "BoundingSphere.h"
 #include "OrientedBoundingBox.h"
 #include "Entity.h"
+#include "Rigidbody.h"
    
 Vector2f Collision::FindClosestPointOnPolygon(const BoundingSphere& circle, const Collider& polygon, const int polygonVertexCount)
 {
@@ -61,7 +62,6 @@ bool Collision::CheckCollision_OBBvsSPHERE(const OrientedBoundingBox& one, const
 	//corners[1] = RotatePointAroundOriginDegrees(corners[1], 360.0f - one.Rotation, Vector2f());
 	//corners[2] = RotatePointAroundOriginDegrees(corners[2], 360.0f - one.Rotation, Vector2f());
 	//corners[3] = RotatePointAroundOriginDegrees(corners[3], 360.0f - one.Rotation, Vector2f());
-
 	//float dist = 0, minimum = INFINITY, maximum = -INFINITY;
 	//Vector2f extentsMin, extentsMax;
 	//for (int i = 0; i < 3; i++)
@@ -70,30 +70,25 @@ bool Collision::CheckCollision_OBBvsSPHERE(const OrientedBoundingBox& one, const
 	//		extentsMin.X = corners[i].X;
 	//	if (corners[i].Y < extentsMin.Y)
 	//		extentsMin.Y = corners[i].Y;
-
 	//	if (corners[i].X > extentsMax.X)
 	//		extentsMax.X = corners[i].X;
 	//	if (corners[i].Y > extentsMax.Y)
 	//		extentsMax.Y = corners[i].Y;
 	//}
-
 	////we square it to avoid using square roots for
 	////each calculation and can use double radius at the end
 	////MIN---------.
 	////-			  -
 	////-		      -
 	////.----------MAX
-
 	//if (sphereCentreAABBSpace.X < extentsMin.X)
 	//	dist += pow(extentsMin.X - sphereCentreAABBSpace.X, 2.0f);
 	//else if (sphereCentreAABBSpace.X > extentsMax.X)
 	//	dist += pow(sphereCentreAABBSpace.X - extentsMax.X, 2.0f);
-
 	//if (sphereCentreAABBSpace.Y < extentsMin.Y)
 	//	dist += pow(extentsMin.Y - sphereCentreAABBSpace.Y, 2.0f);
 	//else if (sphereCentreAABBSpace.Y > extentsMax.Y)
 	//	dist += pow(sphereCentreAABBSpace.Y - extentsMax.Y, 2.0f);
-
 	//return dist <= two.Radius * two.Radius;
 }
 
@@ -549,12 +544,18 @@ bool Collision::SeperatingAxisTheory_Depreciated(const int shapeOnePointCount, c
 	return manifold->HasCollided;
 }
 
+//You have to pass in a created collision manifold else itll just return false.
 bool Collision::CheckCollision(const Collider& one, const Collider& two, CollisionManifold* const manifold)
 {
+	if (!manifold)
+		return false;
+
 	manifold->HasCollided = false;
 	manifold->Depth = 0.0f;
 	manifold->Normal = Vector2f();
-
+	manifold->ObjA = nullptr;
+	manifold->ObjB = nullptr;
+	
 	//todo : improve
 	//1) std::Variant
 	//2) 2d array of funciton pointers, indexed by collider_type. most likely out the question
@@ -582,7 +583,7 @@ bool Collision::CheckCollision(const Collider& one, const Collider& two, Collisi
 	return false;
 }
 
-void Collision::ResolveCollision(Entity& one, Entity& two, CollisionManifold* const manifold)
+void Collision::ResolveCollision(Rigidbody& one, Rigidbody& two, CollisionManifold* const manifold)
 {
 	if (!manifold)
 		return;
@@ -593,9 +594,10 @@ void Collision::ResolveCollision(Entity& one, Entity& two, CollisionManifold* co
 		return;			  
 
 	Vector2f relativeVelocity = two.GetVelocity() - one.GetVelocity();
+	Vector2f relativeNormal = manifold->Normal.GetNormalized();
 
 	//objects are moving apart
-	if (relativeVelocity.Dot(manifold->Normal) > 0.0f)
+	if (Dot(relativeVelocity, relativeNormal) > 0.0f)
 		return;
 
 	//Equations are based on
@@ -604,26 +606,26 @@ void Collision::ResolveCollision(Entity& one, Entity& two, CollisionManifold* co
 	////Static - Dynamic
 	if (one.GetIsStatic() == true && two.GetIsStatic() == false)
 	{
-		two.GetTransform().AdjustPosition(manifold->Normal * (manifold->Depth));
+		two.GetTransform().AdjustPosition(relativeNormal * (manifold->Depth));
 	}
 	//Dynamic - Static
 	else if (one.GetIsStatic() == false && two.GetIsStatic() == true)
 	{
-		one.GetTransform().AdjustPosition(manifold->Normal * (-manifold->Depth));
+		one.GetTransform().AdjustPosition(relativeNormal * (-manifold->Depth));
 	}
 	//Dynamic - Dynamic
 	//Move both away from each other.
 	else
 	{
-		one.GetTransform().AdjustPosition(manifold->Normal * -1 * (manifold->Depth / 2.0f));
-		two.GetTransform().AdjustPosition(manifold->Normal * (manifold->Depth / 2.0f));
+		one.GetTransform().AdjustPosition(relativeNormal * -1 * (manifold->Depth / 2.0f));
+		two.GetTransform().AdjustPosition(relativeNormal * (manifold->Depth / 2.0f));
 	}
 
 	//Get minimum restitution;
 	float e = std::min(one.GetRestitution(), two.GetRestitution());
-	float impulse = -(1.0f + e) * Dot(relativeVelocity, manifold->Normal);
+	float impulse = -(1.0f + e) * Dot(relativeVelocity, relativeNormal);
 	impulse /= one.GetInverseMass() + two.GetInverseMass();
 
-	one.AddVelocity(manifold->Normal * impulse * -one.GetInverseMass());
-	two.AddVelocity(manifold->Normal * impulse * two.GetInverseMass());
+	one.AddVelocity(relativeNormal * impulse * -one.GetInverseMass());
+	two.AddVelocity(relativeNormal * impulse * two.GetInverseMass());
 }

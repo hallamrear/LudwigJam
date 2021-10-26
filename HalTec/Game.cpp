@@ -9,6 +9,8 @@
 #include <iostream>
 #include <iomanip>
 #include <ctime>
+#include "PhysicsWorld.h"
+#include <thread>
 
 //todo : this is not good
 //todo : abstract renderer
@@ -306,13 +308,10 @@ void Game::HandleEvents()
 
 				if (event.wheel.y > 0)
 				{
-					Log::LogMessage(LogLevel::LOG_ERROR, "Scroll UP");
 					InputManager::Get()->MouseScrollUpdate(IM_SCROLL_DIRECTION::IM_SCROLL_UP);
 				}
 				else if (event.wheel.y < 0)
 				{
-					//scroll down
-					Log::LogMessage(LogLevel::LOG_ERROR, "Scroll DOWN");
 					InputManager::Get()->MouseScrollUpdate(IM_SCROLL_DIRECTION::IM_SCROLL_DOWN);
 				}
 			}
@@ -368,7 +367,11 @@ void Game::HandleEvents()
 
 void Game::Update(double DeltaTime)
 {
-	InputManager::Update();
+	std::thread t(InputManager::Update);
+	t.detach();
+	//InputManager::Update();
+	
+	PhysicsWorld::Update(DeltaTime);
 	StateDirector::Update(DeltaTime);
 
 	if(Settings::Get()->GetDrawLog())
@@ -377,7 +380,6 @@ void Game::Update(double DeltaTime)
 
 void Game::Render()
 {
-
 	SDL_SetRenderDrawColor(Renderer, 0, 0, 0, 255);
 	SDL_RenderClear(Renderer);
 	StateDirector::Render(*Renderer);

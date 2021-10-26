@@ -3,12 +3,11 @@
 #include "BoundingBox.h"
 #include "Texture.h"
 
-MenuObject::MenuObject(std::string texture_path, Vector2f position, float rotation)
-	: Entity(texture_path, position, rotation, true, 0.0f, 0.0f, 0.0f)
+MenuObject::MenuObject(std::string texture_path, Transform transform)
+	: Rigidbody(texture_path, transform, PhysicsProperties())
 {
 	mIsStatic = true;
-	mDragEnabled = false;
-	mCollider = new BoundingBox(position, (float)mTexture->Width, (float)mTexture->Height);
+	mCollider = new BoundingBox(mTransform.Position, (float)mTexture->Width, (float)mTexture->Height);
 }
 
 MenuObject::~MenuObject()
@@ -18,12 +17,8 @@ MenuObject::~MenuObject()
 
 void MenuObject::Update(double deltaTime)
 {
-	UpdatePhysics(deltaTime);
-
 	if (mCollider)
-	{
 		mCollider->Update(deltaTime);
-	}
 }
 
 void MenuObject::Render()
