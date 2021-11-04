@@ -28,10 +28,18 @@ void StateDirector::SetupState_Impl(GameStateIdentifier identifier, GameState* s
 void StateDirector::SetState_Impl(const GameStateIdentifier state)
 {
 	auto itr = mDirectorStates.find(state);
-	assert(itr != mDirectorStates.end());
 
 	if (mCurrentState)
 		mCurrentState->End();
+
+	if (itr == mDirectorStates.end())
+	{
+		mCurrentState = nullptr;
+		//todo : fix
+		//assert(itr != mDirectorStates.end());
+		return;
+	}
+
 	mCurrentState = itr->second;
 	mCurrentState->Start();
 }

@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "OrientedBoundingBox.h"
-
 #include "Camera.h"
 
 OrientedBoundingBox::OrientedBoundingBox(Vector2f& position, float& rotation, float size_x, float size_y)

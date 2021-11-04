@@ -9,6 +9,7 @@ Texture::Texture(std::string texture_path)
 {
 	Width = NULL;
 	Height = NULL;
+	mName == "";
 	Create(texture_path);
 }
 
@@ -26,6 +27,11 @@ Texture::~Texture()
 SDL_Texture& Texture::GetSDLTexture()
 {
 	return *mTexture;
+}
+
+const std::string& Texture::GetLocation() const
+{
+	return mName;
 }
 
 void Texture::Render(SDL_Renderer& renderer, Vector2f position, float rotation)
@@ -91,5 +97,7 @@ void Texture::Create(std::string texture_path)
 			Log::LogMessage(LogLevel::LOG_ERROR, std::string("Failed to load texture <" + texture_path + "> error : " + SDL_GetError() + "\n"));
 
 		assert(mTexture != nullptr);
+
+		mName = texture_path;
 	}
 }

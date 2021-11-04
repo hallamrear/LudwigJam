@@ -45,7 +45,8 @@
     <ClCompile Include="TextElement.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureCache.cpp" />
-    <ClCompile Include="Time.cpp" />
+    <ClCompile Include="MyTime.cpp" />
+    <ClCompile Include="Vector2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
@@ -71,7 +72,7 @@
     <ClInclude Include="TextElement.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureCache.h" />
-    <ClInclude Include="Time.h" />
+    <ClInclude Include="MyTime.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Vector3.h" />

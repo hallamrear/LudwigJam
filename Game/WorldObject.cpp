@@ -5,7 +5,7 @@
 StaticWorldObject::StaticWorldObject(std::string texture, Transform transform)
 	: Rigidbody(texture, transform, PhysicsProperties(100000.0f, 1.0f, 1000.0f, 0.5f, false, false, true))
 {
-	mCollider = new OrientedBoundingBox(mTransform.Position, mTransform.Rotation, mTexture->Width, mTexture->Height);
+	mCollider = new OrientedBoundingBox(mTransform.Position, mTransform.Rotation, (float)mTexture->Width, (float)mTexture->Height);
 }
 
 StaticWorldObject::~StaticWorldObject()
@@ -38,7 +38,7 @@ DynamicWorldObject::DynamicWorldObject(std::string texture, Transform transform,
 	: Rigidbody(texture, transform, properties)
 {
 	mIsStatic = false;
-	mCollider = new OrientedBoundingBox(mTransform.Position, mTransform.Rotation, mTexture->Width, mTexture->Height);
+	mCollider = new OrientedBoundingBox(mTransform.Position, mTransform.Rotation, (float)mTexture->Width, (float)mTexture->Height);
 }
 
 DynamicWorldObject::~DynamicWorldObject()

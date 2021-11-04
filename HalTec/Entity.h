@@ -20,6 +20,8 @@ protected:
 	void					ClampRotation();
 
 public:
+	std::string				Name;
+
 	Entity(
 		std::string texture_path = "",
 		Transform transform = Transform());
@@ -29,13 +31,14 @@ public:
 
 	//Sets mTexture to the texture at texture_path. Sets the width and height to the parameters.
 	void					AssignTexture(const std::string& texture_path);
+	const Texture&			GetTexture() const;
 
 	virtual void			Update(double deltaTime) = 0;
 	virtual void			Render() = 0;
 
-	bool	   const GetIsAlive()		 const { return mIsAlive; }
-	Transform& const GetTransform()			   { return mTransform; }
+	bool const				GetIsAlive()		 const { return mIsAlive; }
+	Transform&				GetTransform()			   { return mTransform; }
 	
-	virtual void	SetAlive(const bool state)			  { mIsAlive = state; }
+	virtual void			SetAlive(const bool state) { mIsAlive = state; }
 };
 

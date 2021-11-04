@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "InputManager.h"
-
+#include "Camera.h"
 #include "Log.h"
 
 InputManager* InputManager::mInstance = nullptr;
@@ -291,9 +291,14 @@ void InputManager::MousePositionUpdate(int x, int y)
 	mMousePositionY = y;
 }
 
-Vector2f InputManager::GetMousePosition()
+Vector2f InputManager::GetMouseScreenPosition()
 {
 	return Vector2f((float)mMousePositionX, (float)mMousePositionY);
+}
+
+Vector2f InputManager::GetMouseWorldPosition()
+{
+	return Camera::ScreenToWorld(GetMouseScreenPosition());
 }
 
 void InputManager::MouseScrollUpdate(IM_SCROLL_DIRECTION direction)

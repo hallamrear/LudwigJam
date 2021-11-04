@@ -5,10 +5,10 @@
 #include <array>
 #include <vector>
 
-struct BoundingSphere;
-struct BoundingBox;
-struct Rigidbody;
-struct OrientedBoundingBox;
+class BoundingSphere;
+class BoundingBox;
+class Rigidbody;
+class OrientedBoundingBox;
 struct SDL_Renderer;
 class Entity;
 
@@ -18,8 +18,8 @@ struct CollisionManifold
 	float Depth = 0.0f;
 	Vector2f Normal;
 
-	Rigidbody* ObjA;
-	Rigidbody* ObjB;
+	Rigidbody* ObjA = nullptr;
+	Rigidbody* ObjB = nullptr;
 };
 
 enum class COLLIDER_TYPE
@@ -51,7 +51,7 @@ public:
 	virtual void GetBoxAsPoints(Vector2f points[]) const = 0;
 };
  
-static class Collision
+class Collision
 {
 private:
 	static Vector2f FindClosestPointOnPolygon(const BoundingSphere& circle, const Collider& polygon, const int polygonVertexCoun);

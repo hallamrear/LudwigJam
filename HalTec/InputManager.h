@@ -48,7 +48,15 @@ enum class IM_KEY_CODE : int
 	/*24*/ IM_KEY_F1,
 	/*25*/ IM_KEY_F2,
 	/*26*/ IM_KEY_F3,
-	/*27*/ IM_KEY_F4
+	/*27*/ IM_KEY_F4,
+	/*28*/ IM_KEY_F5,
+	/*29*/ IM_KEY_F6,
+	/*30*/ IM_KEY_F7,
+	/*31*/ IM_KEY_F8,
+	/*32*/ IM_KEY_F9,
+	/*33*/ IM_KEY_F10,
+	/*34*/ IM_KEY_F11,
+	/*35*/ IM_KEY_F12
 };
 
 enum class IM_MOUSE_CODE : int
@@ -215,13 +223,13 @@ class InputManager
 private:
 	static InputManager* mInstance;
 
-	const int mKeyCount = 28;
+	const int mKeyCount = 36;
 	const int mMouseCount = 5;
 	bool mIsMouseDown;
 	int mMousePositionX;
 	int mMousePositionY;
 
-	Key mKeyStates[28] =
+	Key mKeyStates[36] =
 	{
 		/*00*/ IM_KEY_CODE::IM_KEY_1,
 		/*01*/ IM_KEY_CODE::IM_KEY_2,
@@ -250,7 +258,15 @@ private:
 		/*24*/ IM_KEY_CODE::IM_KEY_F1,
 		/*25*/ IM_KEY_CODE::IM_KEY_F2,
 		/*26*/ IM_KEY_CODE::IM_KEY_F3,
-		/*27*/ IM_KEY_CODE::IM_KEY_F4
+		/*27*/ IM_KEY_CODE::IM_KEY_F4,
+		/*28*/ IM_KEY_CODE::IM_KEY_F5,
+		/*29*/ IM_KEY_CODE::IM_KEY_F6,
+		/*30*/ IM_KEY_CODE::IM_KEY_F7,
+		/*31*/ IM_KEY_CODE::IM_KEY_F8,
+		/*32*/ IM_KEY_CODE::IM_KEY_F9,
+		/*33*/ IM_KEY_CODE::IM_KEY_F10,
+		/*34*/ IM_KEY_CODE::IM_KEY_F11,
+		/*35*/ IM_KEY_CODE::IM_KEY_F12
 	};
 
 	Mouse mMouseStates[5] =
@@ -280,7 +296,8 @@ public:
 	void MousePressUpdate(SDL_Keycode key, bool state);
 
 	void MousePositionUpdate(int x, int y);
-	Vector2f GetMousePosition();
+	Vector2f GetMouseScreenPosition();
+	Vector2f GetMouseWorldPosition();
 	void MouseScrollUpdate(IM_SCROLL_DIRECTION direction);
 };
 

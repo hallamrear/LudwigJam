@@ -1,13 +1,30 @@
 #include "KillArea.h"
 #include "Player.h"
 #include "OrientedBoundingBox.h"
-#include "Animation.h"
+#include "TextureCache.h"
+#include "Texture.h"
 
-KillArea::KillArea(Transform transform, Vector2f size)
+KillArea::KillArea(Transform transform, int size)
 	: Rigidbody("", transform, PhysicsProperties(0.0f, 0.0f, 0.0f, 0.0f, false, false, true))
 {
-	mAnimation = new AnimationController("Textures/Killzone.bmp", 1, 8, 2.0f, true);
-	mCollider = new OrientedBoundingBox(mTransform.Position, mTransform.Rotation, mAnimation->FrameSize.X, mAnimation->FrameSize.Y);
+	switch (size)
+	{
+	case 1:
+		mTexture = TextureCache::GetTexture("Textures/killbox-small.bmp");
+		break;
+	case 2:
+		mTexture = TextureCache::GetTexture("Textures/killbox-mid.bmp");
+		break;
+	case 3:
+		mTexture = TextureCache::GetTexture("Textures/killbox-large.bmp");
+		break;
+
+	default:
+		break;
+	}
+
+	mCollider = new OrientedBoundingBox(mTransform.Position, mTransform.Rotation, (float)mTexture->Width, (float)mTexture->Height);
+	mCollider->IsOverlap = true;
 }
 
 KillArea::~KillArea()
@@ -27,9 +44,6 @@ void KillArea::Update(double deltaTime)
 {
 	if (mCollider)
 		mCollider->Update(deltaTime);
-
-	if (mAnimation)
-		mAnimation->Update(deltaTime);
 }
 
 void KillArea::Render()
@@ -37,6 +51,6 @@ void KillArea::Render()
 	if (mCollider)
 		mCollider->Render(mRenderer);
 
-	if (mAnimation)
-		mAnimation->Render(mRenderer, mTransform.Position, mTransform.Rotation);
+	if (mTexture)
+		mTexture->Render(mRenderer, mTransform.Position, mTransform.Rotation);
 }

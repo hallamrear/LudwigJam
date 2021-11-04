@@ -11,7 +11,7 @@ PhysicsWorld::PhysicsWorld(double fixedTimeStep)
 
 PhysicsWorld::~PhysicsWorld()
 {
-
+	mRigidbodies.clear();
 }
 
 void PhysicsWorld::FixedUpdate()
@@ -30,7 +30,7 @@ void PhysicsWorld::FixedUpdate()
 
 			CollisionManifold manifold;
 
-			if (mRigidbodies[i]->GetCollider() && mRigidbodies[j]->GetCollider())
+			if (mRigidbodies[i]->GetCollider() && mRigidbodies[j]->GetCollider() && mRigidbodies[i]->GetIsAlive() && mRigidbodies[j]->GetIsAlive())
 			{
 				if (Collision::CheckCollision(*mRigidbodies[i]->GetCollider(), *mRigidbodies[j]->GetCollider(), &manifold))
 				{
@@ -105,10 +105,12 @@ void PhysicsWorld::DeregisterRigidbody_Impl(Rigidbody* rb)
 	{
 		auto itr = std::find(mRigidbodies.begin(), mRigidbodies.end(), rb);
 
-		assert(itr == mRigidbodies.end());
-
-		if(itr != mRigidbodies.end())
+		if (itr != mRigidbodies.end())
+		{
 			mRigidbodies.erase(itr);
+		}
+		else	
+			assert(itr == mRigidbodies.end());
 	}
 }
 
@@ -119,5 +121,3 @@ PhysicsWorld* PhysicsWorld::Get()
 
 	return mInstance;
 }
-
-

@@ -110,7 +110,7 @@ bool Collision::CheckCollision_SPHEREvsSPHERE(const BoundingSphere& one, const B
 	Vector2f distanceN = distance.GetNormalized();
 
 	// Calculate the sum of the radii, then square it
-	double sumRadii = one.Radius + two.Radius;
+	float sumRadii = one.Radius + two.Radius;
 
 	if (distance.GetMagnitudeSquared() <= (sumRadii * sumRadii))
 	{
@@ -150,7 +150,7 @@ bool Collision::SeperatingAxisTheory_PolygonPolygon(const int shapeOnePointCount
 	manifold->Depth = FLT_MAX;
 
 	//Check shape one in each direction
-	for (size_t a = 0; a < shapeOnePointCount; a++)
+	for (int a = 0; a < shapeOnePointCount; a++)
 	{
 		//wraparound
 		int b = (a + 1) % shapeOnePointCount;
@@ -159,7 +159,7 @@ bool Collision::SeperatingAxisTheory_PolygonPolygon(const int shapeOnePointCount
 		axisProj = axisProj.GetNormalized();
 
 		float min_r1 = INFINITY, max_r1 = -INFINITY, min_r2 = INFINITY, max_r2 = -INFINITY;
-		for (size_t P = 0; P < shapeOnePointCount; P++)
+		for (int P = 0; P < shapeOnePointCount; P++)
 		{
 			//project each point onto line 
 			float q_one = shapeOnePoints[P].Dot(axisProj);
@@ -169,7 +169,7 @@ bool Collision::SeperatingAxisTheory_PolygonPolygon(const int shapeOnePointCount
 			max_r1 = std::max(max_r1, q_one);
 		}
 
-		for (size_t P = 0; P < shapeTwoPointCount; P++)
+		for (int P = 0; P < shapeTwoPointCount; P++)
 		{
 			//project each point onto line 
 			float q_two = shapeTwoPoints[P].Dot(axisProj);
@@ -200,7 +200,7 @@ bool Collision::SeperatingAxisTheory_PolygonPolygon(const int shapeOnePointCount
 		}
 	}
 
-	for (size_t a = 0; a < shapeTwoPointCount; a++)
+	for (int a = 0; a < shapeTwoPointCount; a++)
 	{
 		//wraparound
 		int b = (a + 1) % shapeTwoPointCount;
@@ -209,7 +209,7 @@ bool Collision::SeperatingAxisTheory_PolygonPolygon(const int shapeOnePointCount
 		axisProj = axisProj.GetNormalized();
 
 		float min_r1 = INFINITY, max_r1 = -INFINITY, min_r2 = INFINITY, max_r2 = -INFINITY;
-		for (size_t P = 0; P < shapeOnePointCount; P++)
+		for (int P = 0; P < shapeOnePointCount; P++)
 		{
 			//project each point onto line 
 			float q_one = shapeOnePoints[P].Dot(axisProj);
@@ -219,7 +219,7 @@ bool Collision::SeperatingAxisTheory_PolygonPolygon(const int shapeOnePointCount
 			max_r1 = std::max(max_r1, q_one);
 		}
 
-		for (size_t P = 0; P < shapeTwoPointCount; P++)
+		for (int P = 0; P < shapeTwoPointCount; P++)
 		{
 			//project each point onto line 
 			float q_two = shapeTwoPoints[P].Dot(axisProj);
@@ -280,7 +280,7 @@ bool Collision::SeperatingAxisTheory_PolygonCircle(const int polygonVertexCount,
 	manifold->Depth = FLT_MAX;
 
 	//Check shape one in each direction
-	for (size_t a = 0; a < polygonVertexCount; a++)
+	for (int a = 0; a <= polygonVertexCount; a++)
 	{
 		//wraparound
 		int b = (a + 1) % polygonVertexCount;
@@ -290,7 +290,7 @@ bool Collision::SeperatingAxisTheory_PolygonCircle(const int polygonVertexCount,
 
 		///Projection bit
 		float min_r1 = INFINITY, max_r1 = -INFINITY, min_r2 = INFINITY, max_r2 = -INFINITY;
-		for (size_t P = 0; P < polygonVertexCount; P++)
+		for (int P = 0; P < polygonVertexCount; P++)
 		{
 			//project each point onto line 
 			float q_two = shapeOnePoints[P].Dot(axisProj);
@@ -341,7 +341,7 @@ bool Collision::SeperatingAxisTheory_PolygonCircle(const int polygonVertexCount,
 
 	///Projection bit
 	float min_r1 = INFINITY, max_r1 = -INFINITY, min_r2 = INFINITY, max_r2 = -INFINITY;
-	for (size_t P = 0; P < polygonVertexCount; P++)
+	for (int P = 0; P < polygonVertexCount; P++)
 	{
 		//project each point onto line 
 		float q_two = shapeOnePoints[P].Dot(axisProj);
@@ -414,7 +414,7 @@ bool Collision::SeperatingAxisTheory_Depreciated(const int shapeOnePointCount, c
 	manifold->Depth = FLT_MAX;
 
 	//Check shape one in each direction
-	for (size_t a = 0; a < shapeOnePointCount; a++)
+	for (int a = 0; a < shapeOnePointCount; a++)
 	{
 		//wraparound
 		int b = (a + 1) % shapeOnePointCount;
@@ -427,7 +427,7 @@ bool Collision::SeperatingAxisTheory_Depreciated(const int shapeOnePointCount, c
 
 		Vector2f vertex;
 		float minS1 = INFINITY, maxS1 = -INFINITY, minS2 = INFINITY, maxS2 = -INFINITY;
-		for (size_t i = 0; i < shapeOnePointCount; i++)
+		for (int i = 0; i < shapeOnePointCount; i++)
 		{
 			vertex = shapeOnePoints[i];
 			float projected = vertex.Dot(axisProj);
@@ -436,7 +436,7 @@ bool Collision::SeperatingAxisTheory_Depreciated(const int shapeOnePointCount, c
 			maxS1 = std::max(maxS1, projected);
 		}
 
-		for (size_t i = 0; i < shapeTwoPointCount; i++)
+		for (int i = 0; i < shapeTwoPointCount; i++)
 		{
 			vertex = shapeTwoPoints[i];
 			float projected = vertex.Dot(axisProj);
@@ -468,7 +468,7 @@ bool Collision::SeperatingAxisTheory_Depreciated(const int shapeOnePointCount, c
 	}
 
 	//Check shape two in each direction
-	for (size_t a = 0; a < shapeTwoPointCount; a++)
+	for (int a = 0; a < shapeTwoPointCount; a++)
 	{
 		//wraparound
 		int b = (a + 1) % shapeTwoPointCount;
@@ -481,7 +481,7 @@ bool Collision::SeperatingAxisTheory_Depreciated(const int shapeOnePointCount, c
 
 		Vector2f vertex;
 		float minS1 = INFINITY, maxS1 = -INFINITY, minS2 = INFINITY, maxS2 = -INFINITY;
-		for (size_t i = 0; i < shapeOnePointCount; i++)
+		for (int i = 0; i < shapeOnePointCount; i++)
 		{
 			vertex = shapeOnePoints[i];
 			float projected = vertex.Dot(axisProj);
@@ -490,7 +490,7 @@ bool Collision::SeperatingAxisTheory_Depreciated(const int shapeOnePointCount, c
 			maxS1 = std::max(maxS1, projected);
 		}
 
-		for (size_t i = 0; i < shapeTwoPointCount; i++)
+		for (int i = 0; i < shapeTwoPointCount; i++)
 		{
 			vertex = shapeTwoPoints[i];
 			float projected = vertex.Dot(axisProj);
@@ -523,7 +523,6 @@ bool Collision::SeperatingAxisTheory_Depreciated(const int shapeOnePointCount, c
 
 	//todo: Add method to get centre of all vertices rather than origins
 	//e.g. center = FindPointCloudCenterMean(verticesA);
-
 	manifold->Depth /= manifold->Normal.GetMagnitude();
 	manifold->Normal = manifold->Normal.GetNormalized();
 

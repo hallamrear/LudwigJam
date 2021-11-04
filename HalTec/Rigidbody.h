@@ -37,7 +37,7 @@ public:
 					~Rigidbody();
 
 	//Do not call this outside of physics world.
-	void			 PhysicsUpdate(double deltaTime);
+	virtual void	 PhysicsUpdate(double deltaTime);
 
 	virtual void	 Update(double deltaTime) = 0;
 	virtual void	 Render() = 0;

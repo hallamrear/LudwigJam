@@ -38,13 +38,9 @@ void Rigidbody::AddForce(float X, float Y)
 void Rigidbody::CalculateInverseMass()
 {
 	if (GetIsStatic())
-	{
 		mInverseMass = 0.0f;
-	}
 	else
-	{
 		mInverseMass = 1.0f / mMass;
-	}
 }
 
 Rigidbody::~Rigidbody()

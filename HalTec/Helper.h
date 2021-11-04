@@ -56,7 +56,7 @@ inline Vector2f RotatePointAroundOriginDegrees(Vector2f point, float rotation, V
 	return RotatePointAroundOriginRadians(point, ConvertToRadians(rotation), origin);
 }
 
-inline static Vector2f LerpPoint(Vector2f start, Vector2f end, double time)
+inline static Vector2f LerpPoint(Vector2f start, Vector2f end, float time)
 {
 	return (start * (1 - time) + end * time);
 }

@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AltPlayScene.cpp" />
     <ClCompile Include="BackgroundEntity.cpp" />
     <ClCompile Include="entry.cpp" />
     <ClCompile Include="ForceArea.cpp" />
@@ -154,6 +155,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayState.cpp" />
     <ClCompile Include="Projectile.cpp" />
+    <ClCompile Include="Startup.cpp" />
     <ClCompile Include="WorldObject.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -162,12 +164,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AltPlayScene.h" />
     <ClInclude Include="BackgroundEntity.h" />
     <ClInclude Include="ForceArea.h" />
     <ClInclude Include="KillArea.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayState.h" />
     <ClInclude Include="Projectile.h" />
+    <ClInclude Include="Startup.h" />
     <ClInclude Include="WorldObject.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

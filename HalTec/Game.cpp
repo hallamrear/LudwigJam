@@ -4,7 +4,7 @@
 #include "StateDirector.h"
 #include "Log.h"
 #include "Settings.h"
-#include "Time.h"
+#include "MyTime.h"
 
 #include <iostream>
 #include <iomanip>
@@ -98,7 +98,6 @@ void Game::SetFullscreen(SCREEN_STATE state)
 
 void Game::TakeScreenshot(std::string name)
 {
-
 	int w, h;
 	Vector2f dimensions = Settings::Get()->GetWindowDimensions();
 	w = (int)dimensions.X;
@@ -210,25 +209,25 @@ bool Game::InitialiseWorldObjects()
 			Settings::Get()->SetDrawLog(!Settings::Get()->GetDrawLog());
 		});
 
-	InputManager::Bind(IM_KEY_CODE::IM_KEY_F1, IM_KEY_STATE::IM_KEY_PRESSED,
+	InputManager::Bind(IM_KEY_CODE::IM_KEY_F5, IM_KEY_STATE::IM_KEY_PRESSED,
 		[this]
 		{
 			SetFullscreen(SCREEN_STATE::WINDOW_WINDOWED);
 		});
 
-	InputManager::Bind(IM_KEY_CODE::IM_KEY_F2, IM_KEY_STATE::IM_KEY_PRESSED,
+	InputManager::Bind(IM_KEY_CODE::IM_KEY_F6, IM_KEY_STATE::IM_KEY_PRESSED,
 		[this]
 		{
 			SetFullscreen(SCREEN_STATE::WINDOW_BORDERLESS_FULLSCREEN);
 		});
 
-	InputManager::Bind(IM_KEY_CODE::IM_KEY_F3, IM_KEY_STATE::IM_KEY_PRESSED,
+	InputManager::Bind(IM_KEY_CODE::IM_KEY_F7, IM_KEY_STATE::IM_KEY_PRESSED,
 		[this]
 		{
 			SetFullscreen(SCREEN_STATE::WINDOW_FULLSCREEN);
 		});
 
-	InputManager::Bind(IM_KEY_CODE::IM_KEY_F4, IM_KEY_STATE::IM_KEY_PRESSED,
+	InputManager::Bind(IM_KEY_CODE::IM_KEY_F8, IM_KEY_STATE::IM_KEY_PRESSED,
 		[this]
 		{
 			TakeScreenshot("");
@@ -245,7 +244,7 @@ bool Game::InitialiseSystems(WindowDetails details)
 		Log::LogMessage(LogLevel::LOG_MESSAGE, "Subsystem created.");
 
 
-		if (InitialiseWindow(details.title.c_str(), details.position.X, details.position.Y, (int)details.dimensions.X, (int)details.dimensions.Y, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE, false) == false)
+		if (InitialiseWindow(details.title.c_str(), (int)details.position.X, (int)details.position.Y, (int)details.dimensions.X, (int)details.dimensions.Y, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE, false) == false)
 			return false;
 
 		Settings::Get()->SetWindowDimensions(details.dimensions);
@@ -286,6 +285,8 @@ bool Game::InitialiseSystems(WindowDetails details)
 
 void Game::Shutdown()
 {
+	StateDirector::SetState(GameStateIdentifier::GAME_STATE_UNKNOWN);
+
 	SDL_DestroyRenderer(Renderer);
 	SDL_DestroyWindow(mWindow);
 	SDL_Quit();
@@ -367,10 +368,7 @@ void Game::HandleEvents()
 
 void Game::Update(double DeltaTime)
 {
-	std::thread t(InputManager::Update);
-	t.detach();
-	//InputManager::Update();
-	
+	InputManager::Update();
 	PhysicsWorld::Update(DeltaTime);
 	StateDirector::Update(DeltaTime);
 

@@ -9,11 +9,22 @@ class TextElement;
 class ForceArea;
 struct SDL_Renderer;
 class BoundingBox;
+class OrientedBoundingBox;
 
 class PlayState :
     public GameState
 {
 private:
+	int buildMode;
+	int currentSelected = 1;
+	float currentSelectionRotation = 0.0f;
+	OrientedBoundingBox* mouseEditCollider;
+	Vector2f mousePosition;
+	Entity* targetBody;
+
+	std::vector<Entity*> testSelections;
+
+	TextElement* modeString;
 	Transform PlayAreaColliderTransform;
 	BoundingBox* PlayAreaCollider;
 	bool camLerp;
@@ -26,7 +37,6 @@ private:
 	ForceArea* fTwo;
 	ForceArea* fThree;
 	ForceArea* fFour;
-	void PlacePlatforms();
 	void Save(std::string location);
 	void Load(std::string location);
 

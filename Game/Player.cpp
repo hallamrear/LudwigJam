@@ -15,18 +15,15 @@ Player::Player(std::string texture, Transform transform, PhysicsProperties prope
 {
 	mIsStatic = false;
 
-	if(mAnimation)
-	{
-		delete mAnimation;
-		mAnimation = nullptr;
-	}
+	
 
 	SetupInput();
 
 	mFacingRight = true;
 	mAnimation = new AnimationController("Textures/testSpriteSheet.bmp", 6, 8, 1, true);
 
-	mCollider = new OrientedBoundingBox(mTransform.Position, mTransform.Rotation, (float)mAnimation->FrameSize.X, (float)mAnimation->FrameSize.Y);
+	//mCollider = new OrientedBoundingBox(mTransform.Position, mTransform.Rotation, mAnimation->FrameSize.X, mAnimation->FrameSize.Y);
+	mCollider = new OrientedBoundingBox(mTransform.Position, mTransform.Rotation, 20.0f, mAnimation->FrameSize.Y);
 }
 
 Player::~Player()
@@ -36,16 +33,22 @@ Player::~Player()
 		delete mCollider;
 		mCollider = nullptr;
 	}
+
+	if (mAnimation)
+	{
+		delete mAnimation;
+		mAnimation = nullptr;
+	}
 }
 
 void Player::SetupInput()
 {
 	InputManager::Bind(IM_MOUSE_CODE::IM_MOUSE_SCROLL_DOWN, IM_KEY_STATE::IM_KEY_PRESSED, [this] { MoveRight(); });
 	InputManager::Bind(IM_MOUSE_CODE::IM_MOUSE_SCROLL_UP, IM_KEY_STATE::IM_KEY_PRESSED, [this] { MoveLeft(); });
-	InputManager::Bind(IM_MOUSE_CODE::IM_MOUSE_LEFT_CLICK, IM_KEY_STATE::IM_KEY_PRESSED, [this] { Shoot(); });
+	//InputManager::Bind(IM_MOUSE_CODE::IM_MOUSE_LEFT_CLICK, IM_KEY_STATE::IM_KEY_PRESSED, [this] { Shoot(); });
 	InputManager::Bind(IM_MOUSE_CODE::IM_MOUSE_MIDDLE_CLICK, IM_KEY_STATE::IM_KEY_PRESSED, [this] 
 		{ 
-			AddForce(mTransform.GetUp() * 40000.0f);
+			AddForce(mTransform.GetUp() * 20000.0f);
 		});
 }
 
@@ -85,7 +88,8 @@ void Player::Update(double deltaTime)
 	if (projs.size() > 0)
 	{
 		std::vector<int> toErase;
-		for (int i = 0; i < projs.size(); i++)
+		int size = (int)projs.size();
+		for (int i = 0; i < size; i++)
 		{
 			if (projs[i]->GetIsAlive())
 				projs[i]->Update(deltaTime);
@@ -93,7 +97,8 @@ void Player::Update(double deltaTime)
 				toErase.push_back(i);
 		}
 
-		for (int i = 0; i < toErase.size(); i++)
+		size = (int)toErase.size();
+		for (int i = 0; i < size; i++)
 		{
 			projs.erase(projs.begin() + toErase[i]);
 		}

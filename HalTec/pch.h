@@ -20,6 +20,5 @@
 #include <mmsystem.h>
 #include <cassert>
 
-#include "Vector2.h"
 #include "Helper.h"
 #include "Settings.h"

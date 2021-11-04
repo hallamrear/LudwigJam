@@ -6,10 +6,9 @@ class AnimationController;
 class KillArea : public Rigidbody
 {
 private:
-	AnimationController* mAnimation;
 
 public:
-	KillArea(Transform transform, Vector2f size);
+	KillArea(Transform transform, int size);
 	~KillArea();
 
 	void OnOverlap(const CollisionManifold& manifold, Rigidbody& rb);

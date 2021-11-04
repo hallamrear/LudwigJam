@@ -28,7 +28,7 @@ ForceArea::~ForceArea()
 void ForceArea::ApplyForce(Rigidbody* rb)
 {
 	if (rb)
-		rb->AddExternalForce(mTransform.GetRight() * mForceStrength);
+		rb->AddExternalForce(mTransform.GetRight() * (float)mForceStrength);
 }
 
 void ForceArea::Update(double deltaTime)
