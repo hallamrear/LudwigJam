@@ -24,3 +24,5 @@ public:
 	static Vector2f WorldToScreen(Vector2f entityWorldPosition);
 	static Vector2f ScreenToWorld(Vector2f screenPosition);
 };
+
+//todo : figure out a zoom thing with SDL_RenderSetScale();

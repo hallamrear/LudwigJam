@@ -24,6 +24,7 @@
     <ProjectGuid>{8e58addc-3cd3-4a94-bec9-079f31d44d2c}</ProjectGuid>
     <RootNamespace>Game</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>Slider</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -147,11 +148,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AltPlayScene.cpp" />
     <ClCompile Include="BackgroundEntity.cpp" />
     <ClCompile Include="entry.cpp" />
     <ClCompile Include="ForceArea.cpp" />
-    <ClCompile Include="KillArea.cpp" />
+    <ClCompile Include="KillBox.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayState.cpp" />
     <ClCompile Include="Projectile.cpp" />
@@ -164,10 +164,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AltPlayScene.h" />
     <ClInclude Include="BackgroundEntity.h" />
     <ClInclude Include="ForceArea.h" />
-    <ClInclude Include="KillArea.h" />
+    <ClInclude Include="KillBox.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayState.h" />
     <ClInclude Include="Projectile.h" />

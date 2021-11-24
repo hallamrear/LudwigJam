@@ -5,14 +5,30 @@
 #include "Log.h"
 #include "Player.h"
 
-ForceArea::ForceArea(Transform transform, Vector2f size, int forceStrength)
+ForceArea::ForceArea(Transform transform, int areaSize, int forceStrength)
 	: Rigidbody("", transform, PhysicsProperties(100.0f, 0.0f, 0.0f, 0.0f, false, false, true))
 {
+	Name = "ForceZone";
 	mForceStrength = forceStrength;
-	mSize = size;
 
-	mAnimation = new AnimationController("Textures/Wind.bmp", 1, 4, 1.0f, true);
-	mCollider = new OrientedBoundingBox(mTransform.Position, mTransform.Rotation, mSize.X, mSize.Y);
+	switch (areaSize)
+	{
+
+	default:
+	case 1:
+		mAnimation = new AnimationController("Textures/forceAreaSmall.bmp", 1, 16, 1.0f, true);
+		break;
+
+	case 2:
+		mAnimation = new AnimationController("Textures/forceAreaMid.bmp", 1, 16, 1.0f, true);
+		break;
+
+	case 3:
+		mAnimation = new AnimationController("Textures/forceAreaLarge.bmp", 1, 16, 1.0f, true);
+		break;
+	}
+	
+	mCollider = new OrientedBoundingBox(mTransform.Position, mTransform.Rotation, mAnimation->FrameSize.X, mAnimation->FrameSize.Y);
 	mCollider->IsOverlap = true;
 }
 
@@ -28,7 +44,7 @@ ForceArea::~ForceArea()
 void ForceArea::ApplyForce(Rigidbody* rb)
 {
 	if (rb)
-		rb->AddExternalForce(mTransform.GetRight() * (float)mForceStrength);
+		rb->AddExternalForce(mTransform.GetUp() * (float)mForceStrength);
 }
 
 void ForceArea::Update(double deltaTime)
@@ -46,7 +62,7 @@ void ForceArea::Render()
 		mCollider->Render(mRenderer);
 
 	if (mAnimation)
-		mAnimation->Render(mRenderer, mTransform.Position, mTransform.Rotation);
+		mAnimation->Render(mRenderer, mTransform);
 }
 
 void ForceArea::OnOverlap(const CollisionManifold& manifold, Rigidbody& other)

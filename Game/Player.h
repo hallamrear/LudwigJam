@@ -11,23 +11,21 @@ class Player :
     public Rigidbody
 {
 private:
-    //todo : remove
-    std::vector<Projectile*> projs;
-
     void SetupInput();
 
     AnimationController* mAnimation;
+    AnimationController* mJumpingAnimation;
 
     bool mFacingRight;
     void MoveRight();
     void MoveLeft();
-    void Shoot();
+    bool mIsJumping;
 
 public:
     Player(std::string texture, Transform transform, PhysicsProperties properties);
     ~Player() override;
 
-    void Update(double deltaTime);
-    void Render();
+    void Update(double deltaTime) override;
+    void Render() override;
 };
 

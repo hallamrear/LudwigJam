@@ -18,5 +18,5 @@ public:
 	virtual void Render(SDL_Renderer& renderer);
 
 	//Fills array with points of the box.
-	void GetBoxAsPoints(Vector2f points[]) const;
+	void GetColliderAsPoints(Vector2f points[]) const;
 };

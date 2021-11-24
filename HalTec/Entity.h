@@ -1,9 +1,10 @@
 #pragma once
 #include <string>
 #include "Transform.h"
+#include "json/json.hpp"
+
 class Collider;
 class Texture;
-
 struct SDL_Renderer;
 
 class Entity
@@ -28,7 +29,6 @@ public:
 
 	virtual					~Entity() = 0;
 
-
 	//Sets mTexture to the texture at texture_path. Sets the width and height to the parameters.
 	void					AssignTexture(const std::string& texture_path);
 	const Texture&			GetTexture() const;
@@ -41,4 +41,3 @@ public:
 	
 	virtual void			SetAlive(const bool state) { mIsAlive = state; }
 };
-

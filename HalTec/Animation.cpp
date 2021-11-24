@@ -12,11 +12,24 @@ AnimationController::AnimationController(std::string sheetPath, unsigned int ani
 	mTotalFrames = frameCountPerAnimation;
 	mTimeBetweenFrames = mDuration / (float)(mTotalFrames);
 	FrameSize = Vector2f(mAnimationSheet->Width / (float)mTotalFrames, mAnimationSheet->Height / (float)animationCount);
+	mHasFinished = false;
 }
 
 AnimationController::~AnimationController()
 {
 	mAnimationSheet = nullptr;
+}
+
+bool AnimationController::HasFinished()
+{
+	return mHasFinished;
+}
+
+void AnimationController::Start()
+{
+	mHasFinished = false;
+	mCurrentFrame = 0;
+	mTimeElapsed = 0.0f;
 }
 
 void AnimationController::SetAnimation(unsigned int animation)
@@ -28,28 +41,47 @@ void AnimationController::Update(double deltaTime)
 {
 	if (mAnimationSheet)
 	{
-		mTimeElapsed += deltaTime;
+		if (mHasFinished == false)
+		{
+			mTimeElapsed += deltaTime;
 
-		if (mTimeElapsed > mDuration)
-		{
-			if (mIsLooping)
+			if (mTimeElapsed > mDuration)
 			{
-				mTimeElapsed = 0.0f;
-				mCurrentFrame = 0;
+				if (mIsLooping)
+				{
+					mTimeElapsed = 0.0f;
+					mCurrentFrame = 0;
+				}
+				else
+				{
+					mTimeElapsed = 0.0f;
+					mCurrentFrame = 0;
+					mHasFinished = true;
+				}
 			}
-		}
-		else
-		{
-			mCurrentFrame = (unsigned int)(mTimeElapsed / mTimeBetweenFrames);
+			else
+			{
+				mCurrentFrame = (unsigned int)(trunc(mTimeElapsed / mTimeBetweenFrames));
+			}
 		}
 	}
 }
 
-void AnimationController::Render(SDL_Renderer& renderer, Vector2f position, float rotation)
+
+void AnimationController::Render(SDL_Renderer& renderer, Transform transform)
 {
 	if (mAnimationSheet)
 	{
 		Vector2f srcPos = Vector2f((FrameSize.X * mCurrentFrame) + (FrameSize.X / 2.0f), (FrameSize.Y * mCurrentAnimation) + FrameSize.Y / 2.0f);
-		mAnimationSheet->Render(*Game::Renderer, position, rotation, srcPos, FrameSize);	
+		mAnimationSheet->Render(*Game::Renderer, transform.Position, transform.Rotation, srcPos, FrameSize);
+	}
+}
+
+void AnimationController::Render(SDL_Renderer& renderer, Transform transform, bool flipped)
+{
+	if (mAnimationSheet)
+	{
+		Vector2f srcPos = Vector2f((FrameSize.X * mCurrentFrame) + (FrameSize.X / 2.0f), (FrameSize.Y * mCurrentAnimation) + FrameSize.Y / 2.0f);
+		mAnimationSheet->Render(*Game::Renderer, transform.Position, transform.Rotation, srcPos, FrameSize, flipped);
 	}
 }

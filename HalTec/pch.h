@@ -22,3 +22,5 @@
 
 #include "Helper.h"
 #include "Settings.h"
+
+static float TEST_ZOOM = 1.0f;

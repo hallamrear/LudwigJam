@@ -48,7 +48,7 @@ public:
 	virtual Vector2f FindFurthestPoint(Vector2f direction) const = 0;
 
 	//Todo:  this is a polygon, not a box
-	virtual void GetBoxAsPoints(Vector2f points[]) const = 0;
+	virtual void GetColliderAsPoints(Vector2f points[]) const = 0;
 };
  
 class Collision

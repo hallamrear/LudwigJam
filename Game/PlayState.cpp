@@ -12,7 +12,7 @@
 #include "ForceArea.h"
 #include "BoundingBox.h"
 #include "Texture.h"
-#include "KillArea.h"
+#include "KillBox.h"
 #include <iostream>
 #include <fstream>
 #include "OrientedBoundingBox.h"
@@ -23,6 +23,8 @@ float r = 0.0f;
 
 void PlayState::Start()
 {
+	resetPosition = Vector2f(-550, -1620.0f);
+
 	buildMode = 0;
 	Camera::SetCameraPosition(Vector2f(0.0f, -2000.0f));
 
@@ -33,8 +35,7 @@ void PlayState::Start()
 	mPlayer = new Player("", Transform(Vector2f(-550, -1620.0f)), PhysicsProperties(150.0f, 0.1f, 1000.0f, 10.3f, true, true, false));
 	entities.push_back(std::make_pair(2, mPlayer));
 
-	entities.push_back(std::make_pair(1, new TextElement(Transform())));
-	mousePos = (TextElement*)entities.back().second;
+	mousePos = new TextElement(Transform());
 
 	modeString = new TextElement(Transform());
 
@@ -42,9 +43,9 @@ void PlayState::Start()
 	testSelections.push_back(new StaticWorldObject("Textures/platform_small.bmp", Transform(position)));
 	testSelections.push_back(new StaticWorldObject("Textures/platform_mid.bmp", Transform(position)));
 	testSelections.push_back(new StaticWorldObject("Textures/platform_large.bmp", Transform(position)));
-	testSelections.push_back(new KillArea(Transform(position), 1));
-	testSelections.push_back(new KillArea(Transform(position), 2));
-	testSelections.push_back(new KillArea(Transform(position), 3));
+	testSelections.push_back(new KillBox(Transform(position), 1));
+	testSelections.push_back(new KillBox(Transform(position), 2));
+	testSelections.push_back(new KillBox(Transform(position), 3));
 
 	InputManager::Bind(IM_KEY_CODE::IM_KEY_Q, IM_KEY_STATE::IM_KEY_HELD, [this] { if(buildMode == 1) currentSelectionRotation--; else if (buildMode == 2) if (targetBody) targetBody->GetTransform().AdjustRotation(-1.0f); });
 	InputManager::Bind(IM_KEY_CODE::IM_KEY_E, IM_KEY_STATE::IM_KEY_HELD, [this] { if (buildMode == 1) currentSelectionRotation++; else if (buildMode == 2) if (targetBody) targetBody->GetTransform().AdjustRotation(1.0f); });
@@ -52,7 +53,7 @@ void PlayState::Start()
 	InputManager::Bind(IM_KEY_CODE::IM_KEY_S, IM_KEY_STATE::IM_KEY_HELD, [this] { if (targetBody) targetBody->GetTransform().AdjustPosition(Vector2f(0.0f, -1.0f)); });
 	InputManager::Bind(IM_KEY_CODE::IM_KEY_A, IM_KEY_STATE::IM_KEY_HELD, [this] { if (targetBody) targetBody->GetTransform().AdjustPosition(Vector2f(-1.0f, 0.0f)); });
 	InputManager::Bind(IM_KEY_CODE::IM_KEY_D, IM_KEY_STATE::IM_KEY_HELD, [this] { if (targetBody) targetBody->GetTransform().AdjustPosition(Vector2f(1.0f, 0.0f));  });
-	InputManager::Bind(IM_KEY_CODE::IM_KEY_4, IM_KEY_STATE::IM_KEY_PRESSED, [this] { if (buildMode == 2) mPlayer->GetTransform().Position = InputManager::Get()->GetMouseWorldPosition(); });
+	InputManager::Bind(IM_KEY_CODE::IM_KEY_4, IM_KEY_STATE::IM_KEY_PRESSED, [this] { if (buildMode == 2) { resetPosition = InputManager::Get()->GetMouseWorldPosition(); mPlayer->GetTransform().Position = resetPosition;  } });
 
 	InputManager::Bind(IM_KEY_CODE::IM_KEY_0, IM_KEY_STATE::IM_KEY_PRESSED, [this] { camLerp = !camLerp; });
 	InputManager::Bind(IM_KEY_CODE::IM_KEY_SPACE, IM_KEY_STATE::IM_KEY_PRESSED, [this] 
@@ -95,15 +96,15 @@ void PlayState::Start()
 					break;
 
 				case 4:
-					entities.push_back({ 1, new KillArea(Transform(position), 1) });
+					entities.push_back({ 1, new KillBox(Transform(position), 1) });
 					break;
 
 				case 5:
-					entities.push_back({ 1, new KillArea(Transform(position), 2) });
+					entities.push_back({ 1, new KillBox(Transform(position), 2) });
 					break;
 
 				case 6:
-					entities.push_back({ 1, new KillArea(Transform(position), 3) });
+					entities.push_back({ 1, new KillBox(Transform(position), 3) });
 					break;
 				}
 
@@ -151,12 +152,7 @@ void PlayState::Start()
 					delete targetBody;
 					targetBody = nullptr;
 				}
-			}
-
-
-			
-
-
+			}	
 		});
 
 	InputManager::Bind(IM_KEY_CODE::IM_KEY_1, IM_KEY_STATE::IM_KEY_PRESSED, [this]
@@ -205,13 +201,14 @@ void PlayState::Start()
 			Camera::SetCameraPosition(pos);
 		});
 
-	//fOne = new ForceArea(Transform(Vector2f(-500.0f, -500.0f), 270.0f), Vector2f(250.0f, 250.0f), 16000.0f);
-	//fTwo = new ForceArea(Transform(Vector2f(500.0f, -500.0f), 180.0f), Vector2f(250.0f, 250.0f), 16000.0f);
-	//fThree = new ForceArea(Transform(Vector2f(-500.0f, 500.0f), 0.0f), Vector2f(250.0f, 250.0f), 16000.0f);
-	//fFour = new ForceArea(Transform(Vector2f(500.0f, 500.0f), 90.0f), Vector2f(250.0f, 250.0f), 16000.0f);
+	//fOne = new ForceArea(Transform(Vector2f(-390.0f, -1580.0f), 0.0f), 1, 16000.0f);
+	//fTwo =   new ForceArea(Transform(Vector2f(-200.0f, -1580.0f), 0.0f), 2, 16000.0f);
+	//fThree = new ForceArea(Transform(Vector2f(-100.0f, -1580.0f), 0.0f), 3, 16000.0f);
 	//entities.push_back(std::make_pair(1, fOne));
 	//entities.push_back(std::make_pair(1, fTwo));
 	//entities.push_back(std::make_pair(1, fThree));
+
+	//fFour = new ForceArea(Transform(Vector2f(500.0f, 500.0f), 90.0f), Vector2f(250.0f, 250.0f), 16000.0f);
 	//entities.push_back(std::make_pair(1, fFour));
 
 	Camera::SetCameraPosition(LerpPoint(Camera::GetCameraPosition(), Vector2f(0.0f, -1285.0f), 1));
@@ -252,7 +249,7 @@ void PlayState::Save(std::string location)
 				typeAndTransform.push_back({ 1, entity });
 				count++;
 			}
-			else if (dynamic_cast<KillArea*>(entity))
+			else if (dynamic_cast<KillBox*>(entity))
 			{
 				typeAndTransform.push_back({ 2, entity });
 				count++;
@@ -314,11 +311,11 @@ void PlayState::Load(std::string location)
 			else if(type == 2)
 			{
 				if (location == "Textures/killbox-large.bmp")
-					entities.push_back({ 1, new KillArea(transform, 3) });
+					entities.push_back({ 1, new KillBox(transform, 3) });
 				else if(location == "Textures/killbox-mid.bmp")
-					entities.push_back({ 1, new KillArea(transform, 2) });
+					entities.push_back({ 1, new KillBox(transform, 2) });
 				else if (location == "Textures/killbox-small.bmp")
-					entities.push_back({ 1, new KillArea(transform, 1) });
+					entities.push_back({ 1, new KillBox(transform, 1) });
 
 			}
 		}
@@ -332,7 +329,7 @@ void PlayState::Update(double deltaTime)
 	switch (buildMode)
 	{
 	case 0:
-		modeString->SetString("");
+		modeString->SetString(" ");
 		testSelections[currentSelected - 1]->GetTransform().Position = Vector2f(-5000.0f, -5000.0f);
 		testSelections[currentSelected - 1]->GetTransform().Rotation = 0.0f;
 		break;
@@ -348,38 +345,53 @@ void PlayState::Update(double deltaTime)
 		break;
 	}
 
-	if(buildMode != 0)
+	if (buildMode != 0)
+	{
 		mouseEditCollider->mOrigin = InputManager::Get()->GetMouseWorldPosition();
+		mouseEditCollider->Update(deltaTime);
+
+		modeString->SetPosition(InputManager::Get()->GetMouseWorldPosition() + Vector2f(0.0f, -100.0f));
+		modeString->Update(deltaTime);
+
+		std::string str = "";
+		Vector2f pos = InputManager::Get()->GetMouseWorldPosition();
+		str = std::string("pX:" + std::to_string(pos.X) + " pY:" + std::to_string(pos.Y) + "\n");
+		mousePos->SetString(str);
+		mousePos->SetPosition(pos + Vector2f(0.0f, 55.0f));
+		mousePos->Update(deltaTime);
+	}
 	else
+	{
 		mouseEditCollider->mOrigin = Vector2f(5000.0f, 5000.0f);
 
-	mouseEditCollider->Update(deltaTime);
-
-
-	modeString->SetPosition(InputManager::Get()->GetMouseWorldPosition() + Vector2f(0.0f, -100.0f));
-	modeString->Update(deltaTime);
+		if (camLerp)
+		{
+			if (mPlayer->GetTransform().Position.Y < -1285.0f)
+			{
+				Camera::SetCameraPosition(LerpPoint(Camera::GetCameraPosition(), Vector2f(0.0f, -1285.0f), 5 * deltaTime));
+			}
+			else
+			{
+				Camera::SetCameraPosition(LerpPoint(Camera::GetCameraPosition(), Vector2f(0.0f, mPlayer->GetTransform().Position.Y), 5 * deltaTime));
+			}
+		}
+	}
 
 	CollisionManifold m;
 	if (!Collision::CheckCollision(*mPlayer->GetCollider(), *PlayAreaCollider, &m))
 	{
 		Vector2f vel = mPlayer->GetVelocity();
 		mPlayer->AddVelocity(vel * -1.0f);
-		mPlayer->GetTransform().Position = Vector2f(-550.0f, -1620.0f);
+		mPlayer->GetTransform().Position = resetPosition;
 	}
 
 	if (!mPlayer->GetIsAlive())
 	{
 		Vector2f vel = mPlayer->GetVelocity();
 		mPlayer->AddVelocity(vel * -1.0f);
-		mPlayer->GetTransform().Position = Vector2f(-550.0f, -1620.0f);
+		mPlayer->GetTransform().Position = resetPosition;
 		mPlayer->SetAlive(true);
 	}
-
-	std::string str = "";
-	Vector2f pos = InputManager::Get()->GetMouseWorldPosition();
-	str = std::string("pX:" + std::to_string(pos.X) + " pY:" + std::to_string(pos.Y) + "\n");
-	mousePos->SetString(str);
-	mousePos->SetPosition(pos + Vector2f(0.0f, 55.0f));
 
 	for (auto& one : entities)
 	{
@@ -401,30 +413,11 @@ void PlayState::Update(double deltaTime)
 		}
 	}
 
-	if (buildMode == 0)
-	{
-		if (camLerp)
-		{
-			if (mPlayer->GetTransform().Position.Y < -1285.0f)
-			{
-				Camera::SetCameraPosition(LerpPoint(Camera::GetCameraPosition(), Vector2f(0.0f, -1285.0f), 5 * deltaTime));
-			}
-			else
-			{
-				Camera::SetCameraPosition(LerpPoint(Camera::GetCameraPosition(), Vector2f(0.0f, mPlayer->GetTransform().Position.Y), 5 * deltaTime));
-			}
-		}
-	}
-		
-	//Camera::SetCameraPosition(LerpPoint(Camera::GetCameraPosition(), Vector2f(mPlayer->GetTransform().Position), 5 * deltaTime));
 }
 
 
 void PlayState::Render(SDL_Renderer& renderer)
 {
-	modeString->Render();
-
-
 	for (int i = 0; i < 3; i++)
 	{
 		for (auto& itr : entities)
@@ -434,9 +427,10 @@ void PlayState::Render(SDL_Renderer& renderer)
 		}
 	}	
 
-
 	if (buildMode != 0)
 	{
+		mousePos->Render();
+		modeString->Render();
 		testSelections[currentSelected - 1]->Render();
 
 		if (buildMode == 2)

@@ -2,7 +2,7 @@
 #include <map>
 #include "GameStates.h"
 
-enum GameStateIdentifier
+enum class GameStateIdentifier
 {	
 	GAME_STATE_UNKNOWN = 0,
 	GAME_STATE_PAUSED,

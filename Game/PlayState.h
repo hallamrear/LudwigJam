@@ -15,6 +15,8 @@ class PlayState :
     public GameState
 {
 private:
+	Vector2f resetPosition;
+
 	int buildMode;
 	int currentSelected = 1;
 	float currentSelectionRotation = 0.0f;

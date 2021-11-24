@@ -9,7 +9,7 @@
 Vector2f Collision::FindClosestPointOnPolygon(const BoundingSphere& circle, const Collider& polygon, const int polygonVertexCount)
 {
 	Vector2f* vertices = new Vector2f[polygonVertexCount];
-	polygon.GetBoxAsPoints(vertices);
+	polygon.GetColliderAsPoints(vertices);
 
 	Vector2f result;
 	float minDistance = INFINITY;
@@ -142,9 +142,9 @@ bool Collision::CheckCollision_AABBvsOBB(const BoundingBox& one, const OrientedB
 bool Collision::SeperatingAxisTheory_PolygonPolygon(const int shapeOnePointCount, const Collider& one, const int shapeTwoPointCount, const Collider& two, CollisionManifold* manifold)
 {
 	Vector2f* shapeOnePoints = new Vector2f[shapeOnePointCount];
-	one.GetBoxAsPoints(shapeOnePoints);
+	one.GetColliderAsPoints(shapeOnePoints);
 	Vector2f* shapeTwoPoints = new Vector2f[shapeTwoPointCount];
-	two.GetBoxAsPoints(shapeTwoPoints);
+	two.GetColliderAsPoints(shapeTwoPoints);
 
 	manifold->Normal = Vector2f(0.0f, 0.0f);
 	manifold->Depth = FLT_MAX;
@@ -273,7 +273,7 @@ bool Collision::SeperatingAxisTheory_PolygonPolygon(const int shapeOnePointCount
 bool Collision::SeperatingAxisTheory_PolygonCircle(const int polygonVertexCount, const Collider& polygonCollider, const BoundingSphere& circleCollider, CollisionManifold* manifold)
 {
 	Vector2f* shapeOnePoints = new Vector2f[polygonVertexCount];
-	polygonCollider.GetBoxAsPoints(shapeOnePoints);
+	polygonCollider.GetColliderAsPoints(shapeOnePoints);
 
 	Vector2f axisProj = Vector2f(0.0f, 0.0f);
 	manifold->Normal = Vector2f(0.0f, 0.0f);
@@ -406,9 +406,9 @@ bool Collision::SeperatingAxisTheory_PolygonCircle(const int polygonVertexCount,
 bool Collision::SeperatingAxisTheory_Depreciated(const int shapeOnePointCount, const Collider& one, const int shapeTwoPointCount, const Collider& two, CollisionManifold* manifold)
 {
 	Vector2f* shapeOnePoints = new Vector2f[shapeOnePointCount];
-	one.GetBoxAsPoints(shapeOnePoints);
+	one.GetColliderAsPoints(shapeOnePoints);
 	Vector2f* shapeTwoPoints = new Vector2f[shapeTwoPointCount];
-	two.GetBoxAsPoints(shapeTwoPoints);
+	two.GetColliderAsPoints(shapeTwoPoints);
 
 	manifold->Normal = Vector2f(0.0f, 0.0f);
 	manifold->Depth = FLT_MAX;

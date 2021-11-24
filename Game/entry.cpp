@@ -3,16 +3,14 @@
 #include "InputManager.h"
 #include "PlayState.h"
 #include "Startup.h"
-#include "AltPlayScene.h"
 #include "StateDirector.h"
 #include "Vector2.h"
 
 void SetupStates()
 {
 	StateDirector::SetupState(GameStateIdentifier::GAME_STATE_MAIN_MENU, new Startup());
-	StateDirector::SetupState(GAME_STATE_PLAYING, new PlayState());	
-	StateDirector::SetupState(GAME_STATE_1, new AltPlayScene());
-	StateDirector::SetState(GAME_STATE_MAIN_MENU);
+	StateDirector::SetupState(GameStateIdentifier::GAME_STATE_PLAYING, new PlayState());
+	StateDirector::SetState(GameStateIdentifier::GAME_STATE_MAIN_MENU);
 }
 
 INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,

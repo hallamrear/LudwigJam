@@ -65,6 +65,45 @@ void Texture::Render(SDL_Renderer& renderer, Vector2f position, float rotation, 
 	SDL_RenderCopyEx(&renderer, &GetSDLTexture(), &srcRect, &destRect, rotation, NULL, SDL_FLIP_NONE);
 }
 
+
+void Texture::Render(SDL_Renderer& renderer, Vector2f position, float rotation, bool flipped)
+{
+	Vector2f renderPosition = Camera::WorldToScreen(position);
+
+	SDL_Rect destRect{};
+	destRect.w = Width;
+	destRect.h = Height;
+	destRect.x = (int)(renderPosition.X) - (destRect.w / 2);
+	destRect.y = (int)(renderPosition.Y) - (destRect.h / 2);
+
+	if (flipped)
+		SDL_RenderCopyEx(&renderer, &GetSDLTexture(), NULL, &destRect, rotation, NULL, SDL_FLIP_NONE);
+	else
+		SDL_RenderCopyEx(&renderer, &GetSDLTexture(), NULL, &destRect, rotation, NULL, SDL_FLIP_HORIZONTAL);
+}
+
+void Texture::Render(SDL_Renderer& renderer, Vector2f position, float rotation, Vector2f sourcePosition, Vector2f sourceDimensions, bool flipped)
+{
+	const Vector2f renderPosition = Camera::WorldToScreen(position);
+
+	SDL_Rect destRect{};
+	destRect.w = sourceDimensions.X;
+	destRect.h = sourceDimensions.Y;
+	destRect.x = (int)(renderPosition.X) - (destRect.w / 2.0f);
+	destRect.y = (int)(renderPosition.Y) - (destRect.h / 2);
+	
+	SDL_Rect srcRect{};
+	srcRect.w = sourceDimensions.X;
+	srcRect.h = sourceDimensions.Y;
+	srcRect.x = (int)(sourcePosition.X) - (srcRect.w / 2);
+	srcRect.y = (int)(sourcePosition.Y) - (srcRect.h / 2);
+
+	if(flipped)
+		SDL_RenderCopyEx(&renderer, &GetSDLTexture(), &srcRect, &destRect, (double)rotation, NULL, SDL_FLIP_NONE);
+	else																   
+		SDL_RenderCopyEx(&renderer, &GetSDLTexture(), &srcRect, &destRect, (double)rotation, NULL, SDL_FLIP_HORIZONTAL);
+}
+
 void Texture::Create(std::string texture_path)
 {
 	assert(mTexture == nullptr);

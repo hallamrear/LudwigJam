@@ -42,7 +42,7 @@ void BoundingBox::Render(SDL_Renderer& renderer)
 	}
 }
 
-void BoundingBox::GetBoxAsPoints(Vector2f points[]) const
+void BoundingBox::GetColliderAsPoints(Vector2f points[]) const
 {
 	points[0] = Vector2f(TopLeft.X, BottomRight.Y); //BottomLeft
 	points[1] = BottomRight;
@@ -56,7 +56,7 @@ Vector2f BoundingBox::FindFurthestPoint(Vector2f direction) const
 	float maxDistance = -FLT_MAX;
 
 	Vector2f vertices[4];
-	GetBoxAsPoints(vertices);
+	GetColliderAsPoints(vertices);
 
 	for (int i = 0; i < 4; i++)
 	{

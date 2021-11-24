@@ -41,9 +41,8 @@ void Projectile::Render()
 {
 	if (mIsAlive)
 	{
-		//Todo : mTexture Render take in transform instead
 		if (mAnimation)
-			mAnimation->Render(mRenderer, mTransform.Position, mTransform.Rotation);
+			mAnimation->Render(mRenderer, mTransform);
 
 		if (mCollider)
 			mCollider->Render(mRenderer);

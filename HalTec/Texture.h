@@ -21,7 +21,9 @@ public:
 	SDL_Texture& GetSDLTexture();
 	const std::string& GetLocation() const;
 
+	virtual void Render(SDL_Renderer& renderer, Vector2f position, float rotation, Vector2f sourcePosition, Vector2f sourceDimensions, bool flipped);
 	virtual void Render(SDL_Renderer& renderer, Vector2f position, float rotation, Vector2f sourcePosition, Vector2f sourceDimensions);
+	virtual void Render(SDL_Renderer& renderer, Vector2f position, float rotation, bool flipped);
 	virtual void Render(SDL_Renderer& renderer, Vector2f position, float rotation);
 };
 

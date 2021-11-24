@@ -13,7 +13,7 @@ public:
 	virtual ~BoundingBox();
 	virtual void Update(double deltaTime);
 	virtual void Render(SDL_Renderer& renderer);
-	virtual void GetBoxAsPoints(Vector2f points[]) const;
+	virtual void GetColliderAsPoints(Vector2f points[]) const;
 
 	virtual Vector2f FindFurthestPoint(Vector2f direction) const override;
 };

@@ -51,7 +51,7 @@ void OrientedBoundingBox::Render(SDL_Renderer& renderer)
 }
 
 //Fills array with points of the box.
-void OrientedBoundingBox::GetBoxAsPoints(Vector2f points[]) const
+void OrientedBoundingBox::GetColliderAsPoints(Vector2f points[]) const
 {
 	points[0] = BottomLeft;
 	points[1] = BottomRight;

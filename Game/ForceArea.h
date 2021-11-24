@@ -11,10 +11,9 @@ class ForceArea :
 private:
     AnimationController* mAnimation;
     int mForceStrength;
-    Vector2f mSize;
 
 public:
-    ForceArea(Transform transform, Vector2f size, int forceStrength);
+    ForceArea(Transform transform, int areaSize, int forceStrength);
     ~ForceArea();
 
     void ApplyForce(Rigidbody* rb);

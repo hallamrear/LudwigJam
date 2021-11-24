@@ -195,6 +195,8 @@ bool Game::InitialiseGraphics()
 	}
 }
 
+static float zoom = 1.0f;
+
 bool Game::InitialiseWorldObjects()
 {
 	InputManager::Bind(IM_KEY_CODE::IM_KEY_Z, IM_KEY_STATE::IM_KEY_PRESSED, 
@@ -232,8 +234,8 @@ bool Game::InitialiseWorldObjects()
 		{
 			TakeScreenshot("");
 		}
-	);
-
+		);
+	
 	return true;
 }
 

@@ -5,6 +5,7 @@
 BackgroundEntity::BackgroundEntity(std::string texture, Transform transform)
 	: Entity("", transform)
 {
+	Name = "BackgroundEntity";
 	mAnimation = new AnimationController(texture, 1, 6, 1, true);
 }
 
@@ -28,5 +29,5 @@ void BackgroundEntity::Update(double deltaTime)
 void BackgroundEntity::Render()
 {
 	if (mAnimation)
-		mAnimation->Render(mRenderer, mTransform.Position, mTransform.Rotation);
+		mAnimation->Render(mRenderer, mTransform);
 }

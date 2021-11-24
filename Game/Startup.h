@@ -9,6 +9,8 @@ class Startup :
     public GameState
 {
 private:
+    TextElement** controlText;
+
     TextElement* text;
     bool mStarted;
     Texture* mTexture;
