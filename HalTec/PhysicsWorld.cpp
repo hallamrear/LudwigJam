@@ -30,6 +30,9 @@ void PhysicsWorld::FixedUpdate()
 
 			CollisionManifold manifold;
 
+			if (i > mRigidbodies.size())
+				continue;
+
 			if (mRigidbodies[i]->GetCollider() && mRigidbodies[j]->GetCollider() && mRigidbodies[i]->GetIsAlive() && mRigidbodies[j]->GetIsAlive())
 			{
 				if (Collision::CheckCollision(*mRigidbodies[i]->GetCollider(), *mRigidbodies[j]->GetCollider(), &manifold))

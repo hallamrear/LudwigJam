@@ -25,6 +25,7 @@ private:
 	static StateDirector* mInstance;
 
 	GameState* mCurrentState;
+	bool mChangeState = false;
 	std::map<GameStateIdentifier, GameState*> mDirectorStates;
 
 							StateDirector();
