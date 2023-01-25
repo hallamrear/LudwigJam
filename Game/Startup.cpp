@@ -12,17 +12,15 @@ void Startup::Start()
 	InputManager::Bind(IM_KEY_CODE::IM_KEY_SPACE, IM_KEY_STATE::IM_KEY_PRESSED, [this] { if (mStarted == false) { mStarted = true; } });
 
 	controlText = new TextElement*[5];
-	for (size_t i = 0; i < 5; i++)
+	for (size_t i = 0; i < 3; i++)
 	{
 		controlText[i] = new TextElement(Transform(Vector2f(0.0f, 0.0f), 0.0f), "", 16.0f, Colour(255, 255, 255, 255));
 		controlText[i]->SetString("adfajsdbfnjhabvuiadsv");
 	}
 
-	controlText[0]->SetPosition(Vector2f(5.0f, -60.0f));
-	controlText[1]->SetPosition(Vector2f(5.0f, -20.0f));
-	controlText[2]->SetPosition(Vector2f(5.0f, 20.0f));
-	controlText[3]->SetPosition(Vector2f(5.0f, 60.0f));
-	controlText[4]->SetPosition(Vector2f(5.0f, 100.0f));
+	controlText[0]->SetPosition(Vector2f(5.0f, -20.0f));
+	controlText[1]->SetPosition(Vector2f(5.0f, 20.0f));
+	controlText[2]->SetPosition(Vector2f(5.0f, 60.0f));
 	controlText[0]->SetString("Run Right");
 	controlText[1]->SetString("Run Left");
 	controlText[2]->SetString("Jump");
@@ -42,7 +40,7 @@ void Startup::End()
 
 void Startup::Update(double deltaTime)
 {
-	for (size_t i = 0; i < 5; i++)
+	for (size_t i = 0; i < 3; i++)
 	{
 		if (controlText[i])
 		{
@@ -52,9 +50,9 @@ void Startup::Update(double deltaTime)
 
 	if (text)
 	{
-		std::string str;
-		str = std::string(std::to_string(InputManager::Get()->GetMouseWorldPosition().X) + ", " + std::to_string(InputManager::Get()->GetMouseWorldPosition().Y));
-		text->SetString(str);
+		//std::string str;
+		//str = std::string(std::to_string(InputManager::Get()->GetMouseWorldPosition().X) + ", " + std::to_string(InputManager::Get()->GetMouseWorldPosition().Y));
+		//text->SetString(str);
 		text->Update(deltaTime);
 	}
 
@@ -64,7 +62,7 @@ void Startup::Update(double deltaTime)
 
 void Startup::Render(SDL_Renderer& renderer)
 {
-	for (size_t i = 0; i < 5; i++)
+	for (size_t i = 0; i < 3; i++)
 	{
 		if (controlText[i])
 		{

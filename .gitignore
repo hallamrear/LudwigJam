@@ -34,3 +34,7 @@
 /Game/x64/Debug
 /x64/Debug
 /HalTec/x64/Debug
+
+Debug/
+
+Release/
