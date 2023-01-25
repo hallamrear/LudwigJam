@@ -5,14 +5,14 @@ Slider is a game I created for the Ludwig Jam with the theme being a Foddiian ga
 
 This project was the first project to include hTech (at the time it was called 'HalTec') which is a 2D game library I am working on.
 
-##Controls
-###Game Mode
+## Controls
+### Game Mode
 
     Mouse Scroll Up : Slide Left
     Mouse Scroll Down : Slide Right
     Middle Mouse Press : Jump upward
 
-###Build/Edit mode
+### Build/Edit mode
 
     WASD : Moves the last hovered over item.
     Q/E :; Rotates the last hovered item left and right.
