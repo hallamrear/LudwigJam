@@ -28,7 +28,7 @@
 *.exe
 *.out
 *.app
-/.vs/LudwigJam/v16
-/Game/x64/Debug
-/x64/Debug
-/HalTec/x64/Debug
+
+# Visual Studio Folders.
+/.vs
+[Bb]uilds/

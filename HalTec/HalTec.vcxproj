@@ -131,13 +131,15 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>
-    </IncludePath>
+    <IncludePath>$(ProjectDir)SDL2_gfx\include;$(ProjectDir)SDL2_Text\include;$(ProjectDir)SDL2\include;$(ProjectDir)SDL2_Image\include;$(IncludePath)</IncludePath>
+    <OutDir>$(SolutionDir)Builds\$(ProjectName)\$(Configuration)\$(Platform)</OutDir>
+    <IntDir>$(SolutionDir)Builds\$(ProjectName)\$(Configuration)\$(Platform)\Intermediate</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>
-    </IncludePath>
+    <IncludePath>$(ProjectDir)SDL2_gfx\include;$(ProjectDir)SDL2_Text\include;$(ProjectDir)SDL2\include;$(ProjectDir)SDL2_Image\include;$(IncludePath)</IncludePath>
+    <OutDir>$(SolutionDir)Builds\$(ProjectName)\$(Configuration)\$(Platform)</OutDir>
+    <IntDir>$(SolutionDir)Builds\$(ProjectName)\$(Configuration)\$(Platform)\Intermediate</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -155,7 +157,8 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(ProjectDir)SDL2_gfx\include;$(ProjectDir)SDL2_Text\include;$(ProjectDir)SDL2\include;$(ProjectDir)SDL2_Image\include;$(IncludePath)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -177,7 +180,8 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(ProjectDir)SDL2_gfx\include;$(ProjectDir)SDL2_Text\include;$(ProjectDir)SDL2\include;$(ProjectDir)SDL2_Image\include;$(IncludePath)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>

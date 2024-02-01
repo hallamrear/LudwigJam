@@ -69,4 +69,78 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Font Include="BadComic-Regular.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="save.txt" />
+    <Text Include="font_license.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SDL2.dll" />
+    <None Include="SDL2_gfx.dll" />
+    <None Include="SDL2_image.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Textures\Car.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Textures\exampleSpriteSheet.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Textures\Floor.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Textures\forceAreaLarge.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Textures\forceAreaMid.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Textures\forceAreaSmall.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Textures\help.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Textures\killbox-large.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Textures\killbox-mid.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Textures\killbox-small.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Textures\platform_large.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Textures\platform_mid.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Textures\platform_small.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Textures\Player.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Textures\PlayerJumping.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Textures\Projectile.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Textures\testSpriteSheet.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Textures\Torch.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Textures\Wall.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Textures\Wind.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
 </Project>

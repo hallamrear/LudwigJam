@@ -73,15 +73,27 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)Builds\$(ProjectName)\$(Configuration)\$(Platform)</OutDir>
+    <IntDir>$(SolutionDir)Builds\$(ProjectName)\$(Configuration)\$(Platform)\Intermediate</IntDir>
+    <CopyLocalDeploymentContent>true</CopyLocalDeploymentContent>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)Builds\$(ProjectName)\$(Configuration)\$(Platform)</OutDir>
+    <IntDir>$(SolutionDir)Builds\$(ProjectName)\$(Configuration)\$(Platform)\Intermediate</IntDir>
+    <CopyLocalDeploymentContent>true</CopyLocalDeploymentContent>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)Builds\$(Configuration)\$(Platform)</OutDir>
+    <IntDir>$(SolutionDir)Builds\Intermediate\$(Configuration)\$(Platform)</IntDir>
+    <CopyLocalDeploymentContent>true</CopyLocalDeploymentContent>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)Builds\$(Configuration)\$(Platform)</OutDir>
+    <IntDir>$(SolutionDir)Builds\Intermediate\$(Configuration)\$(Platform)</IntDir>
+    <CopyLocalDeploymentContent>true</CopyLocalDeploymentContent>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -172,6 +184,92 @@
     <ClInclude Include="Projectile.h" />
     <ClInclude Include="Startup.h" />
     <ClInclude Include="WorldObject.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="BadComic-Regular.ttf">
+      <DeploymentContent>true</DeploymentContent>
+    </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="font_license.txt">
+      <DeploymentContent>true</DeploymentContent>
+    </Text>
+    <Text Include="save.txt">
+      <DeploymentContent>true</DeploymentContent>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SDL2.dll">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="SDL2_gfx.dll">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="SDL2_image.dll">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Textures\Car.bmp">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+    <Image Include="Textures\exampleSpriteSheet.bmp">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+    <Image Include="Textures\Floor.bmp">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+    <Image Include="Textures\forceAreaLarge.bmp">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+    <Image Include="Textures\forceAreaMid.bmp">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+    <Image Include="Textures\forceAreaSmall.bmp">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+    <Image Include="Textures\help.bmp">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+    <Image Include="Textures\killbox-large.bmp">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+    <Image Include="Textures\killbox-mid.bmp">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+    <Image Include="Textures\killbox-small.bmp">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+    <Image Include="Textures\platform_large.bmp">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+    <Image Include="Textures\platform_mid.bmp">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+    <Image Include="Textures\platform_small.bmp">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+    <Image Include="Textures\Player.bmp">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+    <Image Include="Textures\PlayerJumping.bmp">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+    <Image Include="Textures\Projectile.bmp">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+    <Image Include="Textures\testSpriteSheet.bmp">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+    <Image Include="Textures\Torch.bmp">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+    <Image Include="Textures\Wall.bmp">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+    <Image Include="Textures\Wind.bmp">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

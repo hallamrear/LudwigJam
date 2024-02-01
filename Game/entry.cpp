@@ -19,7 +19,7 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	Game* game = new Game();
 
 	WindowDetails details;
-	details.title = "test";
+	details.title = "Slider";
 	details.dimensions = Vector2f(1280.0f, 720.0f);
 	details.position = Vector2f(256.0f, 256.0f);
 
