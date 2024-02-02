@@ -1,6 +1,6 @@
--490.000000
+-586.687683
 -1607.648682
-137
+140
 3
 -584.000000
 -1.001251
@@ -686,3 +686,18 @@ Textures/platform_small.bmp
 288.724731
 211.000000
 Textures/platform_small.bmp
+1
+-25.000000
+-186.398499
+0.000000
+Textures/platform_small.bmp
+1
+44.000000
+-239.398499
+-91.000000
+Textures/platform_small.bmp
+2
+91.000000
+-164.398499
+-23.000000
+Textures/killbox-mid.bmp
