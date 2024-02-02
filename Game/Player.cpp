@@ -16,6 +16,7 @@ Player::Player(std::string texture, Transform transform, PhysicsProperties prope
 
 	mFacingRight = true;
 	mAnimation = new AnimationController("Textures/testSpriteSheet.bmp", 6, 8, 1, true);
+	mAnimation->SetAnimation(1);
 	mJumpingAnimation = new AnimationController("Textures/PlayerJumping.bmp", 1, 3, 0.5f, false);
 
 	mCollider = new OrientedBoundingBox(mTransform.Position, mTransform.Rotation, 20.0f, mAnimation->FrameSize.Y - 5.0f);
@@ -103,10 +104,18 @@ void Player::Render()
 		}
 		else
 		{
-			if(mFacingRight)
-				mJumpingAnimation->Render(mRenderer, mTransform, true);
+			if (mIsJumping)
+			{
+				if (mFacingRight)
+					mJumpingAnimation->Render(mRenderer, mTransform, true);
+				else
+					mJumpingAnimation->Render(mRenderer, mTransform, false);
+			}
 			else
-				mJumpingAnimation->Render(mRenderer, mTransform, false);
+			{
+				if (mAnimation)
+					mAnimation->Render(mRenderer, mTransform);
+			}
 		}
 	}
 

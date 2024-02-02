@@ -9,13 +9,14 @@ class Startup :
     public GameState
 {
 private:
-    TextElement** controlText;
-
-    TextElement* text;
     bool mStarted;
-    Texture* mTexture;
+    TextElement* mControlText[4];
+    Texture* mControlTexture;
 
 public:
+    Startup();
+    ~Startup();
+
     void Start();
     void End();
     void Update(double DeltaTime);

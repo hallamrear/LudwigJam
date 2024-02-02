@@ -163,11 +163,13 @@
     <ClCompile Include="BackgroundEntity.cpp" />
     <ClCompile Include="entry.cpp" />
     <ClCompile Include="ForceArea.cpp" />
+    <ClCompile Include="GameWonState.cpp" />
     <ClCompile Include="KillBox.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayState.cpp" />
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="Startup.cpp" />
+    <ClCompile Include="WinnerCoin.cpp" />
     <ClCompile Include="WorldObject.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -178,11 +180,13 @@
   <ItemGroup>
     <ClInclude Include="BackgroundEntity.h" />
     <ClInclude Include="ForceArea.h" />
+    <ClInclude Include="GameWonState.h" />
     <ClInclude Include="KillBox.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayState.h" />
     <ClInclude Include="Projectile.h" />
     <ClInclude Include="Startup.h" />
+    <ClInclude Include="WinnerCoin.h" />
     <ClInclude Include="WorldObject.h" />
   </ItemGroup>
   <ItemGroup>
@@ -191,10 +195,14 @@
     </Font>
   </ItemGroup>
   <ItemGroup>
+    <Text Include="Controls.txt" />
     <Text Include="font_license.txt">
       <DeploymentContent>true</DeploymentContent>
     </Text>
     <Text Include="save.txt">
+      <DeploymentContent>true</DeploymentContent>
+    </Text>
+    <Text Include="Textures\TotusLotus\credit.txt">
       <DeploymentContent>true</DeploymentContent>
     </Text>
   </ItemGroup>
@@ -211,6 +219,9 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Textures\Car.bmp">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+    <Image Include="Textures\congrats.bmp">
       <DeploymentContent>true</DeploymentContent>
     </Image>
     <Image Include="Textures\exampleSpriteSheet.bmp">
@@ -262,6 +273,9 @@
       <DeploymentContent>true</DeploymentContent>
     </Image>
     <Image Include="Textures\Torch.bmp">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+    <Image Include="Textures\TotusLotus\coin_spin.bmp">
       <DeploymentContent>true</DeploymentContent>
     </Image>
     <Image Include="Textures\Wall.bmp">

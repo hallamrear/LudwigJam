@@ -10,6 +10,7 @@ class ForceArea;
 struct SDL_Renderer;
 class BoundingBox;
 class OrientedBoundingBox;
+class WinnerCoin;
 
 class PlayState :
     public GameState
@@ -33,6 +34,7 @@ private:
 
 	std::vector<std::pair<int, Entity*>> entities;
 	Player* mPlayer;
+	WinnerCoin* mWinnerCoin;
 	TextElement* mousePos;
 
 	ForceArea* fOne;

@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "InputManager.h"
 #include "PlayState.h"
+#include "GameWonState.h"
 #include "Startup.h"
 #include "StateDirector.h"
 #include "Vector2.h"
@@ -10,6 +11,7 @@ void SetupStates()
 {
 	StateDirector::SetupState(GameStateIdentifier::GAME_STATE_MAIN_MENU, new Startup());
 	StateDirector::SetupState(GameStateIdentifier::GAME_STATE_PLAYING, new PlayState());
+	StateDirector::SetupState(GameStateIdentifier::GAME_STATE_1, new GameWonState());
 	StateDirector::SetState(GameStateIdentifier::GAME_STATE_MAIN_MENU);
 }
 

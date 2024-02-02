@@ -42,6 +42,12 @@
     <ClCompile Include="Startup.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="WinnerCoin.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameWonState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlayState.h">
@@ -68,6 +74,12 @@
     <ClInclude Include="Startup.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="WinnerCoin.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameWonState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Font Include="BadComic-Regular.ttf" />
@@ -75,6 +87,8 @@
   <ItemGroup>
     <Text Include="save.txt" />
     <Text Include="font_license.txt" />
+    <Text Include="Textures\TotusLotus\credit.txt" />
+    <Text Include="Controls.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SDL2.dll" />
@@ -140,6 +154,12 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Textures\Wind.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Textures\congrats.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Textures\TotusLotus\coin_spin.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

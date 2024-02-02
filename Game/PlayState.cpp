@@ -16,6 +16,7 @@
 #include <iostream>
 #include <fstream>
 #include "OrientedBoundingBox.h"
+#include "WinnerCoin.h"
 
 #include "../HalTec/SDL2/include/SDL.h"
 
@@ -23,7 +24,7 @@ float r = 0.0f;
 
 void PlayState::Start()
 {
-	resetPosition = Vector2f(-550, -1620.0f);
+	resetPosition = Vector2f(-550, -1575.0f);
 
 	buildMode = 0;
 	Camera::SetCameraPosition(Vector2f(0.0f, -2000.0f));
@@ -32,8 +33,11 @@ void PlayState::Start()
 	mouseEditCollider = new OrientedBoundingBox(mousePosition, r, 4.0f, 4.0f);
 
 	camLerp = true;
-	mPlayer = new Player("", Transform(Vector2f(-550, -1620.0f)), PhysicsProperties(150.0f, 0.1f, 1000.0f, 10.3f, true, true, false));
+	mPlayer = new Player("", Transform(resetPosition), PhysicsProperties(150.0f, 0.1f, 1000.0f, 10.3f, true, true, false));
 	entities.push_back(std::make_pair(2, mPlayer));
+
+	mWinnerCoin = new WinnerCoin(Transform(Vector2f(-450, -1610.0f)));
+	entities.push_back(std::make_pair(2, mWinnerCoin));
 
 	mousePos = new TextElement(Transform());
 
@@ -49,11 +53,13 @@ void PlayState::Start()
 
 	InputManager::Bind(IM_KEY_CODE::IM_KEY_Q, IM_KEY_STATE::IM_KEY_HELD, [this] { if(buildMode == 1) currentSelectionRotation--; else if (buildMode == 2) if (targetBody) targetBody->GetTransform().AdjustRotation(-1.0f); });
 	InputManager::Bind(IM_KEY_CODE::IM_KEY_E, IM_KEY_STATE::IM_KEY_HELD, [this] { if (buildMode == 1) currentSelectionRotation++; else if (buildMode == 2) if (targetBody) targetBody->GetTransform().AdjustRotation(1.0f); });
-	InputManager::Bind(IM_KEY_CODE::IM_KEY_W, IM_KEY_STATE::IM_KEY_HELD, [this] { if (targetBody) targetBody->GetTransform().AdjustPosition(Vector2f(0.0f, 1.0f));  });
-	InputManager::Bind(IM_KEY_CODE::IM_KEY_S, IM_KEY_STATE::IM_KEY_HELD, [this] { if (targetBody) targetBody->GetTransform().AdjustPosition(Vector2f(0.0f, -1.0f)); });
-	InputManager::Bind(IM_KEY_CODE::IM_KEY_A, IM_KEY_STATE::IM_KEY_HELD, [this] { if (targetBody) targetBody->GetTransform().AdjustPosition(Vector2f(-1.0f, 0.0f)); });
-	InputManager::Bind(IM_KEY_CODE::IM_KEY_D, IM_KEY_STATE::IM_KEY_HELD, [this] { if (targetBody) targetBody->GetTransform().AdjustPosition(Vector2f(1.0f, 0.0f));  });
+	InputManager::Bind(IM_KEY_CODE::IM_KEY_W, IM_KEY_STATE::IM_KEY_HELD, [this] { if (buildMode == 2) { if (targetBody) targetBody->GetTransform().AdjustPosition(Vector2f(0.0f, 1.0f)); } });
+	InputManager::Bind(IM_KEY_CODE::IM_KEY_S, IM_KEY_STATE::IM_KEY_HELD, [this] { if (buildMode == 2) { if (targetBody) targetBody->GetTransform().AdjustPosition(Vector2f(0.0f, -1.0f));} });
+	InputManager::Bind(IM_KEY_CODE::IM_KEY_A, IM_KEY_STATE::IM_KEY_HELD, [this] { if (buildMode == 2) { if (targetBody) targetBody->GetTransform().AdjustPosition(Vector2f(-1.0f, 0.0f));} });
+	InputManager::Bind(IM_KEY_CODE::IM_KEY_D, IM_KEY_STATE::IM_KEY_HELD, [this] { if (buildMode == 2) { if (targetBody) targetBody->GetTransform().AdjustPosition(Vector2f(1.0f, 0.0f)); } });
 	InputManager::Bind(IM_KEY_CODE::IM_KEY_4, IM_KEY_STATE::IM_KEY_PRESSED, [this] { if (buildMode == 2) { resetPosition = InputManager::Get()->GetMouseWorldPosition(); mPlayer->GetTransform().Position = resetPosition;  } });
+
+	InputManager::Bind(IM_KEY_CODE::IM_KEY_8, IM_KEY_STATE::IM_KEY_PRESSED, [this] { if (buildMode == 2) { mWinnerCoin->GetTransform().Position = InputManager::Get()->GetMouseWorldPosition(); } });
 
 	InputManager::Bind(IM_KEY_CODE::IM_KEY_0, IM_KEY_STATE::IM_KEY_PRESSED, [this] { camLerp = !camLerp; });
 	InputManager::Bind(IM_KEY_CODE::IM_KEY_SPACE, IM_KEY_STATE::IM_KEY_PRESSED, [this] 
@@ -218,10 +224,12 @@ void PlayState::Start()
 
 void PlayState::End()
 {
-	Save("save.txt");
+	if (mWinnerCoin->HasBeenCollected())
+	{
+		mPlayer->GetTransform().Position = resetPosition;
+	}
 
-	delete mPlayer;
-	mPlayer = nullptr;
+	Save("save.txt");
 }
 
 void PlayState::Save(std::string location)
@@ -252,6 +260,11 @@ void PlayState::Save(std::string location)
 			else if (dynamic_cast<KillBox*>(entity))
 			{
 				typeAndTransform.push_back({ 2, entity });
+				count++;
+			}
+			else if (dynamic_cast<WinnerCoin*>(entity))
+			{
+				typeAndTransform.push_back({ 3, entity });
 				count++;
 			}
 		}
@@ -304,20 +317,38 @@ void PlayState::Load(std::string location)
 			stream >> transform.Rotation;
 			stream >> location;
 
-			if (type == 1)
+			switch (type)
+			{
+			case 1: //General static object
 			{
 				entities.push_back({ 1, new StaticWorldObject(location, transform) });
 			}
-			else if(type == 2)
+			break;
+
+			case 2:	//Kill box
 			{
 				if (location == "Textures/killbox-large.bmp")
 					entities.push_back({ 1, new KillBox(transform, 3) });
-				else if(location == "Textures/killbox-mid.bmp")
+				else if (location == "Textures/killbox-mid.bmp")
 					entities.push_back({ 1, new KillBox(transform, 2) });
 				else if (location == "Textures/killbox-small.bmp")
 					entities.push_back({ 1, new KillBox(transform, 1) });
-
 			}
+			break;
+
+			case 3:
+			{
+				mWinnerCoin->GetTransform() = transform;
+			}
+			break;
+
+			default:
+			{
+				std::cout << "Tried to load unsupported entity with type id {" << type <<  "}" << std::endl;
+			}
+				break;
+			}
+
 		}
 	}
 
@@ -326,6 +357,8 @@ void PlayState::Load(std::string location)
 
 void PlayState::Update(double deltaTime)
 {
+	targetBody = nullptr;
+
 	switch (buildMode)
 	{
 	case 0:
@@ -414,7 +447,6 @@ void PlayState::Update(double deltaTime)
 	}
 
 }
-
 
 void PlayState::Render(SDL_Renderer& renderer)
 {
