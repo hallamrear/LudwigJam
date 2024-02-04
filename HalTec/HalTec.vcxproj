@@ -144,10 +144,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(ProjectDir)SDL2_gfx\include;$(ProjectDir)SDL2_Text\include;$(ProjectDir)SDL2\include;$(ProjectDir)SDL2_Image\include;$(IncludePath)</IncludePath>
+    <OutDir>$(SolutionDir)Builds\$(ProjectName)\$(Configuration)\$(Platform)</OutDir>
+    <IntDir>$(SolutionDir)Builds\$(ProjectName)\$(Configuration)\$(Platform)\Intermediate</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(ProjectDir)SDL2_gfx\include;$(ProjectDir)SDL2_Text\include;$(ProjectDir)SDL2\include;$(ProjectDir)SDL2_Image\include;$(IncludePath)</IncludePath>
+    <OutDir>$(SolutionDir)Builds\$(ProjectName)\$(Configuration)\$(Platform)</OutDir>
+    <IntDir>$(SolutionDir)Builds\$(ProjectName)\$(Configuration)\$(Platform)\Intermediate</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
